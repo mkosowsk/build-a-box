@@ -1,14 +1,14 @@
 const request = require('supertest-as-promised')
 const {expect} = require('chai')
 const db = require('APP/db')
-const Product = require('APP/db/models/user')
+const Product = require('APP/db/models/product')
 const app = require('./start')
 
-describe('/api/products/', () => {
-  describe('if ', () => {
-    it('GET /:id fails 401 (Unauthorized)', () =>
+describe('/api/products', () => {
+  describe('see nothing if no products are given', () => {
+    it('GET lists all products', () =>
       request(app)
-        .get(`/api/users/1`)
+        .get(`/api/products`)
         .expect(401)
     )    
 
