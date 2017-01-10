@@ -39,6 +39,8 @@ describe('Product', () => {
       })
     })
 
+    // Use isIn validator
+
     it('throws error if category is not from predefined categories', function() {
       product.category = 'dog';
 
@@ -76,7 +78,7 @@ describe('Product', () => {
         })
       .then((productWithReviews) => {
           expect(productWithReviews.Reviews).to.exist; 
-          expect(productWithReviews.Reviews[0].text).to.equal('GOOD SHIT');
+          expect(productWithReviews.Reviews[0].text).to.equal('GOOD');
       })
 
     })

@@ -25,9 +25,8 @@ describe('Cart', () => {
 
 		it('has all fields populated', function() {
 			expect(cart.products).to.be.instanceof(Array)
-			assert.isNumber(cart.totalCost, 'the totalCost');
-
 		})
+		
 		it('products are an array of objects', function() {
 			expect(cart.products[0]).to.be.instanceof(Object)
 			expect(cart.products[0]).to.be.instanceof(Object)

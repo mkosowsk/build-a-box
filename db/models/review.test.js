@@ -1,4 +1,4 @@
-dd'use strict'
+'use strict'
 
 const db = require('APP/db')
 const Product = require('./product')
@@ -27,8 +27,8 @@ describe('Review', function(){
 
     it('Has all fields populated', function(){
       return review.save().then(function(review){
-          expect(review.comment).to.be.a('string');
-          assert.isNumber(review.price, 'the price');
+          expect(review.text).to.be.a('string');
+          assert.isNumber(review.stars, 'the stars');
          
       })
     })
@@ -36,7 +36,7 @@ describe('Review', function(){
     it('throws error if stars above 5', function() {
       review.stars = 10;
 
-      return product.validate()
+      return review.validate()
         .then((result) => {
           expect(result).to.be.an.instanceOf(Error);
           expect(result.message).to.contain('Validation error');
@@ -46,7 +46,7 @@ describe('Review', function(){
     it('throws error if stars below 0', function() {
       review.stars = -2;
 
-      return product.validate()
+      return review.validate()
         .then((result) => {
           expect(result).to.be.an.instanceOf(Error);
           expect(result.message).to.contain('Validation error');
