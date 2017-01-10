@@ -77,6 +77,41 @@ describe('Cart', () => {
 				expect(cartWithEverything.getUser().name).to.equal('Guy')
 			})
 		})
+
+
 	})
+	describe('getterMethods', function() {
+
+		it('has getTotal method', function() {
+
+			var productA = Product.create({ 
+				name: 'Asus780',
+				description: "This is an Asus product",
+				price: 100,
+				photoUrl: 'fillmurray.com/400/400',
+				category: 'CPU',
+				stock: 4
+			})
+			var productB = Product.create({
+				name: 'Baller420',
+				description: "This is a product",
+				price: 50,
+				photoUrl: 'fillmurray.com/400/400',
+				category: 'GPU',
+				stock: 10
+			})
+
+			return Promise.all([productA, productB])
+			.then(([productA, productB]) => {
+				var pA = cart.setProducts(productA);
+				var pB = cart.setProducts(productB);
+			
+				return Promise.all([pA, pB]);
+			}).then(() => {
+				expect(cart.getTotal).to.equal(150);	
+			})
+		})
+	})
+})
 
 })
