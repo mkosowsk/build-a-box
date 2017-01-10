@@ -4,7 +4,7 @@
 const request = require('supertest-as-promised')
 const {expect} = require('chai')
 const db = require('APP/db')
-const Product = require('APP/db/models/product')
+// const Product = require('APP/db/models/product')
 const app = require('./start')
 
 describe('Products Route:', function () {
@@ -358,7 +358,7 @@ describe('Products Route:', function () {
    * Series of specs to test updating of products using a PUT
    * request to /product/:id
    */
-  describe('PUT /product/:id', function () {
+  describe('PUT /products/:id', function () {
 
     var product;
 
