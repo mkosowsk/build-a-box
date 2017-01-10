@@ -92,7 +92,7 @@ describe('Reviews Route:', function () {
               expect(res.body).to.be.an.instanceOf(Array)
               expect(res.body[0].title).to.equal('Great Product!')
               expect(res.body[0].content).to.equal('This is the content for the review')
-			  expect(res.body[0].rating).to.equal(5)
+			        expect(res.body[0].rating).to.equal(5)
       		})
           })
       	})
@@ -164,170 +164,185 @@ describe('Reviews Route:', function () {
 
   // re add the following tests once we have models built out
 
-//   /**
-//    * Series of tests to test creation of new reviews using a POST
-//    * request to /products/:id/reviews
-//    */
+  /**
+   * Series of tests to test creation of new reviews using a POST
+   * request to /products/:id/reviews
+   */
 
-//   describe('POST /products/:id/reviews', function () {
+  describe('POST /products/:id/reviews', function () {
 
-//     it('creates a new review', function () {
+    var coolProduct;
 
-//       request(app)
-//       .post('/products')
-//       .send({
-//         title: 'Asus motherboard',
-//         description: 'board',
-//         price: 5.99,
-//         quantity: 1,
-//         category: 'motherboard',
-//         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
-//       })
-//       .expect(200)
-//       .expect(function (res) {
-//         expect(res.body.message).to.equal('Created successfully');
-//         expect(res.body.product.id).to.not.be.an('undefined');
-//         expect(res.body.product.title).to.equal('Asus motherboard');
-//       });
+    beforeEach(function () {
 
-//     });
+      Product.create({
+        title: 'Asus motherboard',
+        description: 'board',
+        price: 5.99,
+        quantity: 1,
+        category: 'motherboard',
+        photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
+      })
+      .then(createdProduct => {
+        coolProduct = createdProduct;
+      });
 
-//     // This one should fail with a 500 because we don't set the product.description
-//     it('does not create a new product without content', function () {
 
-//       request(app)
-//       .post('/products')
-//       .send({
-//         title: 'This product Should Not Be Allowed'
-//       })
-//       .expect(500);
+    it('creates a new review', function () {  
+      request(app)
+      .post('/products/' + coolProduct.id + '/reviews')
+      .send({
+        title: 'Great Product!',
+        content: 'This is the content for the review',
+        rating: 5,
+        userId: 1,
+        productId: 1,
+      })
+      .expect(200)
+      .expect(function (res) {
+        expect(res.body.message).to.equal('Created successfully');
+        expect(res.body.review.id).to.not.be.an('undefined');
+        expect(res.body.review.title).to.equal('Great Product!');
+        expect(res.body.review.content).to.equal('This is the content for the review');
+        expect(res.body.review.rating).to.equal(5);
 
-//     });
+      });
 
-//     // Check if the product were actually saved to the database
-//     it('saves the product to the DB', function () {
+    });
 
-//       request(app)
-//       .post('/products')
-//       .send({
-//         title: 'Asus motherboard',
-//         description: 'board',
-//         price: 5.99,
-//         quantity: 1,
-//         category: 'motherboard',
-//         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
-//       })
-//       .expect(200)
-//       .then(function () {
-//         return Product.findOne({
-//           where: { title: 'Asus motherboard' }
-//         });
-//       })
-//       .then(function (foundProducts) {
-//         expect(foundProducts).to.exist; // eslint-disable-line no-unused-expressions
-//         expect(foundProducts.title).to.equal('Asus motherboard');
-//       });
+    // This one should fail with a 500 because we don't set the review.content
+    it('does not create a new review without content', function () {
 
-//     });
+      request(app)
+      .post('/products/' + coolProduct.id + '/reviews')
+      .send({
+        title: 'This Product Review Should Not Be Allowed'
+      })
+      .expect(500);
 
-//     // Do not assume async operations (like db writes) will work; always check
-//     it('sends back JSON of the actual created product, not just the POSTed data', function () {
+    });
 
-//       request(app)
-//       .post('/products')
-//       .send({
-//         title: 'Asus motherboard',
-//         description: 'board',
-//         price: 5.99,
-//         quantity: 1,
-//         category: 'motherboard',
-//         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2',
-//         extraneous: 'Sequelize will quietly ignore this non-schema property'
-//       })
-//       .expect(200)
-//       .expect(function (res) {
-//         expect(res.body.product.extraneous).to.be.an('undefined');
-//         expect(res.body.product.createdAt).to.exist; // eslint-disable-line no-unused-expressions
-//       });
+    // Check if the review were actually saved to the database
+    it('saves the review to the DB', function () {
 
-//     });
+      request(app)
+      .post('/products/' + coolProduct.id + '/reviews')
+      .send({
+        title: 'Great Product!',
+        content: 'This is the content for the review',
+        rating: 5,
+        userId: 1,
+        productId: 1,
+      })
+      .expect(200)
+      .then(function () {
+        return Review.findOne({
+          where: { title: 'Great Product!' }
+        });
+      })
+      .then(function (foundReview) {
+        expect(foundReview).to.exist; // eslint-disable-line no-unused-expressions
+        expect(foundReview.title).to.equal('Great Product!');
+      });
 
-//   });
+    });
 
-//   /**
-//    * Series of specs to test updating of products using a PUT
-//    * request to /product/:id
-//    */
-//   describe('PUT /product/:id', function () {
+    // Do not assume async operations (like db writes) will work; always check
+    it('sends back JSON of the actual created product, not just the POSTed data', function () {
 
-//     var product;
+      request(app)
+      .post('/products/' + coolProduct.id + '/reviews')
+      .send({
+        title: 'Great Product!',
+        content: 'This is the content for the review',
+        rating: 5,
+        userId: 1,
+        productId: 1,
+        extraneous: 'Sequelize will quietly ignore this non-schema property'
+      })
+      .expect(200)
+      .expect(function (res) {
+        expect(res.body.review.extraneous).to.be.an('undefined');
+        expect(res.body.review.createdAt).to.exist; // eslint-disable-line no-unused-expressions
+      });
 
-//     beforeEach(function () {
+    });
 
-//       return product.create({
-//         title: 'Asus motherboard',
-//         description: 'board',
-//         price: 5.99,
-//         quantity: 1,
-//         category: 'motherboard',
-//         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
-//       })
-//       .then(function (createdProduct) {
-//         product = createdProduct;
-//       });
+  });
 
-//     });
+  /**
+   * Series of specs to test updating of products using a PUT
+   * request to /product/:id
+   */
+  // describe('PUT /product/:id', function () {
 
-//     /**
-//      * Test the updating of an product
-//      * Here we don't get back just the prodcut, we get back a Object
-//      * of this type, which you construct manually:
-//      *
-//      *
-//      * }
-//      */
-//     it('updates a product', function () {
+  //   var product;
 
-//       request(app)
-//       .put('/products/' + product.id)
-//       .send({
-//         title: 'Asus mobo2'
-//       })
-//       .expect(200)
-//       .expect(function (res) {
-//         expect(res.body.message).to.equal('Updated successfully');
-//         expect(res.body.product.id).to.not.be.an('undefined');
-//         expect(res.body.product.title).to.equal('Asus mobo2');
-//         expect(res.body.product.photoUrl).to.equal('http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2');
-//       });
+  //   beforeEach(function () {
 
-//     });
+  //     Product.create({
+  //       title: 'Asus motherboard',
+  //       description: 'board',
+  //       price: 5.99,
+  //       quantity: 1,
+  //       category: 'motherboard',
+  //       photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
+  //     })
+  //     .then(createdProduct => {
+  //       product = createdProduct;
+  //     });
+  //   });
 
-//     it('saves updates to the DB', function () {
+  //   /**
+  //    * Test the updating of an product
+  //    * Here we don't get back just the prodcut, we get back a Object
+  //    * of this type, which you construct manually:
+  //    *
+  //    *
+  //    * }
+  //    */
+  //   it('updates a product', function () {
 
-//       request(app)
-//       .put('/products/' + product.id)
-//       .send({
-//         title: 'Asus mobo2'
-//       })
-//       .then(function () {
-//         return Product.findById(product.id);
-//       })
-//       .then(function (foundProduct) {
-//         expect(foundProduct).to.exist; // eslint-disable-line no-unused-expressions
-//         expect(foundProduct.title).to.equal('Asus mobo2');
-//       });
+  //     request(app)
+  //     .put('/products/' + product.id)
+  //     .send({
+  //       title: 'Asus mobo2'
+  //     })
+  //     .expect(200)
+  //     .expect(function (res) {
+  //       expect(res.body.message).to.equal('Updated successfully');
+  //       expect(res.body.product.id).to.not.be.an('undefined');
+  //       expect(res.body.product.title).to.equal('Asus mobo2');
+  //       expect(res.body.product.photoUrl).to.equal('http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2');
+  //     });
 
-//     });
+  //   });
 
-//     it('gets 500 for invalid update', function () {
+  //   it('saves updates to the DB', function () {
 
-//       request(app)
-//       .put('/products/' + product.id)
-//       .send({ title: '' })
-//       .expect(500);
+  //     request(app)
+  //     .put('/products/' + product.id)
+  //     .send({
+  //       title: 'Asus mobo2'
+  //     })
+  //     .then(function () {
+  //       return Product.findById(product.id);
+  //     })
+  //     .then(function (foundProduct) {
+  //       expect(foundProduct).to.exist; // eslint-disable-line no-unused-expressions
+  //       expect(foundProduct.title).to.equal('Asus mobo2');
+  //     });
 
-//     });
+  //   });
+
+  //   it('gets 500 for invalid update', function () {
+
+  //     request(app)
+  //     .put('/products/' + product.id)
+  //     .send({ title: '' })
+  //     .expect(500);
+
+    });
 
   });
 

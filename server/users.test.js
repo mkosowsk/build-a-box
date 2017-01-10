@@ -26,6 +26,7 @@ describe('/api/users', () => {
       request(app)
         .post('/api/users')
         .send({
+          email: '',
           password: '12345',
         })
         .expect(500)

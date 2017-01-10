@@ -364,7 +364,7 @@ describe('Products Route:', function () {
 
     beforeEach(function () {
 
-      return product.create({
+      return Product.create({
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
