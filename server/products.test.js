@@ -1,3 +1,6 @@
+//todo add search
+//find by category/price
+
 const request = require('supertest-as-promised')
 const {expect} = require('chai')
 const db = require('APP/db')
@@ -193,6 +196,74 @@ describe('Products Route:', function () {
 
   });
 
+  describe('GET /products/:category', function () {
+
+    var coolProduct;
+
+    beforeEach(function () {
+
+      var creatingProducts = [{
+        title: 'Asus motherboard',
+        description: 'board',
+        price: 5.99,
+        quantity: 1,
+        category: 'motherboard',
+        photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
+      }, {
+        title: 'Amd motherboard',
+        description: 'board',
+        price: 7.99,
+        quantity: 2,
+        category: 'motherboard',
+        photoUrl: 'http://images10.newegg.com/NeweggImage/ProductImageCompressAll1280/13-130-970-V01.jpg?w=660&h=500&ex=2'
+      }, {
+        title: 'ATI graphics card',
+        description: 'graphics',
+        price: 150.00,
+        quantity: 1,
+        category: 'graphics card',
+        photoUrl: 'http://images10.newegg.com/productimage/A0ZX_1_20150215234604920.jpg?ex=2'
+      }]
+      .map(data => Product.create(data));
+
+      return Promise.all(creatingProducts)
+      .then(createdProducts => {
+        coolProduct = createdProducts[1];
+      });
+
+    });
+
+    /**
+     * This is a proper GET /products/ID request
+     * where we search by the ID of the product created above
+     */
+    it('returns the JSON of the product based on the category', function () {
+
+      request(app)
+      .get('/products/motherboard')
+      .expect(200)
+      .expect(function (res) {
+        if (typeof res.body === 'string') {
+          res.body = JSON.parse(res.body);
+        }
+        expect(res.body[0].title).to.equal('Asus motherboard');
+        expect(res.body[1].title).to.equal('Amd motherboard');
+      });
+
+    });
+
+    /**
+     * Here we pass in a bad ID to the URL, we should get a 404 error
+     */
+    it('returns a 404 error if the ID is not correct', function () {
+
+      request(app)
+      .get('/products/76142896')
+      .expect(404);
+
+    });
+
+  });
   /**
    * Series of tests to test creation of new products using a POST
    * request to /products
