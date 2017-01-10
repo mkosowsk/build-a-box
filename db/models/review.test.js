@@ -1,4 +1,4 @@
-'use strict'
+dd'use strict'
 
 const db = require('APP/db')
 const Product = require('./product')
@@ -14,7 +14,7 @@ describe('Review', function(){
 
   beforeEach(function(){
     review = Review.build({
-      comment: 'This is a good product',
+      text: 'This is a good product',
       stars: 5
     });
   });
@@ -56,31 +56,30 @@ describe('Review', function(){
  
   describe('associations', () => {
     
-
     // Testing for Review.belongsTo(Product)
 
     it('Checks that a review belongs to a product', function(){
-
-      const pA = Product.create({ Text: 'GOOD', Stars: 3 })
-      const pB = Product.create({ Text: 'Terrible', Stars: 1 })
-       
-       return Promise.all([reviewA, reviewB])
-      .then(function([reviewA, reviewB]) {
-
-          var p1 = product.setReviews(reviewA);
-          var p2 = product.setReviews(reviewB);
-
-          return Promise.all([p1,p2]);
-        })
+      
+      return Product.create({ 
+              name: 'Asus780',
+              description: "This is an Asus product",
+              price: 100,
+              photoUrl: 'fillmurray.com/400/400',
+              category: 'CPU',
+              stock: 4
+            })
+      .then((product) => {
+        review.setProduct(product)
+      })
       .then(() => {
-          return Product.findOne({
-            where: {name: 'Asus780'},
-            include: { model: Review, as: 'Reviews'}
-          });
-        })
-      .then((productWithReviews) => {
-          expect(productWithReviews.Reviews).to.exist; 
-          expect(productWithReviews.Reviews[0].Text).to.equal('GOOD');
+        return review.findOne({
+          where: {text: 'This is a good product'},
+          include: { model: Product, as: 'Product'}
+        });
+      })
+      .then((reviewWithProduct) => {
+          expect(reviewWithProduct.product).to.exist; 
+          expect(reviewWithProduct.product.name).to.equal('Asus780');
       })
 
     })

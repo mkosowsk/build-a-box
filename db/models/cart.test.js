@@ -14,7 +14,6 @@ describe('Cart', () => {
 	beforeEach(function() {
 		cart = Cart.create({
 			products: [{productId:1, quantity: 1},{productId: 2,quantity: 1}],
-			totalCost: 100
 		})
 		return cart.save()
 	})
@@ -77,10 +76,9 @@ describe('Cart', () => {
 				expect(cartWithEverything.getUser().name).to.equal('Guy')
 			})
 		})
-
-
 	})
-	describe('getterMethods', function() {
+
+	describe('instanceMethods', function() {
 
 		it('has getTotal method', function() {
 
@@ -93,7 +91,7 @@ describe('Cart', () => {
 				stock: 4
 			})
 			var productB = Product.create({
-				name: 'Baller420',
+				name: 'Asus480',
 				description: "This is a product",
 				price: 50,
 				photoUrl: 'fillmurray.com/400/400',
@@ -108,10 +106,8 @@ describe('Cart', () => {
 			
 				return Promise.all([pA, pB]);
 			}).then(() => {
-				expect(cart.getTotal).to.equal(150);	
+				expect(cart.getTotal).to.equal(150)	
 			})
 		})
 	})
-})
-
 })

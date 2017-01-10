@@ -57,8 +57,8 @@ describe('Product', () => {
 
     it('Checks that a review belongs a product and a products has many reviews', function(){
 
-      var reviewA = Review.create({ Text: 'GOOD SHIT', Stars: 3 })
-      var reviewB = Review.create({ Text: 'Terrible', Stars: 1 })
+      var reviewA = Review.create({ text: 'GOOD', stars: 3 })
+      var reviewB = Review.create({ text: 'Terrible', stars: 1 })
        
        return Promise.all([reviewA, reviewB])
       .then(function([reviewA, reviewB]) {
@@ -76,7 +76,7 @@ describe('Product', () => {
         })
       .then((productWithReviews) => {
           expect(productWithReviews.Reviews).to.exist; 
-          expect(productWithReviews.Reviews[0].Text).to.equal('GOOD SHIT');
+          expect(productWithReviews.Reviews[0].text).to.equal('GOOD SHIT');
       })
 
     })
