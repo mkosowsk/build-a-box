@@ -5,5 +5,12 @@
 // to get access to the User model.
 
 const User = require('./user')
+const Product = require('./product')
+const Review = require('./review')
 
-module.exports = {User}
+
+Product.hasMany(Review, { as: 'Reviews'});
+Review.belongsTo(Product);
+
+
+module.exports = {User, Product, Review}

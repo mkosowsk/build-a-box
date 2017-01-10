@@ -23,11 +23,11 @@ describe('Cart', () => {
 	describe('Validation of fields', () => {
 		console.log(cart)
 
-		it('has all fields populated', function() {
+		xit('has all fields populated', function() {
 			expect(cart.products).to.be.instanceof(Array)
 		})
 		
-		it('products are an array of objects', function() {
+		xit('products are an array of objects', function() {
 			expect(cart.products[0]).to.be.instanceof(Object)
 			expect(cart.products[0]).to.be.instanceof(Object)
 		})
@@ -37,7 +37,7 @@ describe('Cart', () => {
 
 		// Testing for cart.hasMany(Product, {as: 'Products'})
 
-		it('has associations multiple products and a user', function() {
+		xit('has associations multiple products and a user', function() {
 
 			var productA = Product.create({ 
 				name: 'Asus780',
@@ -79,7 +79,7 @@ describe('Cart', () => {
 
 	describe('instanceMethods', function() {
 
-		it('has getTotal method', function() {
+		xit('has getTotal method', function() {
 
 			var productA = Product.create({ 
 				name: 'Asus780',

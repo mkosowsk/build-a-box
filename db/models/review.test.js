@@ -3,7 +3,7 @@
 const db = require('APP/db')
 const Product = require('./product')
 const Review = require('./review')
-const {expect} = require('chai')
+const {expect,assert} = require('chai')
 
 
 
@@ -14,9 +14,12 @@ describe('Review', function(){
 
   beforeEach(function(){
     review = Review.build({
-      text: 'This is a good product',
+      title: 'This is a good product',
+      content: "I dont see why this is necessary",
       stars: 5
     });
+
+    review.save();
   });
 
   // afterEach(function () {
@@ -26,11 +29,12 @@ describe('Review', function(){
   describe('Validation of fields', () => {
 
     it('Has all fields populated', function(){
-      return review.save().then(function(review){
-          expect(review.text).to.be.a('string');
+      
+          expect(review.title).to.be.a('string');
+          expect(review.content).to.be.a('string');
           assert.isNumber(review.stars, 'the stars');
          
-      })
+     
     })
 
     it('throws error if stars above 5', function() {
@@ -73,7 +77,7 @@ describe('Review', function(){
       })
       .then(() => {
         return review.findOne({
-          where: {text: 'This is a good product'},
+          where: {title: 'This is a good product'},
           include: { model: Product, as: 'Product'}
         });
       })
