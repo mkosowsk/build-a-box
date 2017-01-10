@@ -49,21 +49,31 @@ describe('Product', () => {
         })
     })
   })
-
  
-// FINISH THESE ASSOCIATIONS
   describe('associations', () => {
     var reviewA = Review.create({ Text: 'GOOD SHIT', Stars: 3 })
     var reviewB = Review.create({ Text: 'Terrible', Stars: 1 })
 
+    // Testing for product.hasMany(Review, {as: 'Reviews'})
+
     return Promise.all([reviewA, reviewB])
       .then(function([reviewA, reviewB]) {
-        reviewA.setProduct(product)
-        reviewB.setProduct(product)
+        product.setReviews(reviewA)
+        product.setReviews(reviewB)
       })
+
+    Product.findOne({
+      where: {name: 'Asus780'}
+      include: { model: Review, as: 'Reviews'}
+    })
+    .then((productWithReviews) => {
+      expect(productWithReviews.Reviews).to.exist; 
+      expect(productWithReviews.Reviews[0].Text).to.equal('GOOD SHIT');
+    })
 
   })
 
+  describe('getterMethod')
 
 })
 
