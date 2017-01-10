@@ -63,7 +63,7 @@ describe('Products Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       });
@@ -78,7 +78,7 @@ describe('Products Route:', function () {
           expect(res.body[0].title).to.equal('Asus motherboard');
           expect(res.body[0].description).to.equal('board');
           expect(res.body[0].price).to.equal(5.99);
-          expect(res.body[0].quantity).to.equal(1);
+          expect(res.body[0].stock).to.equal(1);
           expect(res.body[0].category).to.equal('motherboard');
           expect(res.body[0].photoUrl).to.equal('http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2');
         });
@@ -99,7 +99,7 @@ describe('Products Route:', function () {
               title: 'Asus motherboard',
               description: 'board',
               price: 5.99,
-              quantity: 1,
+              stock: 1,
               category: 'motherboard',
               photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
             });
@@ -108,7 +108,7 @@ describe('Products Route:', function () {
               title: 'Amd motherboard',
               description: 'board',
               price: 7.99,
-              quantity: 2,
+              stock: 2,
               category: 'motherboard',
               photoUrl: 'http://images10.newegg.com/NeweggImage/ProductImageCompressAll1280/13-130-970-V01.jpg?w=660&h=500&ex=2'
             });
@@ -145,14 +145,14 @@ describe('Products Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       }, {
         title: 'Amd motherboard',
         description: 'board',
         price: 7.99,
-        quantity: 2,
+        stock: 2,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/NeweggImage/ProductImageCompressAll1280/13-130-970-V01.jpg?w=660&h=500&ex=2'
       }]
@@ -206,21 +206,21 @@ describe('Products Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       }, {
         title: 'Amd motherboard',
         description: 'board',
         price: 7.99,
-        quantity: 2,
+        stock: 2,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/NeweggImage/ProductImageCompressAll1280/13-130-970-V01.jpg?w=660&h=500&ex=2'
       }, {
         title: 'ATI graphics card',
         description: 'graphics',
         price: 150.00,
-        quantity: 1,
+        stock: 1,
         category: 'graphics card',
         photoUrl: 'http://images10.newegg.com/productimage/A0ZX_1_20150215234604920.jpg?ex=2'
       }]
@@ -279,7 +279,7 @@ describe('Products Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
@@ -313,7 +313,7 @@ describe('Products Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
@@ -339,7 +339,7 @@ describe('Products Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2',
         extraneous: 'Sequelize will quietly ignore this non-schema property'
@@ -368,7 +368,7 @@ describe('Products Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })

@@ -65,7 +65,7 @@ describe('Reviews Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
@@ -78,7 +78,7 @@ describe('Reviews Route:', function () {
       var review = Review.build({
         title: 'Great Product!',
         content: 'This is the content for the review',
-        rating: 5,
+        stars: 5,
         userId: user.id,
         productId: product.id,
       })
@@ -92,7 +92,7 @@ describe('Reviews Route:', function () {
               expect(res.body).to.be.an.instanceOf(Array)
               expect(res.body[0].title).to.equal('Great Product!')
               expect(res.body[0].content).to.equal('This is the content for the review')
-			        expect(res.body[0].rating).to.equal(5)
+			        expect(res.body[0].stars).to.equal(5)
       		})
           })
       	})
@@ -112,7 +112,7 @@ describe('Reviews Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
@@ -130,7 +130,7 @@ describe('Reviews Route:', function () {
       var review1 = Review.build({
         title: 'Great Product!',
         content: 'This is the content for the review',
-        rating: 5,
+        stars: 5,
         userId: user1.id,
         productId: product.id,
       })
@@ -138,7 +138,7 @@ describe('Reviews Route:', function () {
       var review2 = Review.build({
         title: 'Bad Product!',
         content: 'This is the content for the review',
-        rating: 2,
+        stars: 2,
         userId: user2.id,
         productId: product.id,
       })
@@ -179,7 +179,7 @@ describe('Reviews Route:', function () {
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
-        quantity: 1,
+        stock: 1,
         category: 'motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
@@ -194,7 +194,7 @@ describe('Reviews Route:', function () {
       .send({
         title: 'Great Product!',
         content: 'This is the content for the review',
-        rating: 5,
+        stars: 5,
         userId: 1,
         productId: 1,
       })
@@ -204,7 +204,7 @@ describe('Reviews Route:', function () {
         expect(res.body.review.id).to.not.be.an('undefined');
         expect(res.body.review.title).to.equal('Great Product!');
         expect(res.body.review.content).to.equal('This is the content for the review');
-        expect(res.body.review.rating).to.equal(5);
+        expect(res.body.review.stars).to.equal(5);
 
       });
 
@@ -230,7 +230,7 @@ describe('Reviews Route:', function () {
       .send({
         title: 'Great Product!',
         content: 'This is the content for the review',
-        rating: 5,
+        stars: 5,
         userId: 1,
         productId: 1,
       })
@@ -255,7 +255,7 @@ describe('Reviews Route:', function () {
       .send({
         title: 'Great Product!',
         content: 'This is the content for the review',
-        rating: 5,
+        stars: 5,
         userId: 1,
         productId: 1,
         extraneous: 'Sequelize will quietly ignore this non-schema property'
@@ -284,7 +284,7 @@ describe('Reviews Route:', function () {
   //       title: 'Asus motherboard',
   //       description: 'board',
   //       price: 5.99,
-  //       quantity: 1,
+  //       stock: 1,
   //       category: 'motherboard',
   //       photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
   //     })
