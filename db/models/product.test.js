@@ -81,7 +81,7 @@ describe('Product', () => {
 
     })
 
-
+    //need some instance methods test after calculating average of reviews
   })
 
 })
