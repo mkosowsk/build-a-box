@@ -51,29 +51,38 @@ describe('Product', () => {
   })
  
   describe('associations', () => {
-    var reviewA = Review.create({ Text: 'GOOD SHIT', Stars: 3 })
-    var reviewB = Review.create({ Text: 'Terrible', Stars: 1 })
+    
 
     // Testing for product.hasMany(Review, {as: 'Reviews'})
 
-    return Promise.all([reviewA, reviewB])
+    it('Checks that a review belongs a product and a products has many reviews', function(){
+
+      var reviewA = Review.create({ Text: 'GOOD SHIT', Stars: 3 })
+      var reviewB = Review.create({ Text: 'Terrible', Stars: 1 })
+       
+       return Promise.all([reviewA, reviewB])
       .then(function([reviewA, reviewB]) {
-        product.setReviews(reviewA)
-        product.setReviews(reviewB)
+
+          var p1 = product.setReviews(reviewA);
+          var p2 = product.setReviews(reviewB);
+
+          return Promise.all([p1,p2]);
+        })
+      .then(() => {
+          return Product.findOne({
+            where: {name: 'Asus780'},
+            include: { model: Review, as: 'Reviews'}
+          });
+        })
+      .then((productWithReviews) => {
+          expect(productWithReviews.Reviews).to.exist; 
+          expect(productWithReviews.Reviews[0].Text).to.equal('GOOD SHIT');
       })
 
-    Product.findOne({
-      where: {name: 'Asus780'}
-      include: { model: Review, as: 'Reviews'}
     })
-    .then((productWithReviews) => {
-      expect(productWithReviews.Reviews).to.exist; 
-      expect(productWithReviews.Reviews[0].Text).to.equal('GOOD SHIT');
-    })
+
 
   })
-
-  describe('getterMethod')
 
 })
 
