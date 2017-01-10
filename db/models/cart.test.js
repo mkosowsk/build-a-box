@@ -49,7 +49,7 @@ describe('Cart', () => {
 				stock: 4
 			})
 			var productB = Product.create({
-				name: 'Baller420',
+				name: 'Baller480',
 				description: "This is a product",
 				price: 50,
 				photoUrl: 'fillmurray.com/400/400',
