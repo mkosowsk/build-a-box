@@ -17,10 +17,31 @@ describe('/api/users', () => {
         .post('/api/users')
         .send({
           email: 'beth@secrets.org',
-          password: '12345'
+          password: '12345',
         })
         .expect(201)
     )
+
+    it('POST fails to create a user when email is not given', () =>
+      request(app)
+        .post('/api/users')
+        .send({
+          email: '',
+          password: '12345',
+        })
+        .expect(500)
+    )
+
+    it('POST fails to create a user when email is not valid', () =>
+      request(app)
+        .post('/api/users')
+        .send({
+          email: 'invalidemail',
+          password: '12345',
+        })
+        .expect(500)
+    )
+
 
     it('POST redirects to the user it just made', () =>
       request(app)
@@ -35,4 +56,6 @@ describe('/api/users', () => {
         }))        
     )
   })
+
 })
+

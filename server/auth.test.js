@@ -80,4 +80,10 @@ describe('/api/auth', () => {
       )
     )
   })
+
+  // fails when address is not given
+
+  // fails when address is not valid
+
+
 })
