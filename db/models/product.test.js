@@ -64,8 +64,8 @@ describe('Product', () => {
 
     it('Checks that a review belongs a product and a products has many reviews', function(){
 
-      var reviewA = Review.create({ text: 'GOOD', stars: 3 })
-      var reviewB = Review.create({ text: 'Terrible', stars: 1 })
+      var reviewA = Review.create({ title: 'GOOD', content: 'this is my content', stars: 3 })
+      var reviewB = Review.create({ title: 'Terrible', content: 'Next content', stars: 1 })
        
        return Promise.all([reviewA, reviewB])
       .then(function([reviewA, reviewB]) {
@@ -77,18 +77,15 @@ describe('Product', () => {
          
         })
       .then(() => {
-          return Product.findOne({
-            where: {name: 'Asus780'},
-        }).then( product => {
-          return Review.findAll({
-            where: { productId: product.id}
-          })
+          return product.getReviews();
         })
       .then((reviews) => {
 
-          console.log(reviews)
+          //console.log(reviews);
           expect(reviews).to.exist; 
-          //expect(productWithReviews.Reviews[0].text).to.equal('GOOD');
+          expect(reviews[0].title).to.equal('GOOD');
+          
+
       })
 
     })
@@ -96,7 +93,7 @@ describe('Product', () => {
     //need some instance methods test after calculating average of reviews
   })
 
-})
+
 
 })
 

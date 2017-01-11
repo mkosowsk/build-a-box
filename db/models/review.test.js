@@ -73,17 +73,15 @@ describe('Review', function(){
               stock: 4
             })
       .then((product) => {
-        review.setProduct(product)
+        review.setProduct(product);
       })
       .then(() => {
-        return review.findOne({
-          where: {title: 'This is a good product'},
-          include: { model: Product, as: 'Product'}
-        });
+        return review.getProduct()
       })
-      .then((reviewWithProduct) => {
-          expect(reviewWithProduct.product).to.exist; 
-          expect(reviewWithProduct.product.name).to.equal('Asus780');
+      .then((product) => {
+      
+          expect(product).to.exist; 
+          expect(product.name).to.equal('Asus780');
       })
 
     })

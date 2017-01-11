@@ -8,7 +8,7 @@ const User = require('./user')
 const Product = require('./product')
 const Review = require('./review')
 
-
+User.hasMany(Review);
 Product.hasMany(Review, { as: 'Reviews'});
 Review.belongsTo(Product);
 
