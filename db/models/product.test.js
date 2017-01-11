@@ -3,10 +3,7 @@
 const db = require('APP/db')
 const Product = require('./product')
 const Review = require('./review');
-const {
-  expect,
-  assert
-} = require('chai')
+const {expect, assert} = require('chai')
 
 
 describe('Product', () => {
@@ -62,10 +59,9 @@ describe('Product', () => {
 
   describe('associations', () => {
 
-
     // Testing for product.hasMany(Review, {as: 'Reviews'})
 
-    it('Checks that a review belongs a product and a products has many reviews', function() {
+    it('Checks that a review belongs to a product and a products has many reviews', function() {
 
       var reviewA = Review.create({
         title: 'GOOD',
@@ -80,30 +76,15 @@ describe('Product', () => {
 
       return Promise.all([reviewA, reviewB])
         .then(function([reviewA, reviewB]) {
-
-
           return product.setReviews([reviewA, reviewB]);
-
-
-
         })
         .then(() => {
           return product.getReviews();
         })
         .then((reviews) => {
-
-          //console.log(reviews);
-          expect(reviews).to.exist;
           expect(reviews[0].title).to.equal('GOOD');
-
-
         })
-
     })
-
-    //need some instance methods test after calculating average of reviews
   })
-
-
 
 })

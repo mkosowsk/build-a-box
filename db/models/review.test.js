@@ -3,10 +3,7 @@
 const db = require('APP/db')
 const Product = require('./product')
 const Review = require('./review')
-const {
-  expect,
-  assert
-} = require('chai')
+const {expect, assert} = require('chai')
 
 
 
@@ -82,8 +79,6 @@ describe('Review', function() {
           return review.getProduct()
         })
         .then((product) => {
-
-          expect(product).to.exist;
           expect(product.name).to.equal('Asus780');
         })
 

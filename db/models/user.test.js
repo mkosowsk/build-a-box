@@ -45,22 +45,19 @@ describe('User', () => {
         content: 'Next content',
         stars: 1
       })
-
-      return Promise.all([reviewA, reviewB])
-        .then(function([reviewA, reviewB]) {
-
-          User.create({
+      var userA = User.create({
             name: 'Jeff',
             email: 'cool@gmail.com',
             isAdmin: true,
             password: 'ok'
-          }).then(user1 => {
-            user = user1;
-            return user.setReviews([reviewA, reviewB]);
-          }).then(() => {
-            return user.getReviews()
+          })
+
+      return Promise.all([reviewA, reviewB, userA])
+        .then(function([reviewA, reviewB, userA]) {
+            return userA.setReviews([reviewA, reviewB]);
+          }).then((userA) => {
+            return userA.getReviews()
           }).then(reviews => {
-            expect(reviews).to.exist;
             expect(reviews[0].title).to.equal('GOOD');
           })
 
@@ -68,4 +65,3 @@ describe('User', () => {
 
     })
   })
-})
