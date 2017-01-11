@@ -1,5 +1,3 @@
-//todo add looking at reviews for a given user
-
 const request = require('supertest-as-promised')
 const {expect} = require('chai')
 const db = require('APP/db')
@@ -12,7 +10,7 @@ const app = require('./start')
 describe('Reviews Route:', function () {
   // Clear the database before beginning each run
   before(function () {
-    return db.sync({force: true});
+    return db.sync({force: true})
   })
   // Empty the tables after each spec
   afterEach(function () {
@@ -21,6 +19,7 @@ describe('Reviews Route:', function () {
       // User.truncate({ cascade: true })
     ])
   })
+
 
   describe('GET /products/:id/reviews', function () {
     // There isn't anything in the DB, should send an empty array
