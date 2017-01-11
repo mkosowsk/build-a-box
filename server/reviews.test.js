@@ -21,12 +21,12 @@ describe('Reviews Route:', function () {
   /**
    * Also, we empty the tables after each spec
    */
-  afterEach(function () {
-    return Promise.all([
-      Product.truncate({ cascade: true }),
-      // User.truncate({ cascade: true })
-    ]);
-  });
+  // afterEach(function () {
+  //   return Promise.all([
+  //     Product.truncate({ cascade: true }),
+  //     // User.truncate({ cascade: true })
+  //   ]);
+  // });
 
   describe('GET /products/:id/reviews', function () {
     /**
