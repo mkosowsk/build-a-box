@@ -12,11 +12,12 @@ describe('User', () => {
 
   var user;
 
-
-
   describe('authenticate(plaintext: String) ~> Boolean', () => {
     it('resolves true if the password matches', () =>
       User.create({
+        name: 'Jeff',
+        email: 'email@gmail.com',
+        isAdmin: true,
         password: 'ok'
       })
       .then(user => user.authenticate('ok'))
@@ -24,6 +25,9 @@ describe('User', () => {
 
     it("resolves false if the password doesn't match", () =>
       User.create({
+        name: 'Jeff',
+        email: 'lame@gmail.com',
+        isAdmin: true,
         password: 'ok'
       })
       .then(user => user.authenticate('not ok'))
@@ -48,24 +52,21 @@ describe('User', () => {
         .then(function([reviewA, reviewB]) {
 
           User.create({
+            name: 'Jeff',
+            email: 'cool@gmail.com',
+            isAdmin: true,
             password: 'ok'
           }).then(user1 => {
             user = user1;
             return user.setReviews([reviewA, reviewB]);
           }).then(() => {
-
             user.getReviews()
           }).then(reviews => {
-
             expect(reviews).to.exist;
             expect(reviews[0].title).to.equal('GOOD');
-
-
           })
 
         })
-
-
 
     })
   })
