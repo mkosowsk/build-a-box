@@ -6,9 +6,18 @@ const db = require('APP/db')
 const Review = require('./review.js');
 
 module.exports = db.define('products', {
-	name: Sequelize.STRING,
-	photoUrl: Sequelize.STRING,
-	description: Sequelize.STRING,
+	name: {
+		type: Sequelize.STRING,
+		allowNull: false
+	},
+	photoUrl: {
+		type: Sequelize.STRING,
+		allowNull: false
+	},
+	description: {
+		type: Sequelize.STRING,
+		allowNull: false
+	},
 	price: {
 		type: Sequelize.INTEGER,
 		validate: {
