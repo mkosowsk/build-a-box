@@ -69,11 +69,6 @@ const seedProducts = () => db.Promise.map(
 		stock: 10
 	}], product => db.model('products').create(product))
 
-// const seedCart = () => db.Promise.map(
-// 	[{
-
-// }], cart => db.model('cart').create(cart))
-
 db.didSync
 	.then(() => db.sync({
 		force: true
