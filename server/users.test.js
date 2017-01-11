@@ -16,7 +16,8 @@ describe('/api/users', () => {
       request(app)
         .post('/api/users')
         .send({
-          email: 'beth@secrets.org',
+          name: 'beth',
+          email: 'beth@secrasdfaets.org',
           password: '12345',
         })
         .expect(201)
@@ -47,12 +48,13 @@ describe('/api/users', () => {
       request(app)
         .post('/api/users')
         .send({
-          email: 'eve@interloper.com',
+          name: 'eve',
+          email: 'eve@interasdfloper.com',
           password: '23456',
         })
         .redirects(1)
         .then(res => expect(res.body).to.contain({
-          email: 'eve@interloper.com'
+          email: 'eve@interasdfloper.com'
         }))
     )
   })

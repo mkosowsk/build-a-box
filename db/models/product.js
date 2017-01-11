@@ -1,8 +1,8 @@
 'use strict'
 
+const db = require('APP/db')
 const bcrypt = require('bcrypt')
 const Sequelize = require('sequelize')
-const db = require('APP/db')
 const Review = require('./review.js');
 
 module.exports = db.define('products', {

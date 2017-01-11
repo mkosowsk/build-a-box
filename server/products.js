@@ -17,9 +17,9 @@ module.exports = require('express').Router()
     .catch(next))
   .get('/products/:id', (req, res, next) => 
     Product.findById(req.params.id)
-    .then(product => {
-      if (!product) res.sendStatus(404);
-      else res.json(product)
+    .then(foundProduct => {
+      if (!foundProduct) res.sendStatus(404);
+      else res.json(foundProduct)
     })
     .catch(next))
   .get('/products/:category', (req, res, next) => 
@@ -33,21 +33,37 @@ module.exports = require('express').Router()
       else res.json(products)
     })
     .catch(next))
-  .put('/products/:id', (req, res, next) =>
-    Product.findById(req.params.id)
-    .then(function (found) {
-      if (!found) {
-        var err = new Error('not found');
-        err.status = 404;
-        throw err;
-      }
-      return found.update(req.body);
+  .put('/products/:id', (req, res, next) => {
+    console.log("any string hittin the route")
+    Product.update(req.body, {
+      where: {id: req.params.id},
+      returning: true
     })
-    .then(function (updated) {
+    .then(function (results) {
+      var updated = results[1][0]
+      // console.log("hello", updated)
       res.json({
         message: 'Updated successfully',
         product: updated
-      });
+      })
     })
-    .catch(next))
+    .catch(function(err){
+      console.log(err)
+    })})
+    // Product.findById(req.params.id)
+    // .then(function (found) {
+    //   if (!found) {
+    //     var err = new Error('not found');
+    //     err.status = 404;
+    //     throw err;
+    //   }
+    //   return found.update(req.body);
+    // })
+    // .then(function (updated) {
+    //   res.json({
+    //     message: 'Updated successfully',
+    //     product: updated
+    //   });
+    // })
+    // .catch(next))
 

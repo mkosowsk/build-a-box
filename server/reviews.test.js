@@ -40,7 +40,7 @@ describe('Reviews Route:', function () {
     it('returns a review for a specific product', function () {
 
       let product = Product.build({
-        title: 'Asus Motherboard',
+        name: 'Asus Motherboard',
         description: 'board',
         price: 599,
         stock: 1,
@@ -49,7 +49,8 @@ describe('Reviews Route:', function () {
       })
 
       let user = User.build({
-          email: 'beth@secrets.org',
+          name: 'd',
+          email: 'beth@secrsets.org',
           password: '12345',
         })
 
@@ -81,7 +82,7 @@ describe('Reviews Route:', function () {
 
 
      let product = Product.build({
-        title: 'Asus Motherboard',
+        name: 'Asus Motherboard',
         description: 'board',
         price: 599,
         stock: 1,
@@ -90,12 +91,14 @@ describe('Reviews Route:', function () {
       })
 
       let user1 = User.build({
-          email: 'beth@secrets.org',
-          password: '12345',
+          name: 'm',
+          email: 'beth@secdarets.org',
+          password: '12123345',
         })
 
       let user2 = User.build({
-          email: 'dan@secrets.org',
+          name: 'j',
+          email: 'dan@secrweqets.org',
           password: '56789',
         })
 
@@ -127,7 +130,7 @@ describe('Reviews Route:', function () {
                   expect(res.body[0].title).to.equal('Great Product!')
                   expect(res.body[1].title).to.equal('Bad Product!')
               })
-      		})
+      		  })
           })
       	})
       })
@@ -141,7 +144,7 @@ describe('Reviews Route:', function () {
     beforeEach(function () {
 
       Product.create({
-        title: 'Asus Motherboard',
+        name: 'Asus Motherboard',
         description: 'board',
         price: 599,
         stock: 1,
