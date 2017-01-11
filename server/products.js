@@ -8,7 +8,7 @@ module.exports = require('express').Router()
     Product.findAll()
     .then(products => res.json(products))
     .catch(next))
-  .post('/products', (req, res, next) =>
+  .post('/products', (req, res, next) => 
     Product.create(req.body)
     .then(product => res.status(201).json({
       message: 'Created successfully',

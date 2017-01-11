@@ -40,11 +40,11 @@ describe('Reviews Route:', function () {
     it('returns a review for a specific product', function () {
 
       let product = Product.build({
-        title: 'Asus motherboard',
+        title: 'Asus Motherboard',
         description: 'board',
-        price: 5.99,
+        price: 599,
         stock: 1,
-        category: 'motherboard',
+        category: 'Motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
 
@@ -57,8 +57,8 @@ describe('Reviews Route:', function () {
         title: 'Great Product!',
         content: 'This is the content for the review',
         stars: 5,
-        userId: user.id,
-        productId: product.id,
+        // userId: user.id,
+        // productId: product.id,
       })
 
       return product.save().then(function () {
@@ -81,11 +81,11 @@ describe('Reviews Route:', function () {
 
 
      let product = Product.build({
-        title: 'Asus motherboard',
+        title: 'Asus Motherboard',
         description: 'board',
-        price: 5.99,
+        price: 599,
         stock: 1,
-        category: 'motherboard',
+        category: 'Motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
 
@@ -103,16 +103,16 @@ describe('Reviews Route:', function () {
         title: 'Great Product!',
         content: 'This is the content for the review',
         stars: 5,
-        userId: user1.id,
-        productId: product.id,
+        // userId: user1.id,
+        // productId: product.id,
       })
 
       let review2 = Review.build({
         title: 'Bad Product!',
         content: 'This is the content for the review',
         stars: 2,
-        userId: user2.id,
-        productId: product.id,
+        // userId: user2.id,
+        // productId: product.id,
       })
 
       return product.save().then(function () {
@@ -141,11 +141,11 @@ describe('Reviews Route:', function () {
     beforeEach(function () {
 
       Product.create({
-        title: 'Asus motherboard',
+        title: 'Asus Motherboard',
         description: 'board',
-        price: 5.99,
+        price: 599,
         stock: 1,
-        category: 'motherboard',
+        category: 'Motherboard',
         photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
       })
       .then(createdProduct => {
@@ -160,8 +160,8 @@ describe('Reviews Route:', function () {
         title: 'Great Product!',
         content: 'This is the content for the review',
         stars: 5,
-        userId: 1,
-        productId: 1,
+        // userId: 1,
+        // productId: 1,
       })
       .expect(200)
       .expect(function (res) {
