@@ -1,42 +1,27 @@
-//todo add search
-//find by category/price
+// todo add search
+// find by price
 
 const request = require('supertest-as-promised')
 const {expect} = require('chai')
 const db = require('APP/db')
-// const Product = require('APP/db/models/product')
+const Product = require('APP/db/models/product')
 const app = require('./start')
 
 describe('Products Route:', function () {
-
-  /**
-   * First we clear the database before beginning each run
-   */
+  // Clear the database before beginning each run
   before(function () {
     return db.sync({force: true});
-  });
-
-  /**
-   * Also, we empty the tables after each spec
-   */
+  })
+  // Empty the tables after each spec
   afterEach(function () {
     return Promise.all([
       Product.truncate({ cascade: true }),
       // User.truncate({ cascade: true })
-    ]);
-  });
+    ])
+  })
 
   describe('GET /products', function () {
-    /**
-     * Problem 1
-     * We'll run a GET request to /products
-     *
-     * 1.  It should return JSON (i.e., use res.json)
-     * 2.  Because there isn't anything in the DB, it should be an empty array
-     *
-     * **Extra Credit**: Consider using app.param to automatically load
-     * in the product whenever a param :id is detected
-     */
+    // There isn't anything in the DB, should send an empty array
     it('responds with an array via JSON', function () {
 
       request(app)
@@ -50,16 +35,12 @@ describe('Products Route:', function () {
       });
 
     });
+     // Save products in the database using our model and then retrieve it
+     // using the GET /products route
 
-    /**
-     * Problem 2
-     * Save an products in the database using our model and then retrieve it
-     * using the GET /products route
-     *
-     */
     it('returns an product if there is one in the DB', function () {
 
-      var product = Product.build({
+      let product = Product.build({
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
@@ -87,12 +68,6 @@ describe('Products Route:', function () {
 
     });
 
-    /**
-     * Problem 3
-     * Save a second products in the database using our model, then retrieve it
-     * using the GET /products route
-     *
-     */
     it('returns another product if there is one in the DB', function () {
 
       var product1 = Product.build({
@@ -124,24 +99,21 @@ describe('Products Route:', function () {
           expect(res.body).to.be.an.instanceOf(Array);
           expect(res.body[0].title).to.equal('Asus motherboard');
           expect(res.body[1].title).to.equal('Amd motherboard');
-        });
+        })
 
-      });
+      })
 
-    });
+    })
 
-  });
+  })
 
-  /**
-   * Search for products by ID
-   */
   describe('GET /products/:id', function () {
 
-    var coolProduct;
+    let coolProduct;
 
     beforeEach(function () {
 
-      var creatingProducts = [{
+      let creatingProducts = [{
         title: 'Asus motherboard',
         description: 'board',
         price: 5.99,
@@ -161,14 +133,10 @@ describe('Products Route:', function () {
       return Promise.all(creatingProducts)
       .then(createdProducts => {
         coolProduct = createdProducts[1];
-      });
+      })
 
-    });
+    })
 
-    /**
-     * This is a proper GET /products/ID request
-     * where we search by the ID of the product created above
-     */
     it('returns the JSON of the product based on the id', function () {
 
       request(app)
@@ -179,26 +147,23 @@ describe('Products Route:', function () {
           res.body = JSON.parse(res.body);
         }
         expect(res.body.title).to.equal('Amd motherboard');
-      });
+      })
 
-    });
+    })
 
-    /**
-     * Here we pass in a bad ID to the URL, we should get a 404 error
-     */
     it('returns a 404 error if the ID is not correct', function () {
 
       request(app)
       .get('/products/76142896')
       .expect(404);
 
-    });
+    })
 
-  });
+  })
 
   describe('GET /products/:category', function () {
 
-    var coolProduct;
+    let coolProduct;
 
     beforeEach(function () {
 
@@ -229,14 +194,10 @@ describe('Products Route:', function () {
       return Promise.all(creatingProducts)
       .then(createdProducts => {
         coolProduct = createdProducts[1];
-      });
+      })
 
-    });
+    })
 
-    /**
-     * This is a proper GET /products/ID request
-     * where we search by the ID of the product created above
-     */
     it('returns the JSON of the product based on the category', function () {
 
       request(app)
@@ -248,29 +209,23 @@ describe('Products Route:', function () {
         }
         expect(res.body[0].title).to.equal('Asus motherboard');
         expect(res.body[1].title).to.equal('Amd motherboard');
-      });
+      })
 
-    });
+    })
 
-    /**
-     * Here we pass in a bad ID to the URL, we should get a 404 error
-     */
+
     it('returns a 404 error if the ID is not correct', function () {
 
       request(app)
       .get('/products/76142896')
-      .expect(404);
+      .expect(404)
 
-    });
+    })
 
-  });
-  /**
-   * Series of tests to test creation of new products using a POST
-   * request to /products
-   */
+  })
+
   describe('POST /products', function () {
 
-   
     it('creates a new product', function () {
 
       request(app)
@@ -292,7 +247,6 @@ describe('Products Route:', function () {
 
     });
 
-    // This one should fail with a 500 because we don't set the product.description
     it('does not create a new product without content', function () {
 
       request(app)
@@ -304,7 +258,6 @@ describe('Products Route:', function () {
 
     });
 
-    // Check if the product were actually saved to the database
     it('saves the product to the DB', function () {
 
       request(app)
@@ -321,14 +274,14 @@ describe('Products Route:', function () {
       .then(function () {
         return Product.findOne({
           where: { title: 'Asus motherboard' }
-        });
+        })
       })
       .then(function (foundProducts) {
         expect(foundProducts).to.exist; // eslint-disable-line no-unused-expressions
         expect(foundProducts.title).to.equal('Asus motherboard');
-      });
+      })
 
-    });
+    })
 
     // Do not assume async operations (like db writes) will work; always check
     it('sends back JSON of the actual created product, not just the POSTed data', function () {
@@ -348,19 +301,15 @@ describe('Products Route:', function () {
       .expect(function (res) {
         expect(res.body.product.extraneous).to.be.an('undefined');
         expect(res.body.product.createdAt).to.exist; // eslint-disable-line no-unused-expressions
-      });
+      })
 
-    });
+    })
 
-  });
+  })
 
-  /**
-   * Series of specs to test updating of products using a PUT
-   * request to /product/:id
-   */
   describe('PUT /products/:id', function () {
 
-    var product;
+    let product;
 
     beforeEach(function () {
 
@@ -374,18 +323,10 @@ describe('Products Route:', function () {
       })
       .then(function (createdProduct) {
         product = createdProduct;
-      });
+      })
 
-    });
+    })
 
-    /**
-     * Test the updating of an product
-     * Here we don't get back just the prodcut, we get back a Object
-     * of this type, which you construct manually:
-     *
-     *
-     * }
-     */
     it('updates a product', function () {
 
       request(app)
@@ -399,9 +340,9 @@ describe('Products Route:', function () {
         expect(res.body.product.id).to.not.be.an('undefined');
         expect(res.body.product.title).to.equal('Asus mobo2');
         expect(res.body.product.photoUrl).to.equal('http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2');
-      });
+      })
 
-    });
+    })
 
     it('saves updates to the DB', function () {
 
@@ -416,9 +357,9 @@ describe('Products Route:', function () {
       .then(function (foundProduct) {
         expect(foundProduct).to.exist; // eslint-disable-line no-unused-expressions
         expect(foundProduct.title).to.equal('Asus mobo2');
-      });
+      })
 
-    });
+    })
 
     it('gets 500 for invalid update', function () {
 
@@ -427,8 +368,8 @@ describe('Products Route:', function () {
       .send({ title: '' })
       .expect(500);
 
-    });
+    })
 
-  });
+  })
 
-});
+})
