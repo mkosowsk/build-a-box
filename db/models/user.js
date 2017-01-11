@@ -14,7 +14,8 @@ const User = db.define('users', {
       notEmpty: true,
     }
   },
-  address: Sequelize.STRING, //The array will contain objects => { name: 'nameOfAddress', address: 'actual address' },
+  billAddress: Sequelize.STRING,
+  shipAddress: Sequelize.STRING,
   isAdmin: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
