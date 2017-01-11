@@ -9,7 +9,7 @@ module.exports = db.define('reviews', {
 		type: Sequelize.TEXT,
 		allowNull: false
 	},
-	content:{
+	content: {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
@@ -18,10 +18,7 @@ module.exports = db.define('reviews', {
 		validate: {
 			isInt: true,
 			min: 0,
-			max: 5 
+			max: 5
 		}
 	}
 });
-
-
-

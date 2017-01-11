@@ -17,19 +17,20 @@ module.exports = db.define('products', {
 		allowNull: false
 	},
 	category: {
-		type:Sequelize.STRING,
+		type: Sequelize.STRING,
 		validate: {
-			isIn: [['CPU', 'Motherboard', 'Case', 'GPU', 'RAM', 'Power Supply', 'Sound Card', 'HDD', 'SSD', 'Monitor', 'Keyboard', 'Mouse', 'Speakers', 'Headphones', 'Mousepad']]
+			isIn: [
+				['CPU', 'Motherboard', 'Case', 'GPU', 'RAM', 'Power Supply', 'Sound Card', 'HDD', 'SSD', 'Monitor', 'Keyboard', 'Mouse', 'Speakers', 'Headphones', 'Mousepad']
+			]
 		}
 	},
 	stock: {
 		type: Sequelize.INTEGER,
 		validate: {
 			isNumeric: true,
-			
+
 		},
 		allowNull: false
 	}
 
 })
-

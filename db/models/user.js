@@ -6,7 +6,7 @@ const db = require('APP/db')
 
 
 const User = db.define('users', {
-  name: Sequelize.STRING,  
+  name: Sequelize.STRING,
   email: {
     type: Sequelize.STRING,
     validate: {
@@ -24,8 +24,11 @@ const User = db.define('users', {
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING,
   password: Sequelize.VIRTUAL,
-},  {
-  indexes: [{fields: ['email'], unique: true,}],
+}, {
+  indexes: [{
+    fields: ['email'],
+    unique: true,
+  }],
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
@@ -35,9 +38,9 @@ const User = db.define('users', {
       return new Promise((resolve, reject) =>
         bcrypt.compare(plaintext, this.password_digest,
           (err, result) =>
-            err ? reject(err) : resolve(result))
-        )
-    }    
+          err ? reject(err) : resolve(result))
+      )
+    }
   }
 })
 
