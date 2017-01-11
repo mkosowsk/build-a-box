@@ -287,7 +287,7 @@ describe('Products Route:', function () {
         });
       })
       .then(function (foundProducts) {
-        // expect(foundProducts).to.exist; // eslint-disable-line no-unused-expressions
+        expect(foundProducts).to.exist; // eslint-disable-line no-unused-expressions
         expect(foundProducts.name).to.equal('Asus Motherboard');
       })
 
@@ -310,76 +310,76 @@ describe('Products Route:', function () {
       .expect(200)
       .expect(function (res) {
         expect(res.body.product.extraneous).to.be.an('undefined');
-        // expect(res.body.product.createdAt).to.exist; // eslint-disable-line no-unused-expressions
+        expect(res.body.product.createdAt).to.exist; // eslint-disable-line no-unused-expressions
       })
 
     })
 
   })
 
-  // describe('PUT /products/:id', function () {
+  describe('PUT /products/:id', function () {
 
-  //   let product;
+    let product;
 
-  //   beforeEach(function () {
+    beforeEach(function () {
 
-  //     return Product.create({
-  //       name: 'Asus Motherboard',
-  //       description: 'board',
-  //       price: 599,
-  //       stock: 1,
-  //       category: 'Motherboard',
-  //       photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
-  //     })
-  //     .then(function (createdProduct) {
-  //       product = createdProduct;
-  //     })
+      return Product.create({
+        name: 'Asus Motherboard',
+        description: 'board',
+        price: 599,
+        stock: 1,
+        category: 'Motherboard',
+        photoUrl: 'http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2'
+      })
+      .then(function (createdProduct) {
+        product = createdProduct;
+      })
 
-  //   })
+    })
 
-  //   it('updates a product', function () {
-  //     console.log(product.id)
-  //     request(app)
-  //     .put('/products/' + product.id)
-  //     .send({
-  //       name: 'Asus mobo2'
-  //     })
-  //     // .expect(200)
-  //     // .expect(function (res) {
-  //     //   expect(res.body.message).to.equal('Updated successfully');
-  //     //   expect(res.body.product.id).to.not.be.an('undefined');
-  //     //   expect(res.body.product.name).to.equal('Asus mobo2');
-  //     //   expect(res.body.product.photoUrl).to.equal('http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2');
-  //     // })
+    it('updates a product', function () {
+      console.log(product.id)
+      request(app)
+      .put('/products/' + product.id)
+      .send({
+        name: 'Asus mobo2'
+      })
+      .expect(200)
+      .expect(function (res) {
+        expect(res.body.message).to.equal('Updated successfully');
+        expect(res.body.product.id).to.not.be.an('undefined');
+        expect(res.body.product.name).to.equal('Asus mobo2');
+        expect(res.body.product.photoUrl).to.equal('http://images10.newegg.com/ProductImageCompressAll1280/13-132-927-V01.jpg?w=660&h=500&ex=2');
+      })
 
-  //   })
+    })
 
-  //   it('saves updates to the DB', function () {
+    it('saves updates to the DB', function () {
 
-  //     request(app)
-  //     .put('/products/' + product.id)
-  //     .send({
-  //       name: 'Asus mobo2'
-  //     })
-  //     .then(function () {
-  //       return Product.findById(product.id);
-  //     })
-  //     .then(function (foundProduct) {
-  //       // expect(foundProduct).to.exist; // eslint-disable-line no-unused-expressions
-  //       // expect(foundProduct.name).to.equal('Asus mobo2');
-  //     })
+      request(app)
+      .put('/products/' + product.id)
+      .send({
+        name: 'Asus mobo2'
+      })
+      .then(function () {
+        return Product.findById(product.id);
+      })
+      .then(function (foundProduct) {
+        expect(foundProduct).to.exist; // eslint-disable-line no-unused-expressions
+        expect(foundProduct.name).to.equal('Asus mobo2');
+      })
 
-  //   })
+    })
 
-  //   it('gets 500 for invalid update', function () {
+    it('gets 500 for invalid update', function () {
 
-  //     request(app)
-  //     .put('/products/' + product.id)
-  //     .send({ name: '' })
-  //     .expect(500);
+      request(app)
+      .put('/products/' + product.id)
+      .send({ name: '' })
+      .expect(500);
 
-  //   })
+    })
 
-  // })
+  })
 
 })
