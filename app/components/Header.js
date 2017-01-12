@@ -7,10 +7,9 @@ export default function (props) {
     <header>
 
       <h1>Build-A-Box</h1>
-      <div>
-        <button>Login</button>
-        <a>/</a>
-        <button>Register</button>
+      <div className="loginRegister">
+        <button className="headerButton">Login</button>
+        <button className="headerButton">Register</button>
       </div>
       {/*<img src="juke.svg" className="logo"/>
       <section>

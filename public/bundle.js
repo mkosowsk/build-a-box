@@ -28149,20 +28149,15 @@
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: 'loginRegister' },
 	      _react2.default.createElement(
 	        'button',
-	        null,
+	        { className: 'headerButton' },
 	        'Login'
 	      ),
 	      _react2.default.createElement(
-	        'a',
-	        null,
-	        '/'
-	      ),
-	      _react2.default.createElement(
 	        'button',
-	        null,
+	        { className: 'headerButton' },
 	        'Register'
 	      )
 	    )
