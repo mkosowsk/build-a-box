@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  background: #222222;
+  padding-bottom: 56px; }
+
+#main {
+  padding-left: 0; }
+
 sidebar {
   position: fixed;
   left: 0;
@@ -30,3 +40,24 @@ sidebar {
         color: white; }
     sidebar .menu-item.active, sidebar .menu-item:hover {
       border-left: 3px solid #00bc8c; }
+
+footer {
+  position: fixed;
+  background-color: #555;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  padding: 8px; }
+  footer .bar {
+    overflow: hidden;
+    padding: 9px; }
+  footer .progress {
+    cursor: pointer; }
+  footer .progress-bar {
+    transition: none !important; }
+
+.album img {
+  height: 300px; }

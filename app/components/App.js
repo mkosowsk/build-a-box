@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import HeaderContainer from '../containers/HeaderContainer';
-// import SidebarContainer from '../containers/SidebarContainer';
+import SidebarContainer from '../containers/SidebarContainer';
 
 export default function (props) {
   return (
