@@ -10,6 +10,18 @@ import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 
+const onAppEnter = () => {
+
+  const products = axios.get('/products');
+
+  return Promise
+    .all([products])
+    .then(responses => responses.map(r => r.data))
+    .then(([products]) => {
+      store.dispatch(receiveProducts(products));
+    });
+};
+
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 ) (
