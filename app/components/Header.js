@@ -3,11 +3,14 @@ import { Link } from 'react-router';
 
 export default function (props) {
 
-  const playlists = props.playlists;
-
   return (
-    <sidebar>
-      <img src="juke.svg" className="logo"/>
+    <header>
+
+      <h1>Build-A-Box</h1>
+      <button>Login</button>
+      <a>/</a>
+      <button>Register</button>
+      {/*<img src="juke.svg" className="logo"/>
       <section>
         <h4 className="menu-item">
           <Link to='/albums'>ALBUMS</Link>
@@ -48,7 +51,7 @@ export default function (props) {
             );
           })
         }
-      </ul>
-    </sidebar>
+      </ul>*/}
+    </header>
   );
 }
