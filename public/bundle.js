@@ -28091,6 +28091,14 @@
 	    _react2.default.createElement(_HeaderContainer2.default, null),
 	    _react2.default.createElement(
 	      'div',
+<<<<<<< HEAD
+=======
+	      { className: 'col-xs-2' },
+	      _react2.default.createElement(_SidebarContainer2.default, null)
+	    ),
+	    _react2.default.createElement(
+	      'div',
+>>>>>>> 44eb798859c9ffba31e77d16676caf75de6ae1db
 	      { className: 'col-xs-10' },
 	      props.children && _react2.default.cloneElement(props.children, props)
 	    )
@@ -28104,6 +28112,10 @@
 	var _HeaderContainer = __webpack_require__(262);
 	
 	var _HeaderContainer2 = _interopRequireDefault(_HeaderContainer);
+	
+	var _SidebarContainer = __webpack_require__(302);
+	
+	var _SidebarContainer2 = _interopRequireDefault(_SidebarContainer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30855,6 +30867,105 @@
 	  var auth = _ref2.auth;
 	  return { user: auth };
 	}, { logout: _auth.logout })(WhoAmI);
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _Sidebar = __webpack_require__(303);
+	
+	var _Sidebar2 = _interopRequireDefault(_Sidebar);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = (0, _reactRedux.connect)()(_Sidebar2.default);
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (props) {
+	
+	  return _react2.default.createElement(
+	    'sidebar',
+	    null,
+	    _react2.default.createElement('img', { src: 'juke.svg', className: 'logo' }),
+	    _react2.default.createElement(
+	      'section',
+	      null,
+	      _react2.default.createElement(
+	        'h4',
+	        { className: 'menu-item' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/motherboards' },
+	          'Motherboards'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'section',
+	      null,
+	      _react2.default.createElement(
+	        'h4',
+	        { className: 'menu-item' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/CPUs' },
+	          'CPUs'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'section',
+	      null,
+	      _react2.default.createElement(
+	        'h4',
+	        { className: 'menu-item' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/Cases' },
+	          'Cases'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'section',
+	      null,
+	      _react2.default.createElement(
+	        'h4',
+	        { className: 'menu-item' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/GPUs' },
+	          'GPUs'
+	        )
+	      )
+	    )
+	  );
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ]);
