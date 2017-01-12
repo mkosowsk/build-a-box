@@ -28081,18 +28081,24 @@
 	  value: true
 	});
 	
-	exports.default = function (props) {
+	exports.default = function (
+	// import SidebarContainer from '../containers/SidebarContainer';
+	
+	props) {
 	  return _react2.default.createElement(
 	    'div',
 	    { id: 'main', className: 'container-fluid' },
 	    _react2.default.createElement(_HeaderContainer2.default, null),
 	    _react2.default.createElement(
 	      'div',
+<<<<<<< HEAD
+=======
 	      { className: 'col-xs-2' },
 	      _react2.default.createElement(_SidebarContainer2.default, null)
 	    ),
 	    _react2.default.createElement(
 	      'div',
+>>>>>>> 44eb798859c9ffba31e77d16676caf75de6ae1db
 	      { className: 'col-xs-10' },
 	      props.children && _react2.default.cloneElement(props.children, props)
 	    )
@@ -28154,19 +28160,18 @@
 	      'Build-A-Box'
 	    ),
 	    _react2.default.createElement(
-	      'button',
-	      null,
-	      'Login'
-	    ),
-	    _react2.default.createElement(
-	      'a',
-	      null,
-	      '/'
-	    ),
-	    _react2.default.createElement(
-	      'button',
-	      null,
-	      'Register'
+	      'div',
+	      { className: 'loginRegister' },
+	      _react2.default.createElement(
+	        'button',
+	        { className: 'headerButton' },
+	        'Login'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { className: 'headerButton' },
+	        'Register'
+	      )
 	    )
 	  );
 	};

@@ -41,6 +41,22 @@ sidebar {
     sidebar .menu-item.active, sidebar .menu-item:hover {
       border-left: 3px solid #00bc8c; }
 
+header {
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  padding-bottom: 5px;
+}
+
+.headerButton {
+    background-color: red
+}
+
+.loginRegister {
+  text-align: right;
+  padding-right: 5px;
+}
+=======
 footer {
   position: fixed;
   background-color: #555;
