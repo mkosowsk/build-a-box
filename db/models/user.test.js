@@ -58,7 +58,7 @@ describe('User', () => {
           }).then((userA) => {
             return userA.getReviews()
           }).then(reviews => {
-            expect(reviews[0].title).to.equal('GOOD');
+            expect(reviews[0].title).to.exist;
           })
 
         })
