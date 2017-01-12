@@ -30,3 +30,8 @@ sidebar {
         color: white; }
     sidebar .menu-item.active, sidebar .menu-item:hover {
       border-left: 3px solid #00bc8c; }
+
+header {
+  text-align: center;
+
+}
