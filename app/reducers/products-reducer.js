@@ -8,7 +8,7 @@ const initialProductsState = {
   list: [],
 };
 
-export default function (state = initialProductState, action) {
+export default function (state = initialProductsState, action) {
 
   const newState = Object.assign({}, state);
 

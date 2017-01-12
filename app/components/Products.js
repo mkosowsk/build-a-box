@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 
 export default function (props) {
 
-  const products = props.products;
+  const products = props.list;
 
   return (
     <div>
