@@ -7,7 +7,7 @@ export default function (props) {
 	return ( 
 		<div className='cart'>
 			<div>
-				<h3>{ cart.name }</h3>
+				<h3>{ cart.products }</h3>
 			</div>
 		</div>
 	);
