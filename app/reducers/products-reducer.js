@@ -11,7 +11,7 @@ const initialProductsState = {
 export default function (state = initialProductsState, action) {
 
   const newState = Object.assign({}, state);
-
+  
   switch (action.type) {
 
     case RECEIVE_PRODUCTS:

@@ -68,11 +68,11 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _ProductsContainer = __webpack_require__(301);
+	var _ProductsContainer = __webpack_require__(303);
 	
 	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
 	
-	var _products = __webpack_require__(303);
+	var _products = __webpack_require__(305);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29792,15 +29792,15 @@
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _reduxLogger = __webpack_require__(294);
+	var _reduxLogger = __webpack_require__(296);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
-	var _reduxThunk = __webpack_require__(300);
+	var _reduxThunk = __webpack_require__(302);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _auth = __webpack_require__(293);
+	var _auth = __webpack_require__(295);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29824,17 +29824,73 @@
 	
 	var _redux = __webpack_require__(240);
 	
-	var _productsReducer = __webpack_require__(305);
+	var _productsReducer = __webpack_require__(293);
+	
+	var _productsReducer2 = _interopRequireDefault(_productsReducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
-	  auth: __webpack_require__(293).default,
-	  products: _productsReducer.productsReducer
+	  auth: __webpack_require__(295).default,
+	  products: _productsReducer2.default
 	});
 	
 	exports.default = rootReducer;
 
 /***/ },
 /* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialProductsState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_PRODUCTS:
+	      newState.list = action.products;
+	      break;
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(294);
+	
+	// import {convertAlbum, convertAlbums} from '../utils';
+	
+	var initialProductsState = {
+	  list: []
+	};
+
+/***/ },
+/* 294 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// Products
+	
+	var RECEIVE_PRODUCTS = exports.RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
+
+/***/ },
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29902,7 +29958,7 @@
 	exports.default = reducer;
 
 /***/ },
-/* 294 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29913,11 +29969,11 @@
 	  value: true
 	});
 	
-	var _core = __webpack_require__(295);
+	var _core = __webpack_require__(297);
 	
-	var _helpers = __webpack_require__(296);
+	var _helpers = __webpack_require__(298);
 	
-	var _defaults = __webpack_require__(299);
+	var _defaults = __webpack_require__(301);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30020,7 +30076,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 295 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30030,9 +30086,9 @@
 	});
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(296);
+	var _helpers = __webpack_require__(298);
 	
-	var _diff = __webpack_require__(297);
+	var _diff = __webpack_require__(299);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -30161,7 +30217,7 @@
 	}
 
 /***/ },
-/* 296 */
+/* 298 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30185,7 +30241,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 297 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30195,7 +30251,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(298);
+	var _deepDiff = __webpack_require__(300);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -30281,7 +30337,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 298 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -30710,7 +30766,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 299 */
+/* 301 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30761,7 +30817,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 300 */
+/* 302 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30789,7 +30845,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 301 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30798,7 +30854,7 @@
 	  value: true
 	});
 	
-	var _Products = __webpack_require__(302);
+	var _Products = __webpack_require__(304);
 	
 	var _Products2 = _interopRequireDefault(_Products);
 	
@@ -30809,14 +30865,14 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  console.log("STATETETETE", state);
 	  return {
-	    products: state.list
+	    products: state.products.list
 	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Products2.default);
 
 /***/ },
-/* 302 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30826,20 +30882,20 @@
 	});
 	
 	exports.default = function (props) {
-	
-	  var products = props.list;
+	  console.log('******', props);
+	  var products = props.products;
 	
 	  return _react2.default.createElement(
 	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      'Products'
-	    ),
+	    { className: 'container' },
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Products'
+	      ),
 	      products && products.map(function (product) {
 	        return _react2.default.createElement(
 	          'div',
@@ -30903,7 +30959,7 @@
 	;
 
 /***/ },
-/* 303 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30913,7 +30969,7 @@
 	});
 	exports.receiveProducts = undefined;
 	
-	var _constants = __webpack_require__(304);
+	var _constants = __webpack_require__(294);
 	
 	var _axios = __webpack_require__(261);
 	
@@ -30936,58 +30992,6 @@
 	//       });
 	//   };
 	// };
-
-/***/ },
-/* 304 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	// Products
-	
-	var RECEIVE_PRODUCTS = exports.RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
-
-/***/ },
-/* 305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialProductsState;
-	  var action = arguments[1];
-	
-	
-	  var newState = Object.assign({}, state);
-	
-	  switch (action.type) {
-	
-	    case _constants.RECEIVE_PRODUCTS:
-	      newState.list = action.products;
-	      break;
-	
-	    default:
-	      return state;
-	
-	  }
-	
-	  return newState;
-	};
-	
-	var _constants = __webpack_require__(304);
-	
-	// import {convertAlbum, convertAlbums} from '../utils';
-	
-	var initialProductsState = {
-	  list: []
-	};
 
 /***/ }
 /******/ ]);
