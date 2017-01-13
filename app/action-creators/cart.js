@@ -6,11 +6,11 @@ export const receiveCart = cart => ({
     cart
 });
 
-// export const getProductById = albumId => {
-//   return dispatch => {
-//     axios.get(`/api/albums/${albumId}`)
-//       .then(response => {
-//         dispatch(receiveAlbum(response.data));
-//       });
-//   };
-// };
+export const getProductById = productId => {
+  return dispatch => {
+    axios.get(`/api/products/${productId}`)
+      .then(response => {
+        dispatch(receiveProduct(response.data));
+      });
+  };
+};
