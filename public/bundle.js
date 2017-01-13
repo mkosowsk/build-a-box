@@ -99,6 +99,18 @@
 	  _store2.default.dispatch((0, _products.getProductById)(productId));
 	};
 	
+	var onCartEnter = function onCartEnter(nextRouterState) {
+	
+	  // const cartId = nextRouterState.params.cartId;
+	
+	  _axios2.default.get('/api/products').then(function (response) {
+	    return response.data;
+	  }).then(function (products) {
+	    _store2.default.dispatch((0, _products.receiveProducts)(products));
+	  });
+	  _store2.default.dispatch((0, _products.getProductById)(cartId));
+	};
+	
 	// const ExampleApp = connect(
 	//   ({ auth }) => ({ user: auth })
 	// ) (
@@ -122,7 +134,8 @@
 	      { path: '/', component: _App2.default, onEnter: onAppEnter },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/:cartId', component: CartContainer, onEnter: onCartEnter })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -31160,7 +31173,11 @@
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
 	var initialCartState = {
-	  list: []
+	  list: [{
+	    id: 1,
+	    productsId: [1, 2],
+	    totalPrice: 0
+	  }]
 	};
 
 /***/ },
@@ -31170,9 +31187,9 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-	exports.addProductToCart = exports.receiveCart = undefined;
+	exports.getProductById = exports.addProductToCart = exports.receiveCart = undefined;
 	
 	var _constants = __webpack_require__(305);
 	
@@ -31183,17 +31200,17 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var receiveCart = exports.receiveCart = function receiveCart(cart) {
-	    return {
-	        type: _constants.RECEIVE_CART,
-	        cart: cart
-	    };
+	  return {
+	    type: _constants.RECEIVE_CART,
+	    cart: cart
+	  };
 	};
 	
 	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
-	    return {
-	        type: RECEIVE_CARTPRODUCT,
-	        product: product
-	    };
+	  return {
+	    type: RECEIVE_CARTPRODUCT,
+	    product: product
+	  };
 	};
 	
 	// export const getProductById = albumId => {
@@ -31204,6 +31221,14 @@
 	//       });
 	//   };
 	// };
+	
+	var getProductById = exports.getProductById = function getProductById(productId) {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/products/' + productId).then(function (response) {
+	      dispatch(receiveProduct(response.data));
+	    });
+	  };
+	};
 
 /***/ }
 /******/ ]);

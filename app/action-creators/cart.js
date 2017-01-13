@@ -6,6 +6,7 @@ export const receiveCart = cart => ({
     cart
 });
 
+
 export const addProductToCart = product => ({
     type: RECEIVE_CARTPRODUCT,
     product
@@ -19,3 +20,13 @@ export const addProductToCart = product => ({
 //       });
 //   };
 // };
+
+export const getProductById = productId => {
+  return dispatch => {
+    axios.get(`/api/products/${productId}`)
+      .then(response => {
+        dispatch(receiveProduct(response.data));
+      });
+  };
+};
+
