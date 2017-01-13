@@ -31057,7 +31057,7 @@
 	
 		return {
 			addProductToCart: function addProductToCart(product) {
-				axios.post('/api/');
+				store.dispatch();
 			}
 		};
 	};
@@ -31172,7 +31172,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.receiveCart = undefined;
+	exports.addProductToCart = exports.receiveCart = undefined;
 	
 	var _constants = __webpack_require__(305);
 	
@@ -31186,6 +31186,13 @@
 	    return {
 	        type: _constants.RECEIVE_CART,
 	        cart: cart
+	    };
+	};
+	
+	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
+	    return {
+	        type: RECEIVE_CARTPRODUCT,
+	        product: product
 	    };
 	};
 	

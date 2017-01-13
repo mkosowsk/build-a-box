@@ -6,6 +6,11 @@ export const receiveCart = cart => ({
     cart
 });
 
+export const addProductToCart = product => ({
+    type: RECEIVE_CARTPRODUCT,
+    product
+});
+
 // export const getProductById = albumId => {
 //   return dispatch => {
 //     axios.get(`/api/albums/${albumId}`)
