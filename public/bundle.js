@@ -29828,11 +29828,16 @@
 	
 	var _productsReducer2 = _interopRequireDefault(_productsReducer);
 	
+	var _cartReducer = __webpack_require__(309);
+	
+	var _cartReducer2 = _interopRequireDefault(_cartReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  auth: __webpack_require__(295).default,
-	  products: _productsReducer2.default
+	  products: _productsReducer2.default,
+	  cart: _cartReducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -29888,6 +29893,10 @@
 	// Products
 	
 	var RECEIVE_PRODUCTS = exports.RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
+	
+	// Cart
+	
+	var RECEIVE_CART = exports.RECEIVE_CART = 'RECEIVE_CART';
 
 /***/ },
 /* 295 */
@@ -30990,6 +30999,48 @@
 	//       });
 	//   };
 	// };
+
+/***/ },
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialCartState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_CART:
+	      newState.list = action.cart;
+	      break;
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(294);
+	
+	// import {convertAlbum, convertAlbums} from '../utils';
+	
+	var initialCartState = {
+	  list: []
+	};
 
 /***/ }
 /******/ ]);
