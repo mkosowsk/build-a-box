@@ -99,6 +99,18 @@
 	  _store2.default.dispatch((0, _products.getProductById)(productId));
 	};
 	
+	var onCartEnter = function onCartEnter(nextRouterState) {
+	
+	  // const cartId = nextRouterState.params.cartId;
+	
+	  _axios2.default.get('/api/products').then(function (response) {
+	    return response.data;
+	  }).then(function (products) {
+	    _store2.default.dispatch((0, _products.receiveProducts)(products));
+	  });
+	  _store2.default.dispatch((0, _products.getProductById)(cartId));
+	};
+	
 	// const ExampleApp = connect(
 	//   ({ auth }) => ({ user: auth })
 	// ) (
@@ -122,7 +134,8 @@
 	      { path: '/', component: _App2.default, onEnter: onAppEnter },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/:cartId', component: CartContainer, onEnter: onCartEnter })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -31063,7 +31076,11 @@
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
 	var initialCartState = {
-	  list: []
+	  list: [{
+	    id: 1,
+	    productsId: [1, 2],
+	    totalPrice: 0
+	  }]
 	};
 
 /***/ },
