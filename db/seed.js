@@ -54,7 +54,7 @@ const seedProducts = () => db.Promise.map(
 	[{
 		id:1,
 		name: "Intel Megabuster",
-		photoUrl: "fillmurray.com/400/400",
+		photoUrl: "http://www.fillmurray.com/400/400",
 		description: "This is a good cpu",
 		price: "300",
 		category: "CPU",
@@ -62,7 +62,7 @@ const seedProducts = () => db.Promise.map(
 	}, {
 		id:2,
 		name: "Nvidia 2000",
-		photoUrl: "fillmurray.com/400/400",
+		photoUrl: "http://www.fillmurray.com/400/400",
 		description: "This is a good gpu",
 		price: "200",
 		category: "GPU",

@@ -3,7 +3,6 @@ import React from 'react';
 import {Link} from 'react-router';
 
 export default function (props) {
-  console.log('******', props)
   const products = props.products;
 
   return (
