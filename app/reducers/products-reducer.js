@@ -1,11 +1,12 @@
 import {
-  RECEIVE_PRODUCTS
+  RECEIVE_PRODUCTS, RECEIVE_PRODUCT
 } from '../constants';
 
 // import {convertAlbum, convertAlbums} from '../utils';
 
 const initialProductsState = {
-  list: [],
+  selected:{},
+  list: []
 };
 
 export default function (state = initialProductsState, action) {
@@ -17,6 +18,9 @@ export default function (state = initialProductsState, action) {
     case RECEIVE_PRODUCTS:
       newState.list = action.products;
       break;
+    case RECEIVE_PRODUCT:
+      newState.selected = action.product;
+      break;  
 
     default:
       return state;

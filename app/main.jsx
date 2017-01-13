@@ -11,7 +11,8 @@ import store from './store'
 // import Login from './components/Login'
 // import WhoAmI from './components/WhoAmI'
 import ProductsContainer from './containers/ProductsContainer'
-import {receiveProducts} from './action-creators/products'
+import ProductContainer from './containers/ProductContainer'
+import {receiveProducts, getProductById} from './action-creators/products'
 
 const onAppEnter = () => {
 
@@ -22,6 +23,15 @@ const onAppEnter = () => {
       store.dispatch(receiveProducts(products));
     });
 };
+const onProductEnter = (nextRouterState) => {
+
+  const productId = nextRouterState.params.productId;
+  store.dispatch(getProductById(productId));
+
+
+}
+
+
 
 // const ExampleApp = connect(
 //   ({ auth }) => ({ user: auth })
@@ -41,6 +51,7 @@ render (
       <Route path="/" component={App} onEnter={onAppEnter}>
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
+        <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
       </Route>
     </Router>
   </Provider>,
