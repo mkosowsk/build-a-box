@@ -49,7 +49,8 @@ module.exports = require('express').Router()
     })
     .catch(function(err){
       console.log(err)
-    })})
+    })
+  })
     // Product.findById(req.params.id)
     // .then(function (found) {
     //   if (!found) {
