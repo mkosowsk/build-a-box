@@ -72,13 +72,14 @@
 	
 	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
 	
+	var _ProductContainer = __webpack_require__(310);
+	
+	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
+	
 	var _products = __webpack_require__(305);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import Jokes from './components/Jokes'
-	// import Login from './components/Login'
-	// import WhoAmI from './components/WhoAmI'
 	var onAppEnter = function onAppEnter() {
 	
 	  // const products = axios.get('/products');
@@ -87,6 +88,15 @@
 	  }).then(function (products) {
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
 	  });
+	};
+	// import Jokes from './components/Jokes'
+	// import Login from './components/Login'
+	// import WhoAmI from './components/WhoAmI'
+	
+	var onProductEnter = function onProductEnter(nextRouterState) {
+	
+	  var productId = nextRouterState.params.productId;
+	  _store2.default.dispatch((0, _products.getProductById)(productId));
 	};
 	
 	// const ExampleApp = connect(
@@ -111,7 +121,8 @@
 	      _reactRouter.Route,
 	      { path: '/', component: _App2.default, onEnter: onAppEnter },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -29864,6 +29875,9 @@
 	    case _constants.RECEIVE_PRODUCTS:
 	      newState.list = action.products;
 	      break;
+	    case _constants.RECEIVE_PRODUCT:
+	      newState.selected = action.product;
+	      break;
 	
 	    default:
 	      return state;
@@ -29878,6 +29892,7 @@
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
 	var initialProductsState = {
+	  selected: {},
 	  list: []
 	};
 
@@ -29893,6 +29908,10 @@
 	// Products
 	
 	var RECEIVE_PRODUCTS = exports.RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
+	
+	// Product
+	
+	var RECEIVE_PRODUCT = exports.RECEIVE_PRODUCT = 'RECEIVE_PRODUCT';
 	
 	// Cart
 	
@@ -30972,9 +30991,9 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-	exports.receiveProducts = undefined;
+	exports.getProductById = exports.receiveProduct = exports.receiveProducts = undefined;
 	
 	var _constants = __webpack_require__(294);
 	
@@ -30985,20 +31004,25 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var receiveProducts = exports.receiveProducts = function receiveProducts(products) {
-	    return {
-	        type: _constants.RECEIVE_PRODUCTS,
-	        products: products
-	    };
+	  return {
+	    type: _constants.RECEIVE_PRODUCTS,
+	    products: products
+	  };
+	};
+	var receiveProduct = exports.receiveProduct = function receiveProduct(product) {
+	  return {
+	    type: _constants.RECEIVE_PRODUCT,
+	    product: product
+	  };
 	};
 	
-	// export const getProductById = albumId => {
-	//   return dispatch => {
-	//     axios.get(`/api/albums/${albumId}`)
-	//       .then(response => {
-	//         dispatch(receiveAlbum(response.data));
-	//       });
-	//   };
-	// };
+	var getProductById = exports.getProductById = function getProductById(productId) {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/products/' + productId).then(function (response) {
+	      dispatch(receiveProduct(response.data));
+	    });
+	  };
+	};
 
 /***/ },
 /* 306 */,
@@ -31041,6 +31065,89 @@
 	var initialCartState = {
 	  list: []
 	};
+
+/***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _Product = __webpack_require__(311);
+	
+	var _Product2 = _interopRequireDefault(_Product);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			selectedProduct: state.products.selected
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Product2.default);
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function (props) {
+	
+		var product = props.selectedProduct;
+	
+		return _react2.default.createElement(
+			'div',
+			{ className: 'product' },
+			_react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h3',
+					null,
+					product.name
+				),
+				_react2.default.createElement('img', { src: product.photoUrl, className: 'img-thumbnail' }),
+				_react2.default.createElement(
+					'h4',
+					null,
+					product.description
+				),
+				_react2.default.createElement(
+					'h4',
+					null,
+					'$ ',
+					product.price
+				),
+				_react2.default.createElement(
+					'h4',
+					null,
+					product.stars
+				),
+				_react2.default.createElement(
+					'button',
+					{ type: 'submit', className: 'btn btn-primary', onclick: props.addProductToCart },
+					'Add to Cart'
+				)
+			)
+		);
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ]);
