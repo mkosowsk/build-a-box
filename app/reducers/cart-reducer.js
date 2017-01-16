@@ -5,11 +5,8 @@ import {
 // import {convertAlbum, convertAlbums} from '../utils';
 
 const initialCartState = {
-  list: [{
-    id: 1,
-    productsId: [1, 2],
-    totalPrice: 0 
-}],
+  list: [],
+
 };
 
 export default function (state = initialCartState, action) {
@@ -19,8 +16,10 @@ export default function (state = initialCartState, action) {
   switch (action.type) {
 
     case RECEIVE_CART:
-      newState.list = action.cart;
+       newState.list = [...newState.list,action.cart];
+      
       break;
+
 
     default:
       return state;

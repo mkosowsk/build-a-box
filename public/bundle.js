@@ -80,13 +80,19 @@
 	
 	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
 	
+	var _CartContainer = __webpack_require__(312);
+	
+	var _CartContainer2 = _interopRequireDefault(_CartContainer);
+	
 	var _products = __webpack_require__(314);
 	
 	var _reviews = __webpack_require__(315);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// 'use strict'
+	// import Jokes from './components/Jokes'
+	// import Login from './components/Login'
+	// import WhoAmI from './components/WhoAmI'
 	var onAppEnter = function onAppEnter() {
 	
 	  // const products = axios.get('/products');
@@ -95,10 +101,7 @@
 	  }).then(function (products) {
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
 	  });
-	};
-	// import Jokes from './components/Jokes'
-	// import Login from './components/Login'
-	// import WhoAmI from './components/WhoAmI'
+	}; // 'use strict'
 	
 	
 	var onProductEnter = function onProductEnter(nextRouterState) {
@@ -117,7 +120,7 @@
 	
 	  // const cartId = nextRouterState.params.cartId;
 	
-	  _axios2.default.get('/api/products').then(function (response) {
+	  _axios2.default.get('/api/cart').then(function (response) {
 	    return response.data;
 	  }).then(function (products) {
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
@@ -156,7 +159,9 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/category/:categoryId', component: _ProductsContainer2.default, onEnter: onCategoryEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/cart/:cartId', component: _CartContainer2.default })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -30163,7 +30168,8 @@
 	  switch (action.type) {
 	
 	    case _constants.RECEIVE_CART:
-	      newState.list = action.cart;
+	      newState.list = [].concat(_toConsumableArray(newState.list), [action.cart]);
+	
 	      break;
 	
 	    default:
@@ -30176,14 +30182,13 @@
 	
 	var _constants = __webpack_require__(294);
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
 	var initialCartState = {
-	  list: [{
-	    id: 1,
-	    productsId: [1, 2],
-	    totalPrice: 0
-	  }]
+	  list: []
+	
 	};
 
 /***/ },
@@ -31316,6 +31321,10 @@
 	
 	var _cart = __webpack_require__(309);
 	
+	var _store = __webpack_require__(291);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -31328,12 +31337,12 @@
 	
 		return {
 			addProductToCart: function addProductToCart(product) {
-				store.dispatch();
+				_store2.default.dispatch((0, _cart.addProductToCart)(product));
 			}
 		};
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Product2.default);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Product2.default);
 
 /***/ },
 /* 308 */
@@ -31349,7 +31358,7 @@
 	
 		var product = props.selectedProduct;
 		var addProductToCart = props.addProductToCart;
-		console.log(props);
+	
 		return _react2.default.createElement(
 			'div',
 			{ className: 'product' },
@@ -31413,9 +31422,9 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	exports.getProductById = exports.addProductToCart = exports.receiveCart = undefined;
+	exports.getProductsOfUser = exports.removeProductFromCart = exports.addProductToCart = exports.receiveCart = undefined;
 	
 	var _constants = __webpack_require__(294);
 	
@@ -31426,17 +31435,27 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var receiveCart = exports.receiveCart = function receiveCart(cart) {
-	  return {
-	    type: _constants.RECEIVE_CART,
-	    cart: cart
-	  };
+	    return {
+	        type: _constants.RECEIVE_CART,
+	        cart: cart
+	    };
 	};
 	
 	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
-	  return {
-	    type: RECEIVE_CARTPRODUCT,
-	    product: product
-	  };
+	    return function (dispatch) {
+	
+	        _axios2.default.post('/api/cart/', { product: product }).then(function () {
+	            dispatch(receiveCart(product));
+	        });
+	    };
+	};
+	
+	var removeProductFromCart = exports.removeProductFromCart = function removeProductFromCart(product) {
+	    return function (dispatch) {
+	        _axios2.default.post('/api/cart/', { product: product }).then(function (response) {
+	            dispatch(receiveCart(response.data));
+	        });
+	    };
 	};
 	
 	// export const getProductById = albumId => {
@@ -31448,12 +31467,12 @@
 	//   };
 	// };
 	
-	var getProductById = exports.getProductById = function getProductById(productId) {
-	  return function (dispatch) {
-	    _axios2.default.get('/api/products/' + productId).then(function (response) {
-	      dispatch(receiveProduct(response.data));
-	    });
-	  };
+	var getProductsOfUser = exports.getProductsOfUser = function getProductsOfUser(productId) {
+	    return function (dispatch) {
+	        _axios2.default.get('/api/products/' + productId).then(function (response) {
+	            dispatch(receiveProduct(response.data));
+	        });
+	    };
 	};
 
 /***/ },
@@ -31558,8 +31577,67 @@
 	// </Link>
 
 /***/ },
-/* 312 */,
-/* 313 */,
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _Cart = __webpack_require__(313);
+	
+	var _Cart2 = _interopRequireDefault(_Cart);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			selectedCart: state.cart.list
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function (props) {
+	
+		var cart = props.selectedCart;
+	
+		return _react2.default.createElement(
+			'div',
+			{ className: 'cart' },
+			_react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h3',
+					null,
+					cart[0]
+				)
+			)
+		);
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
 /* 314 */
 /***/ function(module, exports, __webpack_require__) {
 

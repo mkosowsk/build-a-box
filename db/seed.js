@@ -319,12 +319,12 @@ const seedProducts = () => db.Promise.map(
 		stock: 55
 	}], product => db.model('products').create(product))
 
-const seedCart = () => db.Promise.map(
-	[{
-		id: 1,
-		products: [1, 2],
-		totalPrice: 0 
-}], cart => db.model('carts').create(cart))
+// const seedCart = () => db.Promise.map(
+// 	[{
+// 		id: 1,
+// 		products: [1, 2],
+// 		totalPrice: 0 
+// }], cart => db.model('carts').create(cart))
 
 
 db.didSync
@@ -337,8 +337,8 @@ db.didSync
 	.then((products) => console.log(`Seeded ${products.length} products OK`))
 	.then(seedReviews)
 	.then((reviews) => console.log(`Seeded ${reviews.length} reviews OK`))
-	.then(seedCart)
-	.then((cart) => console.log(`Seeded cart with ${cart[0].totalPrice} products OK`))
+	// .then(seedCart)
+	// .then((cart) => console.log(`Seeded cart with ${cart[0].totalPrice} products OK`))
 	.catch(error => console.error(error))
 	.finally(() => db.close())
 
