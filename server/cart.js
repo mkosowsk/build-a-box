@@ -14,21 +14,37 @@ module.exports = require('express').Router()
     var product = req.body;
     // if(req.user){
     
-    req.session.product = product;
-    console.log("HEADER:",  req.headers.cookie, "SESSION:" ,req.session)
-      if(req.session){
-        
-        var guest = {
-          guestId: req.headers.cookie
-        };
-
-       Guest.create(guest).then(function(guest){
-          Product.findById(req.body.product.id).then(function(product){
-            return guest.addProduct(product);
-          }).then(() => {
-            res.send('Finished')
-          })
-        }).catch(next);
+    // req.session.product = product;
+    
+      
+      let tempGuest;
+      if(!req.session.id){
+       Guest.create()
+       .then(function(guest){
+          req.session.id = guest.id;
+          tempGuest = guest;
+          return Product.findById(req.body.product.id)
+        })
+        .then(function(product){
+          console.log('PRODUCT', product)
+          return tempGuest.addProduct(product);
+        }).then(() => {
+          res.send('Finished')
+        })
+          .catch(next);
+    } else {
+      Guest.findById(req.session.id)
+      .then(function(foundGuest) {
+        tempGuest = foundGuest;
+        return Product.findById(req.body.product.id)
+      })
+      .then(function(product) {
+        return tempGuest.addProduct(product);
+      })
+      .then(() => {
+        res.send('Finished')
+      })
+      .catch(next);
     }
   })
     

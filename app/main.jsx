@@ -84,7 +84,7 @@ render (
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
         <Route path="/products/:productId/reviews" component={ReviewsContainer} onEnter={onReviewsEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
-        <Route path="/cart/:cartId" component={CartContainer} />
+        <Route path="/cart" component={CartContainer} />
       </Route>
     </Router>
   </Provider>,

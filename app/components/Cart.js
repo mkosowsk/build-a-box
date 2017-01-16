@@ -3,7 +3,7 @@ import React from 'react';
 export default function (props) {
 
 	const cart = props.selectedCart;
-
+	console.log(cart)
 	return ( 
 		<div className='cart'>
 			<div>
