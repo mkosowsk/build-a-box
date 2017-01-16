@@ -31070,7 +31070,7 @@
 	
 		return {
 			addProductToCart: function addProductToCart(product) {
-				store.dispatch();
+				store.dispatch((0, _cart.addProductToCart)(product));
 			}
 		};
 	};
@@ -31173,11 +31173,7 @@
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
 	var initialCartState = {
-	  list: [{
-	    id: 1,
-	    productsId: [1, 2],
-	    totalPrice: 0
-	  }]
+	  list: []
 	};
 
 /***/ },
@@ -31189,7 +31185,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getProductById = exports.addProductToCart = exports.receiveCart = undefined;
+	exports.getProductsOfUser = exports.addProductToCart = exports.receiveCart = undefined;
 	
 	var _constants = __webpack_require__(305);
 	
@@ -31207,9 +31203,10 @@
 	};
 	
 	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
-	  return {
-	    type: RECEIVE_CARTPRODUCT,
-	    product: product
+	  return function (dispatch) {
+	    _axios2.default.post('/api/cart/', { product: product }).then(function (response) {
+	      dispatch(receiveCart(response.data));
+	    });
 	  };
 	};
 	
@@ -31222,7 +31219,7 @@
 	//   };
 	// };
 	
-	var getProductById = exports.getProductById = function getProductById(productId) {
+	var getProductsOfUser = exports.getProductsOfUser = function getProductsOfUser(productId) {
 	  return function (dispatch) {
 	    _axios2.default.get('/api/products/' + productId).then(function (response) {
 	      dispatch(receiveProduct(response.data));

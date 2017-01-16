@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
 	return{
 		
 		addProductToCart (product){
-		 store.dispatch()
+		 store.dispatch(addProductToCart(product));
 		}
 	}
 }
