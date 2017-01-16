@@ -5,7 +5,7 @@ export default function (props) {
 
 	const product = props.selectedProduct;
 	const addProductToCart = props.addProductToCart;
-	console.log(props)
+
 	return ( 
 		<div className='product'>
 			<div>
