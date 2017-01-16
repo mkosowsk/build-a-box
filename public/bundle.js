@@ -78,8 +78,15 @@
 	
 	var _products = __webpack_require__(308);
 	
+	var _CartContainer = __webpack_require__(313);
+	
+	var _CartContainer2 = _interopRequireDefault(_CartContainer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// import Jokes from './components/Jokes'
+	// import Login from './components/Login'
+	// import WhoAmI from './components/WhoAmI'
 	var onAppEnter = function onAppEnter() {
 	
 	  // const products = axios.get('/products');
@@ -89,10 +96,6 @@
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
 	  });
 	};
-	// import Jokes from './components/Jokes'
-	// import Login from './components/Login'
-	// import WhoAmI from './components/WhoAmI'
-	
 	var onProductEnter = function onProductEnter(nextRouterState) {
 	
 	  var productId = nextRouterState.params.productId;
@@ -103,7 +106,7 @@
 	
 	  // const cartId = nextRouterState.params.cartId;
 	
-	  _axios2.default.get('/api/products').then(function (response) {
+	  _axios2.default.get('/api/cart').then(function (response) {
 	    return response.data;
 	  }).then(function (products) {
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
@@ -135,7 +138,7 @@
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/:cartId', component: CartContainer, onEnter: onCartEnter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/:cartId', component: _CartContainer2.default })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -31058,6 +31061,10 @@
 	
 	var _cart = __webpack_require__(312);
 	
+	var _store = __webpack_require__(264);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -31070,12 +31077,12 @@
 	
 		return {
 			addProductToCart: function addProductToCart(product) {
-				store.dispatch((0, _cart.addProductToCart)(product));
+				_store2.default.dispatch((0, _cart.addProductToCart)(product));
 			}
 		};
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Product2.default);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Product2.default);
 
 /***/ },
 /* 310 */
@@ -31091,7 +31098,7 @@
 	
 		var product = props.selectedProduct;
 		var addProductToCart = props.addProductToCart;
-	
+		console.log(props);
 		return _react2.default.createElement(
 			'div',
 			{ className: 'product' },
@@ -31122,7 +31129,7 @@
 				),
 				_react2.default.createElement(
 					'button',
-					{ type: 'submit', className: 'btn btn-primary', onclick: function onclick() {
+					{ type: 'submit', className: 'btn btn-primary', onClick: function onClick() {
 							return addProductToCart(product);
 						} },
 					'Add to Cart'
@@ -31157,7 +31164,8 @@
 	  switch (action.type) {
 	
 	    case _constants.RECEIVE_CART:
-	      newState.list = action.cart;
+	      newState.list = [].concat(_toConsumableArray(newState.list), [action.cart]);
+	
 	      break;
 	
 	    default:
@@ -31170,10 +31178,13 @@
 	
 	var _constants = __webpack_require__(305);
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
 	var initialCartState = {
 	  list: []
+	
 	};
 
 /***/ },
@@ -31183,9 +31194,9 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	exports.getProductsOfUser = exports.addProductToCart = exports.receiveCart = undefined;
+	exports.getProductsOfUser = exports.removeProductFromCart = exports.addProductToCart = exports.receiveCart = undefined;
 	
 	var _constants = __webpack_require__(305);
 	
@@ -31196,18 +31207,27 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var receiveCart = exports.receiveCart = function receiveCart(cart) {
-	  return {
-	    type: _constants.RECEIVE_CART,
-	    cart: cart
-	  };
+	    return {
+	        type: _constants.RECEIVE_CART,
+	        cart: cart
+	    };
 	};
 	
 	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
-	  return function (dispatch) {
-	    _axios2.default.post('/api/cart/', { product: product }).then(function (response) {
-	      dispatch(receiveCart(response.data));
-	    });
-	  };
+	    return function (dispatch) {
+	
+	        _axios2.default.post('/api/cart/', { product: product }).then(function () {
+	            dispatch(receiveCart(product));
+	        });
+	    };
+	};
+	
+	var removeProductFromCart = exports.removeProductFromCart = function removeProductFromCart(product) {
+	    return function (dispatch) {
+	        _axios2.default.post('/api/cart/', { product: product }).then(function (response) {
+	            dispatch(receiveCart(response.data));
+	        });
+	    };
 	};
 	
 	// export const getProductById = albumId => {
@@ -31220,12 +31240,73 @@
 	// };
 	
 	var getProductsOfUser = exports.getProductsOfUser = function getProductsOfUser(productId) {
-	  return function (dispatch) {
-	    _axios2.default.get('/api/products/' + productId).then(function (response) {
-	      dispatch(receiveProduct(response.data));
-	    });
-	  };
+	    return function (dispatch) {
+	        _axios2.default.get('/api/products/' + productId).then(function (response) {
+	            dispatch(receiveProduct(response.data));
+	        });
+	    };
 	};
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _Cart = __webpack_require__(314);
+	
+	var _Cart2 = _interopRequireDefault(_Cart);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			selectedCart: state.cart.list
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
+
+/***/ },
+/* 314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function (props) {
+	
+		var cart = props.selectedCart;
+	
+		return _react2.default.createElement(
+			'div',
+			{ className: 'cart' },
+			_react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h3',
+					null,
+					cart.products
+				)
+			)
+		);
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ]);

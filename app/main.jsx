@@ -13,6 +13,7 @@ import store from './store'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
 import {receiveProducts, getProductById} from './action-creators/products'
+import CartContainer from './containers/CartContainer';
 
 const onAppEnter = () => {
 
@@ -34,7 +35,7 @@ const onCartEnter = (nextRouterState) => {
 
   // const cartId = nextRouterState.params.cartId;
 
-  axios.get('/api/products')
+  axios.get('/api/cart')
     .then(response => response.data)
     .then(products => {
       store.dispatch(receiveProducts(products));
@@ -63,7 +64,7 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
-        <Route path="/:cartId" component={CartContainer} onEnter={onCartEnter}/>
+        <Route path="/:cartId" component={CartContainer} />
       </Route>
     </Router>
   </Provider>,

@@ -9,6 +9,16 @@ export const receiveCart = cart => ({
 
 export const addProductToCart = product => {
     return dispatch => {
+
+    	axios.post('/api/cart/', {product})
+    		.then(() => {
+    			dispatch(receiveCart(product));
+    		});
+    };
+};
+
+export const removeProductFromCart = product => {
+    return dispatch => {
     	axios.post(`/api/cart/`, {product})
     		.then(response => {
     			dispatch(receiveCart(response.data));

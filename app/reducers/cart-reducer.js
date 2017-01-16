@@ -6,6 +6,7 @@ import {
 
 const initialCartState = {
   list: [],
+
 };
 
 export default function (state = initialCartState, action) {
@@ -15,10 +16,11 @@ export default function (state = initialCartState, action) {
   switch (action.type) {
 
     case RECEIVE_CART:
-      newState.list = action.cart;
+       newState.list = [...newState.list,action.cart];
+      
       break;
 
-    
+
     default:
       return state;
 

@@ -1,7 +1,7 @@
 import Product from '../components/Product';
 import { connect } from 'react-redux';
 import {receiveCart, addProductToCart} from '../action-creators/cart';
-
+import store from '../store';
 
 
 
@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
