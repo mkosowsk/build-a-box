@@ -76,7 +76,13 @@
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
+	var _ReviewsContainer = __webpack_require__(311);
+	
+	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
+	
 	var _products = __webpack_require__(309);
+	
+	var _reviews = __webpack_require__(313);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -98,6 +104,11 @@
 	
 	  var productId = nextRouterState.params.productId;
 	  _store2.default.dispatch((0, _products.getProductById)(productId));
+	};
+	var onReviewsEnter = function onReviewsEnter(nextRouterState) {
+	
+	  var productId = nextRouterState.params.productId;
+	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)(productId));
 	};
 	
 	var onCartEnter = function onCartEnter(nextRouterState) {
@@ -135,7 +146,8 @@
 	      { path: '/', component: _App2.default, onEnter: onAppEnter },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -29875,12 +29887,17 @@
 	
 	var _cartReducer2 = _interopRequireDefault(_cartReducer);
 	
+	var _reviewsReducer = __webpack_require__(310);
+	
+	var _reviewsReducer2 = _interopRequireDefault(_reviewsReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  auth: __webpack_require__(296).default,
 	  products: _productsReducer2.default,
-	  cart: _cartReducer2.default
+	  cart: _cartReducer2.default,
+	  reviews: _reviewsReducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -31145,7 +31162,7 @@
 				),
 				_react2.default.createElement(
 					'button',
-					{ type: 'submit', className: 'btn btn-primary', onclick: function onclick() {
+					{ type: 'submit', className: 'btn btn-primary', onClick: function onClick() {
 							return addProductToCart(product);
 						} },
 					'Add to Cart'
@@ -31246,6 +31263,184 @@
 	  return function (dispatch) {
 	    _axios2.default.get('/api/products/' + productId).then(function (response) {
 	      dispatch(receiveProduct(response.data));
+	    });
+	  };
+	};
+
+/***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialReviewsState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_REVIEWS:
+	      newState.list = action.reviews;
+	      break;
+	    // case RECEIVE_PRODUCT:
+	    //   newState.selected = action.product;
+	    //   break;  
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(294);
+	
+	// import {convertAlbum, convertAlbums} from '../utils';
+	
+	var initialReviewsState = {
+	  // selected:{},
+	  list: []
+	};
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _Reviews = __webpack_require__(312);
+	
+	var _Reviews2 = _interopRequireDefault(_Reviews);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    reviews: state.reviews.list
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Reviews2.default);
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (props) {
+	  var reviews = props.reviews;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Reviews'
+	      ),
+	      reviews && reviews.map(function (review) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-4', key: review.id },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                review.title
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              review.content,
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              'Rating: ',
+	              review.stars,
+	              ' '
+	            )
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	;
+	
+	// Add photo of product
+	// <Link className="thumbnail" to={`/products/${product.id}`}>
+	//   <img src={ product.photoUrl }/>
+	// </Link>
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getReviewsByProductId = exports.receiveReviews = undefined;
+	
+	var _constants = __webpack_require__(294);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var receiveReviews = exports.receiveReviews = function receiveReviews(reviews) {
+	  return {
+	    type: _constants.RECEIVE_REVIEWS,
+	    reviews: reviews
+	  };
+	};
+	
+	var getReviewsByProductId = exports.getReviewsByProductId = function getReviewsByProductId(productId) {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/products/' + productId + '/reviews').then(function (response) {
+	      dispatch(receiveReviews(response.data));
 	    });
 	  };
 	};

@@ -13,7 +13,7 @@ export default function (props) {
 				<h4>{ product.description }</h4>
 				<h4>$ { product.price }</h4>
 				<h4>{ product.stars }</h4>
-				<button type="submit" className="btn btn-primary" onclick={() => addProductToCart(product)}>Add to Cart</button>
+				<button type="submit" className="btn btn-primary" onClick={() => addProductToCart(product)}>Add to Cart</button>
 			</div>
 		</div>
 	);
