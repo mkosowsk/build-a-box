@@ -1,4 +1,4 @@
-'use strict'
+// 'use strict'
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
 import {render} from 'react-dom'
@@ -63,7 +63,6 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
-        <Route path="/:cartId" component={CartContainer} onEnter={onCartEnter}/>
       </Route>
     </Router>
   </Provider>,
