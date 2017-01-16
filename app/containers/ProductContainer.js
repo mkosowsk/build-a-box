@@ -1,6 +1,6 @@
 import Product from '../components/Product';
 import { connect } from 'react-redux';
-import {receiveCart} from '../action-creators/cart';
+import {receiveCart, addProductToCart} from '../action-creators/cart';
 
 
 
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
 	return{
 		
 		addProductToCart (product){
-		 axios.post('/api/')
+		 store.dispatch()
 		}
 	}
 }

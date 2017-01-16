@@ -6,6 +6,12 @@ export const receiveCart = cart => ({
     cart
 });
 
+
+export const addProductToCart = product => ({
+    type: RECEIVE_CARTPRODUCT,
+    product
+});
+
 // export const getProductById = albumId => {
 //   return dispatch => {
 //     axios.get(`/api/albums/${albumId}`)
@@ -14,3 +20,13 @@ export const receiveCart = cart => ({
 //       });
 //   };
 // };
+
+export const getProductById = productId => {
+  return dispatch => {
+    axios.get(`/api/products/${productId}`)
+      .then(response => {
+        dispatch(receiveProduct(response.data));
+      });
+  };
+};
+

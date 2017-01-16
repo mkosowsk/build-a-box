@@ -13,25 +13,25 @@ module.exports = db.define('carts', {
 		// Array of product_id's
 	},
 	totalPrice: {
-		type: Sequelize.VIRTUAL,
+		type: Sequelize.INTEGER,
 		defaultValue: 0
 	}
-// }, 
-// {
-// 	hooks: {
-// 		afterCreate: 
-// 			function setTotalPrice (cart) {
-// 				var total = 0
-// 				cart.products.forEach((product) => {
-// 					Product.findOne({
-// 						where: { id: product}
-// 						})
-// 					.then((foundProduct) => {
-// 						total += foundProduct.price
-// 					})
-// 				})
-// 				cart.totalPrice = total
-// 			}
-// 	}
+}, 
+{
+	hooks: {
+		afterUpdate: 
+			function setTotalPrice (cart) {
+				var total = 0
+				cart.products.forEach((product) => {
+					Product.findOne({
+						where: { id: product}
+						})
+					.then((foundProduct) => {
+						total += foundProduct.price
+					})
+				})
+				cart.totalPrice = total
+			}
+	}
 })
 

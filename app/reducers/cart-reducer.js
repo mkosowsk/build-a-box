@@ -5,7 +5,11 @@ import {
 // import {convertAlbum, convertAlbums} from '../utils';
 
 const initialCartState = {
-  list: [],
+  list: [{
+    id: 1,
+    productsId: [1, 2],
+    totalPrice: 0 
+}],
 };
 
 export default function (state = initialCartState, action) {

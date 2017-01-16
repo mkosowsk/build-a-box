@@ -28,9 +28,20 @@ const onProductEnter = (nextRouterState) => {
   const productId = nextRouterState.params.productId;
   store.dispatch(getProductById(productId));
 
-
 }
 
+const onCartEnter = (nextRouterState) => {
+
+  // const cartId = nextRouterState.params.cartId;
+
+  axios.get('/api/products')
+    .then(response => response.data)
+    .then(products => {
+      store.dispatch(receiveProducts(products));
+    });
+  store.dispatch(getProductById(cartId));
+
+}
 
 
 // const ExampleApp = connect(
@@ -52,6 +63,7 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
+        <Route path="/:cartId" component={CartContainer} onEnter={onCartEnter}/>
       </Route>
     </Router>
   </Provider>,
