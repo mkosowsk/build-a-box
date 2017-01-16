@@ -9,6 +9,9 @@ export default function (props) {
       <h1 className="logo">Build-A-Box</h1>
   
       <div className="menu">
+        <Link to='/cart'>
+          <span>My Cart</span>
+        </Link> 
         <Link>
           <span>LOGIN</span>
         </Link>

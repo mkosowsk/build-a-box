@@ -17,6 +17,7 @@ export default function (state = initialCartState, action) {
 
     case RECEIVE_CART:
        newState.list = [...newState.list,action.cart];
+       
       
       break;
 
