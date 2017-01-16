@@ -21,7 +21,7 @@ export default function (props) {
                   </h3>
                   <h5>{ product.description } </h5>
                   <h5>${ product.price }.00 </h5>
-                  <h5>Category: { product.category } </h5>
+                  <h5>Category:  { product.category } </h5>
                   <h5>{ product.stock } in stock</h5>
                 </div>
             </div>
