@@ -80,9 +80,9 @@
 	
 	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
 	
-	var _products = __webpack_require__(312);
+	var _products = __webpack_require__(314);
 	
-	var _reviews = __webpack_require__(313);
+	var _reviews = __webpack_require__(315);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31271,7 +31271,7 @@
 	            _react2.default.createElement(
 	              'h5',
 	              null,
-	              'Category: ',
+	              'Category:  ',
 	              product.category,
 	              ' '
 	            ),
@@ -31558,7 +31558,9 @@
 	// </Link>
 
 /***/ },
-/* 312 */
+/* 312 */,
+/* 313 */,
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31606,7 +31608,7 @@
 	};
 
 /***/ },
-/* 313 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
