@@ -31442,7 +31442,6 @@
 	
 	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
 	    return function (dispatch) {
-	
 	        _axios2.default.post('/api/cart/', { product: product }).then(function () {
 	            dispatch(receiveCart(product));
 	        });
@@ -31456,15 +31455,6 @@
 	        });
 	    };
 	};
-	
-	// export const getProductById = albumId => {
-	//   return dispatch => {
-	//     axios.get(`/api/albums/${albumId}`)
-	//       .then(response => {
-	//         dispatch(receiveAlbum(response.data));
-	//       });
-	//   };
-	// };
 	
 	var getProductsOfUser = exports.getProductsOfUser = function getProductsOfUser(productId) {
 	    return function (dispatch) {
