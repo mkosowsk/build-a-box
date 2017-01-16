@@ -18,6 +18,7 @@ export default function (state = initialCartState, action) {
       newState.list = action.cart;
       break;
 
+    
     default:
       return state;
 
