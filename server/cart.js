@@ -15,17 +15,24 @@ module.exports = require('express').Router()
     // if(req.user){
     
     req.session.product = product;
-    console.log("HEY",  req.headers.cookie, req.session)
+    //console.log("HEY",  req.headers.cookie, req.session)
       if(req.session){
         
         var guest = {
-          guestId: '1'
+          guestId: 'w'
 
         };
 
-        Guest.create(guest).then(function(guest){
+       Guest.create(guest).then(function(guest){
           console.log("IM AN GUEST", guest);
-         guest.addProduct({product});
+          console.log("IM A PRODUCT", req.body);
+
+          Product.findById(req.body.product.id).then(function(product){
+            console.log("IN PRODUCT", product);
+            return guest.addProduct(product);
+
+          })
+         
 
         }).catch(next);
     }
