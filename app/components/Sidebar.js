@@ -12,22 +12,37 @@ export default function (props) {
       </Link>
       <section>
         <h4 className="menu-item">
-          <Link to='/motherboards'>Motherboards</Link>
+          <Link to='/products/category/Motherboard'>Motherboards</Link>
         </h4>
       </section>
       <section>
         <h4 className="menu-item">
-          <Link to='/CPUs'>CPUs</Link>
+          <Link to='/products/category/CPU'>CPUs</Link>
         </h4>
       </section>
       <section>
         <h4 className="menu-item">
-          <Link to='/Cases'>Cases</Link>
+          <Link to='/products/category/GPU'>GPUs</Link>
+        </h4>
+      </section>
+       <section>
+        <h4 className="menu-item">
+          <Link to='/products/category/RAM'>RAM</Link>
+        </h4>
+      </section>
+       <section>
+        <h4 className="menu-item">
+          <Link to='/products/category/HDD'>HDDs</Link>
+        </h4>
+      </section>
+       <section>
+        <h4 className="menu-item">
+          <Link to='/products/category/SSD'>SSDs</Link>
         </h4>
       </section>
       <section>
         <h4 className="menu-item">
-          <Link to='/GPUs'>GPUs</Link>
+          <Link to='/products/category/Case'>Cases</Link>
         </h4>
       </section>
     </sidebar>

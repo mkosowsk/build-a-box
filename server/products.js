@@ -15,22 +15,22 @@ module.exports = require('express').Router()
       product: product,
     }))
     .catch(next))
-  .get('/:id', (req, res, next) => 
-    Product.findById(req.params.id)
-    .then(foundProduct => {
-      if (!foundProduct) res.sendStatus(404);
-      else res.json(foundProduct)
-    })
-    .catch(next))
-  .get('/:category', (req, res, next) => 
-    Product.findByAll({
+  .get('/category/:categoryId', (req, res, next) =>  
+    Product.findAll({
       where: {
-        category: req.params.category,
+        category: req.params.categoryId,
       }
     })
     .then(products => {
       if (!products) res.sendStatus(404);
       else res.json(products)
+    })
+    .catch(next))
+  .get('/:id', (req, res, next) => 
+    Product.findById(req.params.id)
+    .then(foundProduct => {
+      if (!foundProduct) res.sendStatus(404);
+      else res.json(foundProduct)
     })
     .catch(next))
   .put('/:id', (req, res, next) => {

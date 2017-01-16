@@ -18,3 +18,12 @@ export const getProductById = productId => {
       });
   };
 };
+
+export const getProductsByCategory = categoryId => {
+  return dispatch => {
+    axios.get(`/api/products/category/${categoryId}`)
+      .then(response => {
+        dispatch(receiveProducts(response.data));
+      });
+  };
+};

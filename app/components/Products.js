@@ -16,13 +16,13 @@ export default function (props) {
                 <img src={ product.photoUrl }/>
               </Link>
               <div>
-                  <h5>
+                  <h3>
                     <span>{ product.name }</span>
-                  </h5>
-                  <small>{ product.description } </small>
-                  <small>{ product.price } </small>
-                  <small>{ product.category } </small>
-                  <small>{ product.stock } in stock</small>
+                  </h3>
+                  <h5>{ product.description } </h5>
+                  <h5>${ product.price }.00 </h5>
+                  <h5>Category:  { product.category } </h5>
+                  <h5>{ product.stock } in stock</h5>
                 </div>
             </div>
           ))
