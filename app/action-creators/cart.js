@@ -7,10 +7,24 @@ export const receiveCart = cart => ({
 });
 
 
-export const addProductToCart = product => ({
-    type: RECEIVE_CARTPRODUCT,
-    product
-});
+export const addProductToCart = product => {
+    return dispatch => {
+
+    	axios.post('/api/cart/', {product})
+    		.then(() => {
+    			dispatch(receiveCart(product));
+    		});
+    };
+};
+
+export const removeProductFromCart = product => {
+    return dispatch => {
+    	axios.post(`/api/cart/`, {product})
+    		.then(response => {
+    			dispatch(receiveCart(response.data));
+    		});
+    };
+};
 
 // export const getProductById = albumId => {
 //   return dispatch => {
@@ -21,7 +35,7 @@ export const addProductToCart = product => ({
 //   };
 // };
 
-export const getProductById = productId => {
+export const getProductsOfUser = productId => {
   return dispatch => {
     axios.get(`/api/products/${productId}`)
       .then(response => {
