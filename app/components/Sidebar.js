@@ -3,9 +3,13 @@ import {Link} from 'react-router';
 
 export default function (props) {
 
+  const image = "monitor.svg"
+
   return (
     <sidebar>
-      <img src="monitor.svg" className="logo"/>
+      <Link to='/'>
+        <img src={`${image}`} className="logo"/>
+      </Link>
       <section>
         <h4 className="menu-item">
           <Link to='/motherboards'>Motherboards</Link>

@@ -29871,10 +29871,16 @@
 	
 	exports.default = function (props) {
 	
+	  var image = "monitor.svg";
+	
 	  return _react2.default.createElement(
 	    'sidebar',
 	    null,
-	    _react2.default.createElement('img', { src: 'monitor.svg', className: 'logo' }),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/' },
+	      _react2.default.createElement('img', { src: '' + image, className: 'logo' })
+	    ),
 	    _react2.default.createElement(
 	      'section',
 	      null,
