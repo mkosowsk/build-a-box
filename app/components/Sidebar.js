@@ -5,7 +5,7 @@ export default function (props) {
 
   return (
     <sidebar>
-      <img src="juke.svg" className="logo"/>
+      <img src="monitor.svg" className="logo"/>
       <section>
         <h4 className="menu-item">
           <Link to='/motherboards'>Motherboards</Link>

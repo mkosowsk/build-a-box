@@ -5,12 +5,18 @@ export default function (props) {
 
   return (
     <header>
-
-      <h1>Build-A-Box</h1>
-      <div className="loginRegister">
-        <button className="headerButton">Login</button>
-        <button className="headerButton">Register</button>
+      
+      <h1 className="logo">Build-A-Box</h1>
+  
+      <div className="menu">
+        <Link>
+          <span>LOGIN</span>
+        </Link>
+        <Link>
+          <span>REGISTER</span>
+        </Link> 
       </div>
+      <div className="clear"></div>
       {/*<img src="juke.svg" className="logo"/>
       <section>
         <h4 className="menu-item">
