@@ -12,7 +12,9 @@ import store from './store'
 // import WhoAmI from './components/WhoAmI'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
+import ReviewsContainer from './containers/ReviewsContainer'
 import {receiveProducts, getProductById} from './action-creators/products'
+import {receiveReviews, getReviewsByProductId} from './action-creators/reviews'
 
 const onAppEnter = () => {
 
@@ -27,6 +29,12 @@ const onProductEnter = (nextRouterState) => {
 
   const productId = nextRouterState.params.productId;
   store.dispatch(getProductById(productId));
+
+}
+const onReviewsEnter = (nextRouterState) => {
+
+  const productId = nextRouterState.params.productId;
+  store.dispatch(getReviewsByProductId(productId));
 
 }
 
@@ -62,7 +70,8 @@ render (
       <Route path="/" component={App} onEnter={onAppEnter}>
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
-        <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
+        <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
+        <Route path="/products/:productId/reviews" component={ReviewsContainer} onEnter={onReviewsEnter} />
       </Route>
     </Router>
   </Provider>,

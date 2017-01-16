@@ -68,15 +68,21 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _ProductsContainer = __webpack_require__(304);
+	var _ProductsContainer = __webpack_require__(305);
 	
 	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
 	
-	var _ProductContainer = __webpack_require__(306);
+	var _ProductContainer = __webpack_require__(307);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
-	var _products = __webpack_require__(309);
+	var _ReviewsContainer = __webpack_require__(310);
+	
+	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
+	
+	var _products = __webpack_require__(312);
+	
+	var _reviews = __webpack_require__(313);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -98,6 +104,11 @@
 	
 	  var productId = nextRouterState.params.productId;
 	  _store2.default.dispatch((0, _products.getProductById)(productId));
+	};
+	var onReviewsEnter = function onReviewsEnter(nextRouterState) {
+	
+	  var productId = nextRouterState.params.productId;
+	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)(productId));
 	};
 	
 	var onCartEnter = function onCartEnter(nextRouterState) {
@@ -135,7 +146,8 @@
 	      { path: '/', component: _App2.default, onEnter: onAppEnter },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -4478,7 +4490,7 @@
 	
 	  var match = void 0,
 	      lastIndex = 0,
-	      matcher = /:([a-zA-Z_$][a-zA-Z0-9_$]*)|\*\*|\*|\(|\)|\\\(|\\\)/g;
+	      matcher = /:([a-zA-Z_$][a-zA-Z0-9_$]*)|\*\*|\*|\(|\)/g;
 	  while (match = matcher.exec(pattern)) {
 	    if (match.index !== lastIndex) {
 	      tokens.push(pattern.slice(lastIndex, match.index));
@@ -4498,10 +4510,6 @@
 	      regexpSource += '(?:';
 	    } else if (match[0] === ')') {
 	      regexpSource += ')?';
-	    } else if (match[0] === '\\(') {
-	      regexpSource += '\\(';
-	    } else if (match[0] === '\\)') {
-	      regexpSource += '\\)';
 	    }
 	
 	    tokens.push(match[0]);
@@ -4656,10 +4664,6 @@
 	      parenCount -= 1;
 	
 	      if (parenCount) parenHistory[parenCount - 1] += parenText;else pathname += parenText;
-	    } else if (token === '\\(') {
-	      pathname += '(';
-	    } else if (token === '\\)') {
-	      pathname += ')';
 	    } else if (token.charAt(0) === ':') {
 	      paramName = token.substring(1);
 	      paramValue = params[paramName];
@@ -5527,7 +5531,7 @@
 	  return runTransitionHooks(hooks.length, function (index, replace, next) {
 	    var wrappedNext = function wrappedNext() {
 	      if (enterHooks.has(hooks[index])) {
-	        next.apply(undefined, arguments);
+	        next();
 	        enterHooks.remove(hooks[index]);
 	      }
 	    };
@@ -5551,7 +5555,7 @@
 	  return runTransitionHooks(hooks.length, function (index, replace, next) {
 	    var wrappedNext = function wrappedNext() {
 	      if (changeHooks.has(hooks[index])) {
-	        next.apply(undefined, arguments);
+	        next();
 	        changeHooks.remove(hooks[index]);
 	      }
 	    };
@@ -5953,14 +5957,9 @@
 	    if ((0, _PromiseUtils.isPromise)(indexRoutesReturn)) indexRoutesReturn.then(function (indexRoute) {
 	      return callback(null, (0, _RouteUtils.createRoutes)(indexRoute)[0]);
 	    }, callback);
-	  } else if (route.childRoutes || route.getChildRoutes) {
-	    var onChildRoutes = function onChildRoutes(error, childRoutes) {
-	      if (error) {
-	        callback(error);
-	        return;
-	      }
-	
-	      var pathless = childRoutes.filter(function (childRoute) {
+	  } else if (route.childRoutes) {
+	    (function () {
+	      var pathless = route.childRoutes.filter(function (childRoute) {
 	        return !childRoute.path;
 	      });
 	
@@ -5976,12 +5975,7 @@
 	      }, function (err, routes) {
 	        callback(null, routes);
 	      });
-	    };
-	
-	    var result = getChildRoutes(route, location, paramNames, paramValues, onChildRoutes);
-	    if (result) {
-	      onChildRoutes.apply(undefined, result);
-	    }
+	    })();
 	  } else {
 	    callback();
 	  }
@@ -6035,7 +6029,7 @@
 	    // By assumption, pattern is non-empty here, which is the prerequisite for
 	    // actually terminating a match.
 	    if (remainingPathname === '') {
-	      var _ret = function () {
+	      var _ret2 = function () {
 	        var match = {
 	          routes: [route],
 	          params: createParams(paramNames, paramValues)
@@ -6066,7 +6060,7 @@
 	        };
 	      }();
 	
-	      if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	      if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
 	    }
 	  }
 	
@@ -6644,7 +6638,7 @@
 	
 	    if (router) {
 	      // If user does not specify a `to` prop, return an empty anchor tag.
-	      if (!to) {
+	      if (to == null) {
 	        return _react2.default.createElement('a', props);
 	      }
 	
@@ -6761,10 +6755,6 @@
 	      var _this = this;
 	
 	      var router = this.props.router || this.context.router;
-	      if (!router) {
-	        return _react2.default.createElement(WrappedComponent, this.props);
-	      }
-	
 	      var params = router.params,
 	          location = router.location,
 	          routes = router.routes;
@@ -7430,92 +7420,6 @@
 	var strictUriEncode = __webpack_require__(66);
 	var objectAssign = __webpack_require__(4);
 	
-	function encoderForArrayFormat(opts) {
-		switch (opts.arrayFormat) {
-			case 'index':
-				return function (key, value, index) {
-					return value === null ? [
-						encode(key, opts),
-						'[',
-						index,
-						']'
-					].join('') : [
-						encode(key, opts),
-						'[',
-						encode(index, opts),
-						']=',
-						encode(value, opts)
-					].join('');
-				};
-	
-			case 'bracket':
-				return function (key, value) {
-					return value === null ? encode(key, opts) : [
-						encode(key, opts),
-						'[]=',
-						encode(value, opts)
-					].join('');
-				};
-	
-			default:
-				return function (key, value) {
-					return value === null ? encode(key, opts) : [
-						encode(key, opts),
-						'=',
-						encode(value, opts)
-					].join('');
-				};
-		}
-	}
-	
-	function parserForArrayFormat(opts) {
-		var result;
-	
-		switch (opts.arrayFormat) {
-			case 'index':
-				return function (key, value, accumulator) {
-					result = /\[(\d*)]$/.exec(key);
-	
-					key = key.replace(/\[\d*]$/, '');
-	
-					if (!result) {
-						accumulator[key] = value;
-						return;
-					}
-	
-					if (accumulator[key] === undefined) {
-						accumulator[key] = {};
-					}
-	
-					accumulator[key][result[1]] = value;
-				};
-	
-			case 'bracket':
-				return function (key, value, accumulator) {
-					result = /(\[])$/.exec(key);
-	
-					key = key.replace(/\[]$/, '');
-	
-					if (!result || accumulator[key] === undefined) {
-						accumulator[key] = value;
-						return;
-					}
-	
-					accumulator[key] = [].concat(accumulator[key], value);
-				};
-	
-			default:
-				return function (key, value, accumulator) {
-					if (accumulator[key] === undefined) {
-						accumulator[key] = value;
-						return;
-					}
-	
-					accumulator[key] = [].concat(accumulator[key], value);
-				};
-		}
-	}
-	
 	function encode(value, opts) {
 		if (opts.encode) {
 			return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
@@ -7524,29 +7428,11 @@
 		return value;
 	}
 	
-	function sorter(input) {
-		if (Array.isArray(input)) {
-			return input.sort();
-		} else if (typeof input === 'object') {
-			return sorter(Object.keys(input)).sort(function (a, b) {
-				return Number(a) - Number(b);
-			}).map(function (key) {
-				return input[key];
-			});
-		}
-	
-		return input;
-	}
-	
 	exports.extract = function (str) {
 		return str.split('?')[1] || '';
 	};
 	
-	exports.parse = function (str, opts) {
-		opts = objectAssign({arrayFormat: 'none'}, opts);
-	
-		var formatter = parserForArrayFormat(opts);
-	
+	exports.parse = function (str) {
 		// Create an object with no prototype
 		// https://github.com/sindresorhus/query-string/issues/47
 		var ret = Object.create(null);
@@ -7568,34 +7454,31 @@
 			var key = parts.shift();
 			var val = parts.length > 0 ? parts.join('=') : undefined;
 	
+			key = decodeURIComponent(key);
+	
 			// missing `=` should be `null`:
 			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
 			val = val === undefined ? null : decodeURIComponent(val);
 	
-			formatter(decodeURIComponent(key), val, ret);
+			if (ret[key] === undefined) {
+				ret[key] = val;
+			} else if (Array.isArray(ret[key])) {
+				ret[key].push(val);
+			} else {
+				ret[key] = [ret[key], val];
+			}
 		});
 	
-		return Object.keys(ret).sort().reduce(function (result, key) {
-			if (Boolean(ret[key]) && typeof ret[key] === 'object') {
-				result[key] = sorter(ret[key]);
-			} else {
-				result[key] = ret[key];
-			}
-	
-			return result;
-		}, Object.create(null));
+		return ret;
 	};
 	
 	exports.stringify = function (obj, opts) {
 		var defaults = {
 			encode: true,
-			strict: true,
-			arrayFormat: 'none'
+			strict: true
 		};
 	
 		opts = objectAssign(defaults, opts);
-	
-		var formatter = encoderForArrayFormat(opts);
 	
 		return obj ? Object.keys(obj).sort().map(function (key) {
 			var val = obj[key];
@@ -7616,7 +7499,11 @@
 						return;
 					}
 	
-					result.push(formatter(key, val2, result.length));
+					if (val2 === null) {
+						result.push(encode(key, opts));
+					} else {
+						result.push(encode(key, opts) + '=' + encode(val2, opts));
+					}
 				});
 	
 				return result.join('&');
@@ -29871,10 +29758,16 @@
 	
 	exports.default = function (props) {
 	
+	  var image = "monitor.svg";
+	
 	  return _react2.default.createElement(
 	    'sidebar',
 	    null,
-	    _react2.default.createElement('img', { src: 'monitor.svg', className: 'logo' }),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/' },
+	      _react2.default.createElement('img', { src: '' + image, className: 'logo' })
+	    ),
 	    _react2.default.createElement(
 	      'section',
 	      null,
@@ -29954,15 +29847,15 @@
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _reduxLogger = __webpack_require__(297);
+	var _reduxLogger = __webpack_require__(298);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
-	var _reduxThunk = __webpack_require__(303);
+	var _reduxThunk = __webpack_require__(304);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _auth = __webpack_require__(296);
+	var _auth = __webpack_require__(297);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29994,12 +29887,17 @@
 	
 	var _cartReducer2 = _interopRequireDefault(_cartReducer);
 	
+	var _reviewsReducer = __webpack_require__(296);
+	
+	var _reviewsReducer2 = _interopRequireDefault(_reviewsReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
-	  auth: __webpack_require__(296).default,
+	  auth: __webpack_require__(297).default,
 	  products: _productsReducer2.default,
-	  cart: _cartReducer2.default
+	  cart: _cartReducer2.default,
+	  reviews: _reviewsReducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -30067,6 +29965,10 @@
 	// Cart
 	
 	var RECEIVE_CART = exports.RECEIVE_CART = 'RECEIVE_CART';
+	
+	// Reviews
+	
+	var RECEIVE_REVIEWS = exports.RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 
 /***/ },
 /* 295 */
@@ -30113,6 +30015,49 @@
 
 /***/ },
 /* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialReviewsState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_REVIEWS:
+	      newState.list = action.reviews;
+	      break;
+	    // case RECEIVE_PRODUCT:
+	    //   newState.selected = action.product;
+	    //   break;  
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(294);
+	
+	// import {convertAlbum, convertAlbums} from '../utils';
+	
+	var initialReviewsState = {
+	  // selected:{},
+	  list: []
+	};
+
+/***/ },
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30180,7 +30125,7 @@
 	exports.default = reducer;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30191,11 +30136,11 @@
 	  value: true
 	});
 	
-	var _core = __webpack_require__(298);
+	var _core = __webpack_require__(299);
 	
-	var _helpers = __webpack_require__(299);
+	var _helpers = __webpack_require__(300);
 	
-	var _defaults = __webpack_require__(302);
+	var _defaults = __webpack_require__(303);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30298,7 +30243,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30308,9 +30253,9 @@
 	});
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(299);
+	var _helpers = __webpack_require__(300);
 	
-	var _diff = __webpack_require__(300);
+	var _diff = __webpack_require__(301);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -30439,7 +30384,7 @@
 	}
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30463,7 +30408,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30473,7 +30418,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(301);
+	var _deepDiff = __webpack_require__(302);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -30559,7 +30504,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -30988,7 +30933,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31039,7 +30984,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31067,7 +31012,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31076,7 +31021,7 @@
 	  value: true
 	});
 	
-	var _Products = __webpack_require__(305);
+	var _Products = __webpack_require__(306);
 	
 	var _Products2 = _interopRequireDefault(_Products);
 	
@@ -31093,7 +31038,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Products2.default);
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31179,7 +31124,7 @@
 	;
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31188,13 +31133,13 @@
 		value: true
 	});
 	
-	var _Product = __webpack_require__(307);
+	var _Product = __webpack_require__(308);
 	
 	var _Product2 = _interopRequireDefault(_Product);
 	
 	var _reactRedux = __webpack_require__(233);
 	
-	var _cart = __webpack_require__(308);
+	var _cart = __webpack_require__(309);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31216,7 +31161,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Product2.default);
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31229,7 +31174,7 @@
 	
 		var product = props.selectedProduct;
 		var addProductToCart = props.addProductToCart;
-	
+		console.log(props);
 		return _react2.default.createElement(
 			'div',
 			{ className: 'product' },
@@ -31254,13 +31199,22 @@
 					product.price
 				),
 				_react2.default.createElement(
+					_reactRouter.Link,
+					{ to: '/products/' + product.id + '/reviews' },
+					_react2.default.createElement(
+						'button',
+						{ type: 'button', className: 'btn btn-link' },
+						'Reviews'
+					)
+				),
+				_react2.default.createElement(
 					'h4',
 					null,
 					product.stars
 				),
 				_react2.default.createElement(
 					'button',
-					{ type: 'submit', className: 'btn btn-primary', onclick: function onclick() {
+					{ type: 'submit', className: 'btn btn-primary', onClick: function onClick() {
 							return addProductToCart(product);
 						} },
 					'Add to Cart'
@@ -31272,11 +31226,13 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
-
+	
+	var _reactRouter = __webpack_require__(32);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31326,7 +31282,108 @@
 	};
 
 /***/ },
-/* 309 */
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _Reviews = __webpack_require__(311);
+	
+	var _Reviews2 = _interopRequireDefault(_Reviews);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    reviews: state.reviews.list
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Reviews2.default);
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (props) {
+	  var reviews = props.reviews;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Reviews'
+	      ),
+	      reviews && reviews.map(function (review) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-4', key: review.id },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                review.title
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              review.content,
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              'Rating: ',
+	              review.stars,
+	              ' '
+	            )
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	;
+	
+	// Add photo of product
+	// <Link className="thumbnail" to={`/products/${product.id}`}>
+	//   <img src={ product.photoUrl }/>
+	// </Link>
+
+/***/ },
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31361,6 +31418,40 @@
 	  return function (dispatch) {
 	    _axios2.default.get('/api/products/' + productId).then(function (response) {
 	      dispatch(receiveProduct(response.data));
+	    });
+	  };
+	};
+
+/***/ },
+/* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getReviewsByProductId = exports.receiveReviews = undefined;
+	
+	var _constants = __webpack_require__(294);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var receiveReviews = exports.receiveReviews = function receiveReviews(reviews) {
+	  return {
+	    type: _constants.RECEIVE_REVIEWS,
+	    reviews: reviews
+	  };
+	};
+	
+	var getReviewsByProductId = exports.getReviewsByProductId = function getReviewsByProductId(productId) {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/products/' + productId + '/reviews').then(function (response) {
+	      dispatch(receiveReviews(response.data));
 	    });
 	  };
 	};
