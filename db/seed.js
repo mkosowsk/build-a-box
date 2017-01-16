@@ -113,75 +113,40 @@ const seedReviews = () => db.Promise.map(
 		user_id:2,
 		product_id:2
 	}, {
-		id:11,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
+		id:6,
+		title: "Awesome!",
+		content: "Blazingly fast GPU!",
+		stars: 5,
+		user_id:7,
+		product_id:14,
 	}, {
-		id:12,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
+		id:7,
+		title: "Not worth the price",
+		content: "Simply too expensive for what amounts to a small performance gain.",
+		stars: 1,
+		user_id:5,
+		product_id:14,
 	}, {
-		id:13,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
+		id:8,
+		title: "This SSD is amazing",
+		content: "This SSD makes computing pure joy.",
+		stars: 5,
+		user_id:6,
+		product_id:20,
 	}, {
-		id:14,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
+		id:9,
+		title: "Great case!",
+		content: "A bit pricey but worth it",
 		stars: 4,
-		user_id:2,
-		product_id:2
+		user_id:3,
+		product_id:11,
 	}, {
-		id:15,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
+		id:10,
+		title: "Solid HDD",
+		content: "Good hard disk at a good price",
 		stars: 4,
-		user_id:2,
-		product_id:2
-	}, {
-		id:16,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
-	}, {
-		id:17,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
-	}, {
-		id:18,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
-	}, {
-		id:19,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
-	}, {
-		id:20,
-		title: "A review of Nvidia 2000",
-		content: "This is a good cpu.",
-		stars: 4,
-		user_id:2,
-		product_id:2
+		user_id:8,
+		product_id:17,
 	}], review => db.model('reviews').create(review))
 
 const seedProducts = () => db.Promise.map(
@@ -232,7 +197,7 @@ const seedProducts = () => db.Promise.map(
 		description: "NVIDIA's flagship GeForce GTX 1080 is the most advanced gaming GPU ever created, powered by the new NVIDIA Pascal architecture.",
 		price: 590,
 		category: "GPU",
-		stock: 17
+		stock: 17,
 	}, {
 		id:15,
 		name: "EVGA GeForce GTX 1060 6GB SSC GAMING ACX 3.0, 6GB GDDR5, LED, DX12 OSD Support (PXOC), 06G-P4-6267-KR",
@@ -240,47 +205,47 @@ const seedProducts = () => db.Promise.map(
 		description: "Quality card at an affordable price",
 		price: 270,
 		category: "GPU",
-		stock: 10
+		stock: 10,
 	}, {
 		id:16,
 		name: "XFX Radeon R7 240 R7-240A-2TS2 2GB 128-Bit DDR3 PCI Express 3.0 Video Cards",
 		photoUrl: "http://images10.newegg.com/ProductImageCompressAll1280/14-150-783_R01.jpg?w=660&h=500",
 		description: "Starter GPU for an enthusiast beginning the hobby",
-		price: 200,
+		price: 56,
 		category: "GPU",
-		stock: 10
+		stock: 88,
 	}, {
 		id:17,
-		name: "Nvidia 2000",
-		photoUrl: "http://www.fillmurray.com/400/400",
-		description: "This is a good gpu",
-		price: 200,
+		name: "Seagate Desktop HDD ST1000DM003 1TB 64MB Cache SATA 6.0Gb/s 3.5 Internal Hard Drive Bare Drive",
+		photoUrl: "http://images10.newegg.com/productimage/22-148-840-10.jpg",
+		description: "The Seagate Desktop HDD is the one drive for every desktop system need, supported by 30 years of trusted performance, reliability and simplicity",
+		price: 50,
 		category: "HDD",
-		stock: 10
+		stock: 106,
 	}, {
 		id:18,
-		name: "Nvidia 2000",
-		photoUrl: "http://www.fillmurray.com/400/400",
-		description: "This is a good gpu",
-		price: 200,
+		name: "TOSHIBA P300 HDWD130XZSTA 3TB 7200 RPM 64MB Cache SATA 6.0Gb/s 3.5 Desktop Internal Hard Drive Retail Packaging",
+		photoUrl: "http://images10.newegg.com/ProductImageCompressAll1280/22-149-633_R01.jpg?w=660&h=500",
+		description: "The TOSHIBA P300 is a great drive upgrade for desktop computers. It features high specifications for high performance, and rich hard driver technologies for great reliability and low power consumption.",
+		price: 98,
 		category: "HDD",
-		stock: 10
+		stock: 29,
 	}, {
 		id:19,
-		name: "Nvidia 2000",
-		photoUrl: "http://www.fillmurray.com/400/400",
-		description: "This is a good gpu",
-		price: 200,
+		name: "WD Blue 1TB Desktop Hard Disk Drive - 7200 RPM SATA 6Gb/s 64MB Cache 3.5 Inch - WD10EZEX",
+		photoUrl: "http://images10.newegg.com/ProductImageCompressAll1280/22-236-339-V01.jpg?w=660&h=500",
+		description: "Next best thing to an SSD",
+		price: 50,
 		category: "HDD",
-		stock: 10
+		stock: 17,
 	}, {
 		id:20,
-		name: "Nvidia 2000",
-		photoUrl: "http://www.fillmurray.com/400/400",
-		description: "This is a good gpu",
-		price: 200,
+		name: "SAMSUNG 850 EVO 2.5 500GB SATA III 3-D Vertical Internal Solid State Drive (SSD) MZ-75E500B/AM",
+		photoUrl: "http://images10.newegg.com/ProductImageCompressAll1280/20-147-373_R01.jpg?w=660&h=500",
+		description: "Samsung's 850 EVO series SSD is the industry's #1 best-selling SSD and is perfect for everyday computing.",
+		price: 183,
 		category: "SSD",
-		stock: 10
+		stock: 55
 	}], product => db.model('products').create(product))
 
 const seedCart = () => db.Promise.map(
