@@ -93,8 +93,8 @@
 	// import Jokes from './components/Jokes'
 	// import Login from './components/Login'
 	// import WhoAmI from './components/WhoAmI'
-	var onAppEnter = function onAppEnter() {
-	
+	var onProductsEnter = function onProductsEnter() {
+	  console.log('RUNNING');
 	  // const products = axios.get('/products');
 	  _axios2.default.get('/api/products').then(function (response) {
 	    return response.data;
@@ -112,8 +112,7 @@
 	
 	var onReviewsEnter = function onReviewsEnter(nextRouterState) {
 	
-	  var productId = nextRouterState.params.productId;
-	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)(productId));
+	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)());
 	};
 	
 	var onCartEnter = function onCartEnter(nextRouterState) {
@@ -154,9 +153,9 @@
 	    { history: _reactRouter.browserHistory },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
-	      { path: '/', component: _App2.default, onEnter: onAppEnter },
+	      { path: '/', component: _App2.default },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default, onEnter: onProductsEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/category/:categoryId', component: _ProductsContainer2.default, onEnter: onCategoryEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter }),
@@ -31671,6 +31670,7 @@
 	
 	var getProductById = exports.getProductById = function getProductById(productId) {
 	  return function (dispatch) {
+	    dispatch(receiveProduct(response.data));
 	    _axios2.default.get('/api/products/' + productId).then(function (response) {
 	      dispatch(receiveProduct(response.data));
 	    });
@@ -31679,8 +31679,9 @@
 	
 	var getProductsByCategory = exports.getProductsByCategory = function getProductsByCategory(categoryId) {
 	  return function (dispatch) {
+	    dispatch(receiveProducts(response.data));
 	    _axios2.default.get('/api/products/category/' + categoryId).then(function (response) {
-	      dispatch(receiveProducts(response.data));
+	      return;
 	    });
 	  };
 	};
