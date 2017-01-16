@@ -1,4 +1,4 @@
-const db = require('APP/db')
+const db = require('./index')
 
 const seedUsers = () => db.Promise.map(
 	[{
