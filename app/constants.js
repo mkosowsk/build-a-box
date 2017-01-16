@@ -10,4 +10,6 @@ export const RECEIVE_PRODUCT = 'RECEIVE_PRODUCT';
 
 export const RECEIVE_CART = 'RECEIVE_CART';
 
+// Reviews
 
+export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
