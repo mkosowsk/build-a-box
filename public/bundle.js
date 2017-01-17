@@ -64,10 +64,11 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _store = __webpack_require__(292);
+	var _store = __webpack_require__(291);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+<<<<<<< HEAD
 	var _Jokes = __webpack_require__(306);
 	
 	var _Jokes2 = _interopRequireDefault(_Jokes);
@@ -99,10 +100,55 @@
 	var _products = __webpack_require__(318);
 	
 	var _reviews = __webpack_require__(319);
+=======
+	var _OrdersContainer = __webpack_require__(306);
+	
+	var _OrdersContainer2 = _interopRequireDefault(_OrdersContainer);
+	
+	var _orders = __webpack_require__(308);
+	
+	var _CheckoutContainer = __webpack_require__(309);
+	
+	var _CheckoutContainer2 = _interopRequireDefault(_CheckoutContainer);
+	
+	var _Jokes = __webpack_require__(323);
+	
+	var _Jokes2 = _interopRequireDefault(_Jokes);
+	
+	var _Login = __webpack_require__(324);
+	
+	var _Login2 = _interopRequireDefault(_Login);
+	
+	var _WhoAmI = __webpack_require__(325);
+	
+	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
+	
+	var _ProductsContainer = __webpack_require__(311);
+	
+	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
+	
+	var _ProductContainer = __webpack_require__(313);
+	
+	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
+	
+	var _ReviewsContainer = __webpack_require__(316);
+	
+	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
+	
+	var _CartContainer = __webpack_require__(318);
+	
+	var _CartContainer2 = _interopRequireDefault(_CartContainer);
+	
+	var _products = __webpack_require__(320);
+	
+	var _reviews = __webpack_require__(321);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// 'use strict'
+	// import Jokes from './components/Jokes'
+	// import Login from './components/Login'
+	// import WhoAmI from './components/WhoAmI'
 	var onProductsEnter = function onProductsEnter() {
 	  console.log('RUNNING');
 	  // const products = axios.get('/products');
@@ -111,7 +157,8 @@
 	  }).then(function (products) {
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
 	  });
-	};
+	}; // 'use strict'
+	
 	
 	var onProductEnter = function onProductEnter(nextRouterState) {
 	
@@ -142,6 +189,15 @@
 	  _store2.default.dispatch((0, _products.getProductsByCategory)(categoryId));
 	};
 	
+	var onOrdersEnter = function onOrdersEnter(nextRouterState) {
+	
+	  _axios2.default.get('/api/orders').then(function (response) {
+	    return response.data;
+	  }).then(function (orders) {
+	    _store2.default.dispatch((0, _orders.receiveOrders)(orders));
+	  });
+	};
+	
 	// const ExampleApp = connect(
 	//   ({ auth }) => ({ user: auth })
 	// ) (
@@ -170,6 +226,7 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _CartContainer2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/orders', component: _OrdersContainer2.default, onEnter: onOrdersEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/whoami', component: _WhoAmI2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default })
 	    )
@@ -4521,7 +4578,7 @@
 	
 	  var match = void 0,
 	      lastIndex = 0,
-	      matcher = /:([a-zA-Z_$][a-zA-Z0-9_$]*)|\*\*|\*|\(|\)|\\\(|\\\)/g;
+	      matcher = /:([a-zA-Z_$][a-zA-Z0-9_$]*)|\*\*|\*|\(|\)/g;
 	  while (match = matcher.exec(pattern)) {
 	    if (match.index !== lastIndex) {
 	      tokens.push(pattern.slice(lastIndex, match.index));
@@ -4541,10 +4598,6 @@
 	      regexpSource += '(?:';
 	    } else if (match[0] === ')') {
 	      regexpSource += ')?';
-	    } else if (match[0] === '\\(') {
-	      regexpSource += '\\(';
-	    } else if (match[0] === '\\)') {
-	      regexpSource += '\\)';
 	    }
 	
 	    tokens.push(match[0]);
@@ -4699,10 +4752,6 @@
 	      parenCount -= 1;
 	
 	      if (parenCount) parenHistory[parenCount - 1] += parenText;else pathname += parenText;
-	    } else if (token === '\\(') {
-	      pathname += '(';
-	    } else if (token === '\\)') {
-	      pathname += ')';
 	    } else if (token.charAt(0) === ':') {
 	      paramName = token.substring(1);
 	      paramValue = params[paramName];
@@ -5570,7 +5619,7 @@
 	  return runTransitionHooks(hooks.length, function (index, replace, next) {
 	    var wrappedNext = function wrappedNext() {
 	      if (enterHooks.has(hooks[index])) {
-	        next.apply(undefined, arguments);
+	        next();
 	        enterHooks.remove(hooks[index]);
 	      }
 	    };
@@ -5594,7 +5643,7 @@
 	  return runTransitionHooks(hooks.length, function (index, replace, next) {
 	    var wrappedNext = function wrappedNext() {
 	      if (changeHooks.has(hooks[index])) {
-	        next.apply(undefined, arguments);
+	        next();
 	        changeHooks.remove(hooks[index]);
 	      }
 	    };
@@ -5996,14 +6045,9 @@
 	    if ((0, _PromiseUtils.isPromise)(indexRoutesReturn)) indexRoutesReturn.then(function (indexRoute) {
 	      return callback(null, (0, _RouteUtils.createRoutes)(indexRoute)[0]);
 	    }, callback);
-	  } else if (route.childRoutes || route.getChildRoutes) {
-	    var onChildRoutes = function onChildRoutes(error, childRoutes) {
-	      if (error) {
-	        callback(error);
-	        return;
-	      }
-	
-	      var pathless = childRoutes.filter(function (childRoute) {
+	  } else if (route.childRoutes) {
+	    (function () {
+	      var pathless = route.childRoutes.filter(function (childRoute) {
 	        return !childRoute.path;
 	      });
 	
@@ -6019,12 +6063,7 @@
 	      }, function (err, routes) {
 	        callback(null, routes);
 	      });
-	    };
-	
-	    var result = getChildRoutes(route, location, paramNames, paramValues, onChildRoutes);
-	    if (result) {
-	      onChildRoutes.apply(undefined, result);
-	    }
+	    })();
 	  } else {
 	    callback();
 	  }
@@ -6078,7 +6117,7 @@
 	    // By assumption, pattern is non-empty here, which is the prerequisite for
 	    // actually terminating a match.
 	    if (remainingPathname === '') {
-	      var _ret = function () {
+	      var _ret2 = function () {
 	        var match = {
 	          routes: [route],
 	          params: createParams(paramNames, paramValues)
@@ -6109,7 +6148,7 @@
 	        };
 	      }();
 	
-	      if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	      if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
 	    }
 	  }
 	
@@ -6687,7 +6726,7 @@
 	
 	    if (router) {
 	      // If user does not specify a `to` prop, return an empty anchor tag.
-	      if (!to) {
+	      if (to == null) {
 	        return _react2.default.createElement('a', props);
 	      }
 	
@@ -6804,10 +6843,6 @@
 	      var _this = this;
 	
 	      var router = this.props.router || this.context.router;
-	      if (!router) {
-	        return _react2.default.createElement(WrappedComponent, this.props);
-	      }
-	
 	      var params = router.params,
 	          location = router.location,
 	          routes = router.routes;
@@ -7473,92 +7508,6 @@
 	var strictUriEncode = __webpack_require__(66);
 	var objectAssign = __webpack_require__(4);
 	
-	function encoderForArrayFormat(opts) {
-		switch (opts.arrayFormat) {
-			case 'index':
-				return function (key, value, index) {
-					return value === null ? [
-						encode(key, opts),
-						'[',
-						index,
-						']'
-					].join('') : [
-						encode(key, opts),
-						'[',
-						encode(index, opts),
-						']=',
-						encode(value, opts)
-					].join('');
-				};
-	
-			case 'bracket':
-				return function (key, value) {
-					return value === null ? encode(key, opts) : [
-						encode(key, opts),
-						'[]=',
-						encode(value, opts)
-					].join('');
-				};
-	
-			default:
-				return function (key, value) {
-					return value === null ? encode(key, opts) : [
-						encode(key, opts),
-						'=',
-						encode(value, opts)
-					].join('');
-				};
-		}
-	}
-	
-	function parserForArrayFormat(opts) {
-		var result;
-	
-		switch (opts.arrayFormat) {
-			case 'index':
-				return function (key, value, accumulator) {
-					result = /\[(\d*)]$/.exec(key);
-	
-					key = key.replace(/\[\d*]$/, '');
-	
-					if (!result) {
-						accumulator[key] = value;
-						return;
-					}
-	
-					if (accumulator[key] === undefined) {
-						accumulator[key] = {};
-					}
-	
-					accumulator[key][result[1]] = value;
-				};
-	
-			case 'bracket':
-				return function (key, value, accumulator) {
-					result = /(\[])$/.exec(key);
-	
-					key = key.replace(/\[]$/, '');
-	
-					if (!result || accumulator[key] === undefined) {
-						accumulator[key] = value;
-						return;
-					}
-	
-					accumulator[key] = [].concat(accumulator[key], value);
-				};
-	
-			default:
-				return function (key, value, accumulator) {
-					if (accumulator[key] === undefined) {
-						accumulator[key] = value;
-						return;
-					}
-	
-					accumulator[key] = [].concat(accumulator[key], value);
-				};
-		}
-	}
-	
 	function encode(value, opts) {
 		if (opts.encode) {
 			return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
@@ -7567,6 +7516,7 @@
 		return value;
 	}
 	
+<<<<<<< HEAD
 	function keysSorter(input) {
 		if (Array.isArray(input)) {
 			return input.sort();
@@ -7581,15 +7531,13 @@
 		return input;
 	}
 	
+=======
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	exports.extract = function (str) {
 		return str.split('?')[1] || '';
 	};
 	
-	exports.parse = function (str, opts) {
-		opts = objectAssign({arrayFormat: 'none'}, opts);
-	
-		var formatter = parserForArrayFormat(opts);
-	
+	exports.parse = function (str) {
 		// Create an object with no prototype
 		// https://github.com/sindresorhus/query-string/issues/47
 		var ret = Object.create(null);
@@ -7611,10 +7559,13 @@
 			var key = parts.shift();
 			var val = parts.length > 0 ? parts.join('=') : undefined;
 	
+			key = decodeURIComponent(key);
+	
 			// missing `=` should be `null`:
 			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
 			val = val === undefined ? null : decodeURIComponent(val);
 	
+<<<<<<< HEAD
 			formatter(decodeURIComponent(key), val, ret);
 		});
 	
@@ -7625,22 +7576,27 @@
 				result[key] = keysSorter(val);
 			} else {
 				result[key] = val;
+=======
+			if (ret[key] === undefined) {
+				ret[key] = val;
+			} else if (Array.isArray(ret[key])) {
+				ret[key].push(val);
+			} else {
+				ret[key] = [ret[key], val];
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 			}
+		});
 	
-			return result;
-		}, Object.create(null));
+		return ret;
 	};
 	
 	exports.stringify = function (obj, opts) {
 		var defaults = {
 			encode: true,
-			strict: true,
-			arrayFormat: 'none'
+			strict: true
 		};
 	
 		opts = objectAssign(defaults, opts);
-	
-		var formatter = encoderForArrayFormat(opts);
 	
 		return obj ? Object.keys(obj).sort().map(function (key) {
 			var val = obj[key];
@@ -7661,7 +7617,11 @@
 						return;
 					}
 	
-					result.push(formatter(key, val2, result.length));
+					if (val2 === null) {
+						result.push(encode(key, opts));
+					} else {
+						result.push(encode(key, opts) + '=' + encode(val2, opts));
+					}
 				});
 	
 				return result.join('&');
@@ -29804,7 +29764,7 @@
 	
 	var _HeaderContainer2 = _interopRequireDefault(_HeaderContainer);
 	
-	var _SidebarContainer = __webpack_require__(290);
+	var _SidebarContainer = __webpack_require__(289);
 	
 	var _SidebarContainer2 = _interopRequireDefault(_SidebarContainer);
 
@@ -29916,7 +29876,7 @@
 	
 	var _reactRouter = __webpack_require__(32);
 	
-	var _auth = __webpack_require__(289);
+	var _auth = __webpack_require__(298);
 	
 	var _axios = __webpack_require__(261);
 	
@@ -29933,80 +29893,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.whoami = exports.logout = exports.login = exports.authenticated = undefined;
 	
-	var _axios = __webpack_require__(261);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _reactRouter = __webpack_require__(32);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var reducer = function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case AUTHENTICATED:
-	      return action.user;
-	  }
-	  return state;
-	};
-	
-	var AUTHENTICATED = 'AUTHENTICATED';
-	var authenticated = exports.authenticated = function authenticated(user) {
-	  return {
-	    type: AUTHENTICATED, user: user
-	  };
-	};
-	
-	var login = exports.login = function login(username, password) {
-	  return function (dispatch) {
-	    return _axios2.default.post('/api/auth/local/login', { username: username, password: password }).then(function () {
-	      return dispatch(whoami());
-	    }).then(function () {
-	      return _reactRouter.browserHistory.push('/');
-	    }).catch(function () {
-	      return dispatch(whoami());
-	    });
-	  };
-	};
-	
-	var logout = exports.logout = function logout() {
-	  return function (dispatch) {
-	    return _axios2.default.post('/api/auth/logout').then(function () {
-	      return dispatch(whoami());
-	    }).catch(function () {
-	      return dispatch(whoami());
-	    });
-	  };
-	};
-	
-	var whoami = exports.whoami = function whoami() {
-	  return function (dispatch) {
-	    return _axios2.default.get('/api/auth/whoami').then(function (response) {
-	      var user = response.data;
-	      dispatch(authenticated(user));
-	    }).catch(function (failed) {
-	      return dispatch(authenticated(null));
-	    });
-	  };
-	};
-	
-	exports.default = reducer;
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _Sidebar = __webpack_require__(291);
+	var _Sidebar = __webpack_require__(290);
 	
 	var _Sidebar2 = _interopRequireDefault(_Sidebar);
 	
@@ -30017,7 +29905,7 @@
 	exports.default = (0, _reactRedux.connect)()(_Sidebar2.default);
 
 /***/ },
-/* 291 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30141,7 +30029,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 292 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30152,7 +30040,7 @@
 	
 	var _redux = __webpack_require__(240);
 	
-	var _reducers = __webpack_require__(293);
+	var _reducers = __webpack_require__(292);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -30164,7 +30052,7 @@
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _auth = __webpack_require__(289);
+	var _auth = __webpack_require__(298);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30177,7 +30065,7 @@
 	store.dispatch((0, _auth.whoami)());
 
 /***/ },
-/* 293 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30188,36 +30076,45 @@
 	
 	var _redux = __webpack_require__(240);
 	
-	var _productsReducer = __webpack_require__(294);
+	var _productsReducer = __webpack_require__(293);
 	
 	var _productsReducer2 = _interopRequireDefault(_productsReducer);
 	
-	var _cartReducer = __webpack_require__(296);
+	var _cartReducer = __webpack_require__(295);
 	
 	var _cartReducer2 = _interopRequireDefault(_cartReducer);
 	
-	var _reviewsReducer = __webpack_require__(297);
+	var _reviewsReducer = __webpack_require__(296);
 	
 	var _reviewsReducer2 = _interopRequireDefault(_reviewsReducer);
 	
+<<<<<<< HEAD
 	var _headerReducer = __webpack_require__(298);
+=======
+	var _ordersReducer = __webpack_require__(297);
+	
+	var _ordersReducer2 = _interopRequireDefault(_ordersReducer);
+	
+	var _headerReducer = __webpack_require__(322);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	var _headerReducer2 = _interopRequireDefault(_headerReducer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
-	  auth: __webpack_require__(289).default,
+	  auth: __webpack_require__(298).default,
 	  products: _productsReducer2.default,
 	  cart: _cartReducer2.default,
 	  reviews: _reviewsReducer2.default,
+	  orders: _ordersReducer2.default,
 	  header: _headerReducer2.default
 	});
 	
 	exports.default = rootReducer;
 
 /***/ },
-/* 294 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30250,7 +30147,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(294);
 	
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
@@ -30260,7 +30157,7 @@
 	};
 
 /***/ },
-/* 295 */
+/* 294 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30284,12 +30181,14 @@
 	
 	var RECEIVE_REVIEWS = exports.RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 	
+	var RECEIVE_ORDERS = exports.RECEIVE_ORDERS = 'RECEIVE_ORDERS';
+	
 	// Header
 	
 	var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
 
 /***/ },
-/* 296 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30320,7 +30219,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(294);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -30332,7 +30231,7 @@
 	};
 
 /***/ },
-/* 297 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30365,7 +30264,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(294);
 	
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
@@ -30375,11 +30274,12 @@
 	};
 
 /***/ },
-/* 298 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
+<<<<<<< HEAD
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -30412,6 +30312,129 @@
 	  list: []
 	
 	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+=======
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+<<<<<<< HEAD
+	var _core = __webpack_require__(300);
+	
+	var _helpers = __webpack_require__(301);
+	
+	var _defaults = __webpack_require__(304);
+=======
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialOrdersState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_ORDERS:
+	      newState.list = action.orders;
+	      break;
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(294);
+	
+	// import {convertAlbum, convertAlbums} from '../utils';
+	
+	var initialOrdersState = {
+	  list: []
+	};
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.whoami = exports.logout = exports.login = exports.authenticated = undefined;
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var reducer = function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case AUTHENTICATED:
+	      return action.user;
+	  }
+	  return state;
+	};
+	
+	var AUTHENTICATED = 'AUTHENTICATED';
+	var authenticated = exports.authenticated = function authenticated(user) {
+	  return {
+	    type: AUTHENTICATED, user: user
+	  };
+	};
+	
+	var login = exports.login = function login(username, password) {
+	  return function (dispatch) {
+	    return _axios2.default.post('/api/auth/local/login', { username: username, password: password }).then(function () {
+	      return dispatch(whoami());
+	    }).then(function () {
+	      return _reactRouter.browserHistory.push('/');
+	    }).catch(function () {
+	      return dispatch(whoami());
+	    });
+	  };
+	};
+	
+	var logout = exports.logout = function logout() {
+	  return function (dispatch) {
+	    return _axios2.default.post('/api/auth/logout').then(function () {
+	      return dispatch(whoami());
+	    }).catch(function () {
+	      return dispatch(whoami());
+	    });
+	  };
+	};
+	
+	var whoami = exports.whoami = function whoami() {
+	  return function (dispatch) {
+	    return _axios2.default.get('/api/auth/whoami').then(function (response) {
+	      var user = response.data;
+	      dispatch(authenticated(user));
+	    }).catch(function (failed) {
+	      return dispatch(authenticated(null));
+	    });
+	  };
+	};
+	
+	exports.default = reducer;
 
 /***/ },
 /* 299 */
@@ -31310,6 +31333,865 @@
 	  value: true
 	});
 	
+	var _Orders = __webpack_require__(307);
+	
+	var _Orders2 = _interopRequireDefault(_Orders);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    orders: state.orders.list
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Orders2.default);
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (props) {
+	  var orders = props.orders;
+	  // const products = props.products;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Orders'
+	      ),
+	      orders && orders.map(function (order) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-4', key: orders.id },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              order.id
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              '$',
+	              order.total
+	            )
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.receiveOrders = undefined;
+	
+	var _constants = __webpack_require__(294);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var receiveOrders = exports.receiveOrders = function receiveOrders(orders) {
+	    return {
+	        type: _constants.RECEIVE_ORDERS,
+	        orders: orders
+	    };
+	};
+
+/***/ },
+<<<<<<< HEAD
+/* 307 */
+=======
+/* 309 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _Checkout = __webpack_require__(310);
+	
+	var _Checkout2 = _interopRequireDefault(_Checkout);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			selectedCart: state.cart.list
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Checkout2.default);
+
+/***/ },
+<<<<<<< HEAD
+/* 308 */
+=======
+/* 310 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function (props) {
+	
+		var cart = props.selectedCart;
+		console.log(cart);
+		return _react2.default.createElement(
+			'div',
+			{ className: 'cart' },
+			_react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h3',
+					null,
+					cart[0].name
+				)
+			)
+		);
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+<<<<<<< HEAD
+/* 309 */
+=======
+/* 311 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+<<<<<<< HEAD
+	var _Products = __webpack_require__(310);
+=======
+	var _Products = __webpack_require__(312);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	
+	var _Products2 = _interopRequireDefault(_Products);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    products: state.products.list
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Products2.default);
+
+/***/ },
+<<<<<<< HEAD
+/* 310 */
+=======
+/* 312 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (props) {
+	  var products = props.products;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Products'
+	      ),
+	      products && products.map(function (product) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-4', key: product.id },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { className: 'thumbnail', to: '/products/' + product.id },
+	            _react2.default.createElement('img', { src: product.photoUrl })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                product.name
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              product.description,
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              '$',
+	              product.price,
+	              '.00 '
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              'Category:  ',
+	              product.category,
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              product.stock,
+	              ' in stock'
+	            )
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	;
+
+/***/ },
+<<<<<<< HEAD
+/* 311 */
+=======
+/* 313 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+<<<<<<< HEAD
+	var _Product = __webpack_require__(312);
+=======
+	var _Product = __webpack_require__(314);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	
+	var _Product2 = _interopRequireDefault(_Product);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+<<<<<<< HEAD
+	var _cart = __webpack_require__(313);
+=======
+	var _cart = __webpack_require__(315);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	
+	var _store = __webpack_require__(291);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			selectedProduct: state.products.selected
+		};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	
+		return {
+			addProductToCart: function addProductToCart(product) {
+				_store2.default.dispatch((0, _cart.addProductToCart)(product));
+			}
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Product2.default);
+
+/***/ },
+<<<<<<< HEAD
+/* 312 */
+=======
+/* 314 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	exports.default = function (props) {
+	
+		var product = props.selectedProduct;
+		var addProductToCart = props.addProductToCart;
+	
+		return _react2.default.createElement(
+			'div',
+			{ className: 'product' },
+			_react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h3',
+					null,
+					product.name
+				),
+				_react2.default.createElement('img', { src: product.photoUrl, className: 'img-thumbnail' }),
+				_react2.default.createElement(
+					'h4',
+					null,
+					product.description
+				),
+				_react2.default.createElement(
+					'h4',
+					null,
+					'$ ',
+					product.price
+				),
+				_react2.default.createElement(
+					_reactRouter.Link,
+					{ to: '/products/' + product.id + '/reviews' },
+					_react2.default.createElement(
+						'button',
+						{ type: 'button', className: 'btn btn-link' },
+						'Reviews'
+					)
+				),
+				_react2.default.createElement(
+					'h4',
+					null,
+					product.stars
+				),
+				_react2.default.createElement(
+					_reactRouter.Link,
+					{ to: '/cart' },
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit', className: 'btn btn-primary', onClick: function onClick() {
+								return addProductToCart(product);
+							} },
+						'Add to Cart'
+					)
+				)
+			)
+		);
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+<<<<<<< HEAD
+/* 313 */
+=======
+/* 315 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getProductsOfUser = exports.removeProductFromCart = exports.addProductToCart = exports.receiveCart = undefined;
+	
+	var _constants = __webpack_require__(294);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var receiveCart = exports.receiveCart = function receiveCart(cart) {
+	    return {
+	        type: _constants.RECEIVE_CART,
+	        cart: cart
+	    };
+	};
+	
+	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
+	    return function (dispatch) {
+	        _axios2.default.post('/api/cart/', { product: product }).then(function () {
+	
+	            dispatch(receiveCart(product));
+	        });
+	    };
+	};
+	
+	var removeProductFromCart = exports.removeProductFromCart = function removeProductFromCart(product) {
+	    return function (dispatch) {
+	        _axios2.default.post('/api/cart/', { product: product }).then(function (response) {
+	            dispatch(receiveCart(response.data));
+	        });
+	    };
+	};
+	
+	var getProductsOfUser = exports.getProductsOfUser = function getProductsOfUser(productId) {
+	    return function (dispatch) {
+	        _axios2.default.get('/api/products/' + productId).then(function (response) {
+	            dispatch(receiveProduct(response.data));
+	        });
+	    };
+	};
+
+/***/ },
+<<<<<<< HEAD
+/* 314 */
+=======
+/* 316 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+<<<<<<< HEAD
+	var _Reviews = __webpack_require__(315);
+=======
+	var _Reviews = __webpack_require__(317);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	
+	var _Reviews2 = _interopRequireDefault(_Reviews);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    reviews: state.reviews.list
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Reviews2.default);
+
+/***/ },
+<<<<<<< HEAD
+/* 315 */
+=======
+/* 317 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (props) {
+	  var reviews = props.reviews;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Reviews'
+	      ),
+	      reviews && reviews.map(function (review) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-4', key: review.id },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                review.title
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              review.content,
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              'Rating: ',
+	              review.stars,
+	              ' '
+	            )
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	;
+	
+	// Add photo of product
+	// <Link className="thumbnail" to={`/products/${product.id}`}>
+	//   <img src={ product.photoUrl }/>
+	// </Link>
+
+/***/ },
+<<<<<<< HEAD
+/* 316 */
+=======
+/* 318 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+<<<<<<< HEAD
+	var _Cart = __webpack_require__(317);
+=======
+	var _Cart = __webpack_require__(319);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	
+	var _Cart2 = _interopRequireDefault(_Cart);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			selectedCart: state.cart.list
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
+
+/***/ },
+<<<<<<< HEAD
+/* 317 */
+=======
+/* 319 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (props) {
+	
+	    var cart = props.selectedCart;
+	    console.log(cart);
+	    var total = 0;
+	    cart.forEach(function (product) {
+	        total += product.price;
+	    });
+	    return _react2.default.createElement(
+	        'div',
+	        { className: 'cart container' },
+	        _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	                'h3',
+	                null,
+	                'Cart'
+	            ),
+	            cart && cart.map(function (product) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { key: product.id },
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            product.name
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'h5',
+	                        null,
+	                        product.description,
+	                        ' '
+	                    ),
+	                    _react2.default.createElement(
+	                        'h5',
+	                        null,
+	                        '$',
+	                        product.price,
+	                        '.00 '
+	                    ),
+	                    _react2.default.createElement(
+	                        'h5',
+	                        null,
+	                        'Category:  ',
+	                        product.category,
+	                        ' '
+	                    )
+	                );
+	            }),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'cartTotal', style: { marginTop: 50 } },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Total: $',
+	                    total,
+	                    '.00'
+	                )
+	            )
+	        )
+	    );
+	};
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+<<<<<<< HEAD
+/* 318 */
+=======
+/* 320 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getProductsByCategory = exports.getProductById = exports.receiveProduct = exports.receiveProducts = undefined;
+	
+	var _constants = __webpack_require__(294);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var receiveProducts = exports.receiveProducts = function receiveProducts(products) {
+	  return {
+	    type: _constants.RECEIVE_PRODUCTS,
+	    products: products
+	  };
+	};
+	var receiveProduct = exports.receiveProduct = function receiveProduct(product) {
+	  return {
+	    type: _constants.RECEIVE_PRODUCT,
+	    product: product
+	  };
+	};
+	
+	var getProductById = exports.getProductById = function getProductById(productId) {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/products/' + productId).then(function (response) {
+	      dispatch(receiveProduct(response.data));
+	    });
+	  };
+	};
+	
+	var getProductsByCategory = exports.getProductsByCategory = function getProductsByCategory(categoryId) {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/products/category/' + categoryId).then(function (response) {
+	      dispatch(receiveProducts(response.data));
+	    });
+	  };
+	};
+
+/***/ },
+<<<<<<< HEAD
+/* 319 */
+=======
+/* 321 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getReviewsByProductId = exports.receiveReviews = undefined;
+	
+	var _constants = __webpack_require__(294);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var receiveReviews = exports.receiveReviews = function receiveReviews(reviews) {
+	  return {
+	    type: _constants.RECEIVE_REVIEWS,
+	    reviews: reviews
+	  };
+	};
+	
+	var getReviewsByProductId = exports.getReviewsByProductId = function getReviewsByProductId(productId) {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/products/' + productId + '/reviews').then(function (response) {
+	      dispatch(receiveReviews(response.data));
+	    });
+	  };
+	};
+
+<<<<<<< HEAD
+=======
+/***/ },
+/* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialUserState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_USER:
+	      newState.list = [action.user];
+	
+	      break;
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(294);
+	
+	var initialUserState = {
+	  list: []
+	
+	};
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(1);
@@ -31403,7 +32285,7 @@
 	}, []);
 
 /***/ },
-/* 307 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31419,7 +32301,7 @@
 	
 	var _reactRouter = __webpack_require__(32);
 	
-	var _auth = __webpack_require__(289);
+	var _auth = __webpack_require__(298);
 	
 	var _reactRedux = __webpack_require__(233);
 	
@@ -31444,7 +32326,7 @@
 	}, { login: _auth.login })(Login);
 
 /***/ },
-/* 308 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31458,7 +32340,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _auth = __webpack_require__(289);
+	var _auth = __webpack_require__(298);
 	
 	var _reactRedux = __webpack_require__(233);
 	
@@ -31488,581 +32370,7 @@
 	  return { user: auth };
 	}, { logout: _auth.logout })(WhoAmI);
 
-/***/ },
-/* 309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _Products = __webpack_require__(310);
-	
-	var _Products2 = _interopRequireDefault(_Products);
-	
-	var _reactRedux = __webpack_require__(233);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    products: state.products.list
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Products2.default);
-
-/***/ },
-/* 310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function (props) {
-	  var products = props.products;
-	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'container' },
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'Products'
-	      ),
-	      products && products.map(function (product) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'col-xs-4', key: product.id },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { className: 'thumbnail', to: '/products/' + product.id },
-	            _react2.default.createElement('img', { src: product.photoUrl })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                product.name
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              product.description,
-	              ' '
-	            ),
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              '$',
-	              product.price,
-	              '.00 '
-	            ),
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              'Category:  ',
-	              product.category,
-	              ' '
-	            ),
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              product.stock,
-	              ' in stock'
-	            )
-	          )
-	        );
-	      })
-	    )
-	  );
-	};
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(32);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	;
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _Product = __webpack_require__(312);
-	
-	var _Product2 = _interopRequireDefault(_Product);
-	
-	var _reactRedux = __webpack_require__(233);
-	
-	var _cart = __webpack_require__(313);
-	
-	var _store = __webpack_require__(292);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-		return {
-			selectedProduct: state.products.selected
-		};
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	
-		return {
-			addProductToCart: function addProductToCart(product) {
-				_store2.default.dispatch((0, _cart.addProductToCart)(product));
-			}
-		};
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Product2.default);
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	exports.default = function (props) {
-	
-		var product = props.selectedProduct;
-		var addProductToCart = props.addProductToCart;
-	
-		return _react2.default.createElement(
-			'div',
-			{ className: 'product' },
-			_react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'h3',
-					null,
-					product.name
-				),
-				_react2.default.createElement('img', { src: product.photoUrl, className: 'img-thumbnail' }),
-				_react2.default.createElement(
-					'h4',
-					null,
-					product.description
-				),
-				_react2.default.createElement(
-					'h4',
-					null,
-					'$ ',
-					product.price
-				),
-				_react2.default.createElement(
-					_reactRouter.Link,
-					{ to: '/products/' + product.id + '/reviews' },
-					_react2.default.createElement(
-						'button',
-						{ type: 'button', className: 'btn btn-link' },
-						'Reviews'
-					)
-				),
-				_react2.default.createElement(
-					'h4',
-					null,
-					product.stars
-				),
-				_react2.default.createElement(
-					_reactRouter.Link,
-					{ to: '/cart' },
-					_react2.default.createElement(
-						'button',
-						{ type: 'submit', className: 'btn btn-primary', onClick: function onClick() {
-								return addProductToCart(product);
-							} },
-						'Add to Cart'
-					)
-				)
-			)
-		);
-	};
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(32);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ },
-/* 313 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getProductsOfUser = exports.removeProductFromCart = exports.addProductToCart = exports.receiveCart = undefined;
-	
-	var _constants = __webpack_require__(295);
-	
-	var _axios = __webpack_require__(261);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var receiveCart = exports.receiveCart = function receiveCart(cart) {
-	    return {
-	        type: _constants.RECEIVE_CART,
-	        cart: cart
-	    };
-	};
-	
-	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
-	    return function (dispatch) {
-	        _axios2.default.post('/api/cart/', { product: product }).then(function () {
-	
-	            dispatch(receiveCart(product));
-	        });
-	    };
-	};
-	
-	var removeProductFromCart = exports.removeProductFromCart = function removeProductFromCart(product) {
-	    return function (dispatch) {
-	        _axios2.default.post('/api/cart/', { product: product }).then(function (response) {
-	            dispatch(receiveCart(response.data));
-	        });
-	    };
-	};
-	
-	var getProductsOfUser = exports.getProductsOfUser = function getProductsOfUser(productId) {
-	    return function (dispatch) {
-	        _axios2.default.get('/api/products/' + productId).then(function (response) {
-	            dispatch(receiveProduct(response.data));
-	        });
-	    };
-	};
-
-/***/ },
-/* 314 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _Reviews = __webpack_require__(315);
-	
-	var _Reviews2 = _interopRequireDefault(_Reviews);
-	
-	var _reactRedux = __webpack_require__(233);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    reviews: state.reviews.list
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Reviews2.default);
-
-/***/ },
-/* 315 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function (props) {
-	  var reviews = props.reviews;
-	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'container' },
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'Reviews'
-	      ),
-	      reviews && reviews.map(function (review) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'col-xs-4', key: review.id },
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                review.title
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'small',
-	              null,
-	              review.content,
-	              ' '
-	            ),
-	            _react2.default.createElement(
-	              'small',
-	              null,
-	              'Rating: ',
-	              review.stars,
-	              ' '
-	            )
-	          )
-	        );
-	      })
-	    )
-	  );
-	};
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(32);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	;
-	
-	// Add photo of product
-	// <Link className="thumbnail" to={`/products/${product.id}`}>
-	//   <img src={ product.photoUrl }/>
-	// </Link>
-
-/***/ },
-/* 316 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _Cart = __webpack_require__(317);
-	
-	var _Cart2 = _interopRequireDefault(_Cart);
-	
-	var _reactRedux = __webpack_require__(233);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-		return {
-			selectedCart: state.cart.list
-		};
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
-
-/***/ },
-/* 317 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	exports.default = function (props) {
-	
-	    var cart = props.selectedCart;
-	    console.log(cart);
-	    var total = 0;
-	    cart.forEach(function (product) {
-	        total += product.price;
-	    });
-	    return _react2.default.createElement(
-	        'div',
-	        { className: 'cart container' },
-	        _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            _react2.default.createElement(
-	                'h3',
-	                null,
-	                'Cart'
-	            ),
-	            cart && cart.map(function (product) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { key: product.id },
-	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            product.name
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'h5',
-	                        null,
-	                        product.description,
-	                        ' '
-	                    ),
-	                    _react2.default.createElement(
-	                        'h5',
-	                        null,
-	                        '$',
-	                        product.price,
-	                        '.00 '
-	                    ),
-	                    _react2.default.createElement(
-	                        'h5',
-	                        null,
-	                        'Category:  ',
-	                        product.category,
-	                        ' '
-	                    )
-	                );
-	            }),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'cartTotal', style: { marginTop: 50 } },
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    'Total: $',
-	                    total,
-	                    '.00'
-	                )
-	            )
-	        )
-	    );
-	};
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ },
-/* 318 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getProductsByCategory = exports.getProductById = exports.receiveProduct = exports.receiveProducts = undefined;
-	
-	var _constants = __webpack_require__(295);
-	
-	var _axios = __webpack_require__(261);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var receiveProducts = exports.receiveProducts = function receiveProducts(products) {
-	  return {
-	    type: _constants.RECEIVE_PRODUCTS,
-	    products: products
-	  };
-	};
-	var receiveProduct = exports.receiveProduct = function receiveProduct(product) {
-	  return {
-	    type: _constants.RECEIVE_PRODUCT,
-	    product: product
-	  };
-	};
-	
-	var getProductById = exports.getProductById = function getProductById(productId) {
-	  return function (dispatch) {
-	    _axios2.default.get('/api/products/' + productId).then(function (response) {
-	      dispatch(receiveProduct(response.data));
-	    });
-	  };
-	};
-	
-	var getProductsByCategory = exports.getProductsByCategory = function getProductsByCategory(categoryId) {
-	  return function (dispatch) {
-	    _axios2.default.get('/api/products/category/' + categoryId).then(function (response) {
-	      dispatch(receiveProducts(response.data));
-	    });
-	  };
-	};
-
-/***/ },
-/* 319 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getReviewsByProductId = exports.receiveReviews = undefined;
-	
-	var _constants = __webpack_require__(295);
-	
-	var _axios = __webpack_require__(261);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var receiveReviews = exports.receiveReviews = function receiveReviews(reviews) {
-	  return {
-	    type: _constants.RECEIVE_REVIEWS,
-	    reviews: reviews
-	  };
-	};
-	
-	var getReviewsByProductId = exports.getReviewsByProductId = function getReviewsByProductId(productId) {
-	  return function (dispatch) {
-	    _axios2.default.get('/api/products/' + productId + '/reviews').then(function (response) {
-	      dispatch(receiveReviews(response.data));
-	    });
-	  };
-	};
-
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ }
 /******/ ]);
 //# sourceMappingURL=bundle.js.map

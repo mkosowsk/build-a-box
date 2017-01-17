@@ -7,6 +7,26 @@ const Order = db.define('orders', {
 		allowNull: false
 	}
 
+    billAddress: {
+        type: Sequelize.STRING,
+        
+    },
+ shipAddress: {
+     type: Sequelize.STRING,
+    
+ },
+ ccInfo: {
+     type: Sequelize.INTEGER,
+     
+ },
+ expiration: {
+     type: Sequelize.STRING,
+     
+ },
+    totalPrice: {
+        type: Sequelize.INTEGER,
+        
+    }
 })
 
 module.exports = Order
