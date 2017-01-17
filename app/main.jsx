@@ -97,7 +97,7 @@ render (
         <Route path="/products/:productId/reviews" component={ReviewsContainer} onEnter={onReviewsEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
         <Route path="/cart" component={CartContainer} />
-        {/* <Route path="/orders" component={OrdersContainer} /> */}
+        <Route path="/orders" component={OrdersContainer} onEnter={onOrdersEnter}/> 
         {/* <Route path="/checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} /> */}
       </Route>
     </Router>

@@ -10,7 +10,7 @@ module.exports = require('express').Router()
    .catch(next))
  .post('/', (req, res, next) =>
    Order.create(req.body)
-   .then(product => res.status(201).json({
+   .then(order => res.status(201).json({
      message: 'Created successfully',
      order: order,
    }))

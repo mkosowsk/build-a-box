@@ -32,5 +32,6 @@ module.exports = {
 	Product,
 	Review,
 	Cart,
-	Guest
+	Guest,
+	Order
 }

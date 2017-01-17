@@ -181,7 +181,8 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _CartContainer2.default })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _CartContainer2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/orders', component: _OrdersContainer2.default, onEnter: onOrdersEnter })
 	    )
 	  )
 	), document.getElementById('main'));
