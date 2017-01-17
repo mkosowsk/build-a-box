@@ -68,6 +68,39 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+<<<<<<< HEAD
+	var _Jokes = __webpack_require__(306);
+	
+	var _Jokes2 = _interopRequireDefault(_Jokes);
+	
+	var _Login = __webpack_require__(307);
+	
+	var _Login2 = _interopRequireDefault(_Login);
+	
+	var _WhoAmI = __webpack_require__(308);
+	
+	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
+	
+	var _ProductsContainer = __webpack_require__(309);
+	
+	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
+	
+	var _ProductContainer = __webpack_require__(311);
+	
+	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
+	
+	var _ReviewsContainer = __webpack_require__(314);
+	
+	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
+	
+	var _CartContainer = __webpack_require__(316);
+	
+	var _CartContainer2 = _interopRequireDefault(_CartContainer);
+	
+	var _products = __webpack_require__(318);
+	
+	var _reviews = __webpack_require__(319);
+=======
 	var _OrdersContainer = __webpack_require__(306);
 	
 	var _OrdersContainer2 = _interopRequireDefault(_OrdersContainer);
@@ -109,6 +142,7 @@
 	var _products = __webpack_require__(320);
 	
 	var _reviews = __webpack_require__(321);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -492,8 +526,15 @@
 /* 4 */
 /***/ function(module, exports) {
 
+	/*
+	object-assign
+	(c) Sindre Sorhus
+	@license MIT
+	*/
+	
 	'use strict';
 	/* eslint-disable no-unused-vars */
+	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 	
@@ -514,7 +555,7 @@
 			// Detect buggy property enumeration order in older V8 versions.
 	
 			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line
+			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
 			test1[5] = 'de';
 			if (Object.getOwnPropertyNames(test1)[0] === '5') {
 				return false;
@@ -543,7 +584,7 @@
 			}
 	
 			return true;
-		} catch (e) {
+		} catch (err) {
 			// We don't expect any of the above to throw, but better to be safe.
 			return false;
 		}
@@ -563,8 +604,8 @@
 				}
 			}
 	
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
+			if (getOwnPropertySymbols) {
+				symbols = getOwnPropertySymbols(from);
 				for (var i = 0; i < symbols.length; i++) {
 					if (propIsEnumerable.call(from, symbols[i])) {
 						to[symbols[i]] = from[symbols[i]];
@@ -7475,6 +7516,23 @@
 		return value;
 	}
 	
+<<<<<<< HEAD
+	function keysSorter(input) {
+		if (Array.isArray(input)) {
+			return input.sort();
+		} else if (typeof input === 'object') {
+			return keysSorter(Object.keys(input)).sort(function (a, b) {
+				return Number(a) - Number(b);
+			}).map(function (key) {
+				return input[key];
+			});
+		}
+	
+		return input;
+	}
+	
+=======
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	exports.extract = function (str) {
 		return str.split('?')[1] || '';
 	};
@@ -7507,12 +7565,25 @@
 			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
 			val = val === undefined ? null : decodeURIComponent(val);
 	
+<<<<<<< HEAD
+			formatter(decodeURIComponent(key), val, ret);
+		});
+	
+		return Object.keys(ret).sort().reduce(function (result, key) {
+			var val = ret[key];
+			if (Boolean(val) && typeof val === 'object' && !Array.isArray(val)) {
+				// Sort object keys, not values
+				result[key] = keysSorter(val);
+			} else {
+				result[key] = val;
+=======
 			if (ret[key] === undefined) {
 				ret[key] = val;
 			} else if (Array.isArray(ret[key])) {
 				ret[key].push(val);
 			} else {
 				ret[key] = [ret[key], val];
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 			}
 		});
 	
@@ -30017,11 +30088,15 @@
 	
 	var _reviewsReducer2 = _interopRequireDefault(_reviewsReducer);
 	
+<<<<<<< HEAD
+	var _headerReducer = __webpack_require__(298);
+=======
 	var _ordersReducer = __webpack_require__(297);
 	
 	var _ordersReducer2 = _interopRequireDefault(_ordersReducer);
 	
 	var _headerReducer = __webpack_require__(322);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	var _headerReducer2 = _interopRequireDefault(_headerReducer);
 	
@@ -30204,16 +30279,68 @@
 
 	'use strict';
 	
+<<<<<<< HEAD
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialUserState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_USER:
+	      newState.list = [action.user];
+	
+	      break;
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(295);
+	
+	var initialUserState = {
+	  list: []
+	
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+=======
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+<<<<<<< HEAD
+	var _core = __webpack_require__(300);
+	
+	var _helpers = __webpack_require__(301);
+	
+	var _defaults = __webpack_require__(304);
+=======
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialOrdersState;
 	  var action = arguments[1];
 	
 	
 	  var newState = Object.assign({}, state);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	  switch (action.type) {
 	
@@ -31307,7 +31434,11 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
+/* 307 */
+=======
 /* 309 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31333,7 +31464,11 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Checkout2.default);
 
 /***/ },
+<<<<<<< HEAD
+/* 308 */
+=======
 /* 310 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31368,7 +31503,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
+<<<<<<< HEAD
+/* 309 */
+=======
 /* 311 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31377,7 +31516,11 @@
 	  value: true
 	});
 	
+<<<<<<< HEAD
+	var _Products = __webpack_require__(310);
+=======
 	var _Products = __webpack_require__(312);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	var _Products2 = _interopRequireDefault(_Products);
 	
@@ -31394,7 +31537,11 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Products2.default);
 
 /***/ },
+<<<<<<< HEAD
+/* 310 */
+=======
 /* 312 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31482,7 +31629,11 @@
 	;
 
 /***/ },
+<<<<<<< HEAD
+/* 311 */
+=======
 /* 313 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31491,13 +31642,21 @@
 		value: true
 	});
 	
+<<<<<<< HEAD
+	var _Product = __webpack_require__(312);
+=======
 	var _Product = __webpack_require__(314);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	var _Product2 = _interopRequireDefault(_Product);
 	
 	var _reactRedux = __webpack_require__(233);
 	
+<<<<<<< HEAD
+	var _cart = __webpack_require__(313);
+=======
 	var _cart = __webpack_require__(315);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	var _store = __webpack_require__(291);
 	
@@ -31523,7 +31682,11 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Product2.default);
 
 /***/ },
+<<<<<<< HEAD
+/* 312 */
+=======
 /* 314 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31598,7 +31761,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
+<<<<<<< HEAD
+/* 313 */
+=======
 /* 315 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31649,7 +31816,11 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
+/* 314 */
+=======
 /* 316 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31658,7 +31829,11 @@
 	  value: true
 	});
 	
+<<<<<<< HEAD
+	var _Reviews = __webpack_require__(315);
+=======
 	var _Reviews = __webpack_require__(317);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	var _Reviews2 = _interopRequireDefault(_Reviews);
 	
@@ -31675,7 +31850,11 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Reviews2.default);
 
 /***/ },
+<<<<<<< HEAD
+/* 315 */
+=======
 /* 317 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31750,7 +31929,11 @@
 	// </Link>
 
 /***/ },
+<<<<<<< HEAD
+/* 316 */
+=======
 /* 318 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31759,7 +31942,11 @@
 		value: true
 	});
 	
+<<<<<<< HEAD
+	var _Cart = __webpack_require__(317);
+=======
 	var _Cart = __webpack_require__(319);
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 	
 	var _Cart2 = _interopRequireDefault(_Cart);
 	
@@ -31776,7 +31963,11 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
 
 /***/ },
+<<<<<<< HEAD
+/* 317 */
+=======
 /* 319 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31861,7 +32052,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
+<<<<<<< HEAD
+/* 318 */
+=======
 /* 320 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31909,7 +32104,11 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
+/* 319 */
+=======
 /* 321 */
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31942,6 +32141,8 @@
 	  };
 	};
 
+<<<<<<< HEAD
+=======
 /***/ },
 /* 322 */
 /***/ function(module, exports, __webpack_require__) {
@@ -32169,6 +32370,7 @@
 	  return { user: auth };
 	}, { logout: _auth.logout })(WhoAmI);
 
+>>>>>>> 2afb8585a86f4eada0286d71280069a12079a3e6
 /***/ }
 /******/ ]);
 //# sourceMappingURL=bundle.js.map
