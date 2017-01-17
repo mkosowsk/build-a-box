@@ -21,6 +21,10 @@ Product.belongsToMany(User, {through: 'cart'});
 Guest.belongsToMany(Product, {through: 'sessionCart'});
 Product.belongsToMany(Guest, {through: 'sessionCart'});
 
+Order.belongsTo(User);
+User.hasMany(Order, { as: 'Orders'});
+Order.hasMany(Product);
+
 
 module.exports = {
 	User,
