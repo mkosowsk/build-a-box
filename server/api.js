@@ -10,6 +10,7 @@ api
   .use('/products', require('./products'))
   .use('/', require('./review'))
   .use('/cart', require('./cart'))
+  .use('/orders', require('./orders'));
   
   
 
