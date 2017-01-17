@@ -7,9 +7,9 @@ import axios from 'axios'
 
 import App from './components/App'
 import store from './store'
-// import Jokes from './components/Jokes'
-// import Login from './components/Login'
-// import WhoAmI from './components/WhoAmI'
+import Jokes from './components/Jokes'
+import Login from './components/Login'
+import WhoAmI from './components/WhoAmI'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
 import ReviewsContainer from './containers/ReviewsContainer'
@@ -85,7 +85,9 @@ render (
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
         <Route path="/products/:productId/reviews" component={ReviewsContainer} onEnter={onReviewsEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
-        <Route path="/cart/:cartId" component={CartContainer} />
+        <Route path="/cart" component={CartContainer} />
+        <Route path="/whoami" component={WhoAmI} />
+        <Route path="/login" component={Login} />
       </Route>
     </Router>
   </Provider>,

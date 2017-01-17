@@ -11,6 +11,7 @@ export const addProductToCart = product => {
     return dispatch => {
     	axios.post('/api/cart/', {product})
     		.then(() => {
+    			
     			dispatch(receiveCart(product));
     		});
     };
