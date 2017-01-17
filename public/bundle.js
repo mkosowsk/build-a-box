@@ -31598,26 +31598,26 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	exports.default = function (props) {
 	
-		var cart = props.selectedCart;
+	  var cart = props.selectedCart;
 	
-		return _react2.default.createElement(
-			'div',
-			{ className: 'cart' },
-			_react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'h3',
-					null,
-					cart[0]
-				)
-			)
-		);
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'cart container' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Cart'
+	      )
+	    )
+	  );
 	};
 	
 	var _react = __webpack_require__(1);
@@ -31660,7 +31660,6 @@
 	
 	var getProductById = exports.getProductById = function getProductById(productId) {
 	  return function (dispatch) {
-	    dispatch(receiveProduct(response.data));
 	    _axios2.default.get('/api/products/' + productId).then(function (response) {
 	      dispatch(receiveProduct(response.data));
 	    });
@@ -31669,9 +31668,8 @@
 	
 	var getProductsByCategory = exports.getProductsByCategory = function getProductsByCategory(categoryId) {
 	  return function (dispatch) {
-	    dispatch(receiveProducts(response.data));
 	    _axios2.default.get('/api/products/category/' + categoryId).then(function (response) {
-	      return;
+	      dispatch(receiveProducts(response.data));
 	    });
 	  };
 	};

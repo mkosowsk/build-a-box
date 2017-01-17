@@ -12,7 +12,6 @@ export const receiveProduct = product => ({
 
 export const getProductById = productId => {
   return dispatch => {
-    dispatch(receiveProduct(response.data));
     axios.get(`/api/products/${productId}`)
       .then(response => {
         dispatch(receiveProduct(response.data));
@@ -22,10 +21,9 @@ export const getProductById = productId => {
 
 export const getProductsByCategory = categoryId => {
   return dispatch => {
-    dispatch(receiveProducts(response.data));
     axios.get(`/api/products/category/${categoryId}`)
       .then(response => {
-        return
+        dispatch(receiveProducts(response.data));
       });
   };
 };
