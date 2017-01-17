@@ -33,8 +33,10 @@ module.exports = require('express').Router()
         })
           .catch(next);
     } else {
+      console.log(req.session.id)
       Guest.findById(req.session.id)
       .then(function(foundGuest) {
+        console.log(foundGuest)
         tempGuest = foundGuest;
         return Product.findById(req.body.product.id)
       })

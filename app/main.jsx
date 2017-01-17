@@ -7,6 +7,14 @@ import axios from 'axios'
 
 import App from './components/App'
 import store from './store'
+
+// import Jokes from './components/Jokes'
+// import Login from './components/Login'
+// import WhoAmI from './components/WhoAmI'
+import OrdersContainer from './containers/OrdersContainer'
+import {receiveOrders} from './action-creators/orders'
+import CheckoutContainer from './containers/CheckoutContainer'
+
 import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
@@ -62,6 +70,15 @@ const onCategoryEnter = (nextRouterState) => {
 
 }
 
+const onOrdersEnter = (nextRouterState) => {
+
+ axios.get('/api/orders')
+   .then(response => response.data)
+   .then(orders => {
+     store.dispatch(receiveOrders(orders));
+   });
+}
+
 
 // const ExampleApp = connect(
 //   ({ auth }) => ({ user: auth })
@@ -86,8 +103,12 @@ render (
         <Route path="/products/:productId/reviews" component={ReviewsContainer} onEnter={onReviewsEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
         <Route path="/cart" component={CartContainer} />
+
+        <Route path="/orders" component={OrdersContainer} onEnter={onOrdersEnter}/> 
+        {/* <Route path="/checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} /> */}
         <Route path="/whoami" component={WhoAmI} />
         <Route path="/login" component={Login} />
+
       </Route>
     </Router>
   </Provider>,
