@@ -7,9 +7,9 @@ import axios from 'axios'
 
 import App from './components/App'
 import store from './store'
-// import Jokes from './components/Jokes'
-// import Login from './components/Login'
-// import WhoAmI from './components/WhoAmI'
+import Jokes from './components/Jokes'
+import Login from './components/Login'
+import WhoAmI from './components/WhoAmI'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
 import ReviewsContainer from './containers/ReviewsContainer'
@@ -17,8 +17,8 @@ import CartContainer from './containers/CartContainer';
 import {receiveProducts, getProductById, getProductsByCategory} from './action-creators/products'
 import {receiveReviews, getReviewsByProductId} from './action-creators/reviews'
 
-const onAppEnter = () => {
-
+const onProductsEnter = () => {
+  console.log('RUNNING')
   // const products = axios.get('/products');
   axios.get('/api/products')
     .then(response => response.data)
@@ -34,10 +34,11 @@ const onProductEnter = (nextRouterState) => {
 
 }
 
+
+
 const onReviewsEnter = (nextRouterState) => {
 
-  const productId = nextRouterState.params.productId;
-  store.dispatch(getReviewsByProductId(productId));
+  store.dispatch(getReviewsByProductId());
 
 }
 
@@ -77,14 +78,16 @@ const onCategoryEnter = (nextRouterState) => {
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App} onEnter={onAppEnter}>
+      <Route path="/" component={App} >
         <IndexRedirect to="/products" />
-        <Route path="/products" component={ProductsContainer} />
+        <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/products/category/:categoryId" component={ProductsContainer} onEnter={onCategoryEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
         <Route path="/products/:productId/reviews" component={ReviewsContainer} onEnter={onReviewsEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter}/>
         <Route path="/cart" component={CartContainer} />
+        <Route path="/whoami" component={WhoAmI} />
+        <Route path="/login" component={Login} />
       </Route>
     </Router>
   </Provider>,

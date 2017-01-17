@@ -1,4 +1,10 @@
 import Header from '../components/Header';
 import { connect } from 'react-redux';
 
-export default connect()(Header);
+const mapStateToProps = (state) => {
+	return {
+		user: state
+	}
+}
+
+export default connect(mapStateToProps)(Header);
