@@ -68,37 +68,37 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _Jokes = __webpack_require__(305);
+	var _Jokes = __webpack_require__(306);
 	
 	var _Jokes2 = _interopRequireDefault(_Jokes);
 	
-	var _Login = __webpack_require__(306);
+	var _Login = __webpack_require__(307);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _WhoAmI = __webpack_require__(307);
+	var _WhoAmI = __webpack_require__(308);
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
 	
-	var _ProductsContainer = __webpack_require__(308);
+	var _ProductsContainer = __webpack_require__(309);
 	
 	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
 	
-	var _ProductContainer = __webpack_require__(310);
+	var _ProductContainer = __webpack_require__(311);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
-	var _ReviewsContainer = __webpack_require__(313);
+	var _ReviewsContainer = __webpack_require__(314);
 	
 	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
 	
-	var _CartContainer = __webpack_require__(315);
+	var _CartContainer = __webpack_require__(316);
 	
 	var _CartContainer2 = _interopRequireDefault(_CartContainer);
 	
-	var _products = __webpack_require__(317);
+	var _products = __webpack_require__(318);
 	
-	var _reviews = __webpack_require__(318);
+	var _reviews = __webpack_require__(319);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30147,11 +30147,11 @@
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _reduxLogger = __webpack_require__(298);
+	var _reduxLogger = __webpack_require__(299);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
-	var _reduxThunk = __webpack_require__(304);
+	var _reduxThunk = __webpack_require__(305);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -30191,7 +30191,7 @@
 	
 	var _reviewsReducer2 = _interopRequireDefault(_reviewsReducer);
 	
-	var _headerReducer = __webpack_require__(319);
+	var _headerReducer = __webpack_require__(298);
 	
 	var _headerReducer2 = _interopRequireDefault(_headerReducer);
 	
@@ -30371,17 +30371,56 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialUserState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_USER:
+	      newState.list = [action.user];
+	
+	      break;
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(295);
+	
+	var initialUserState = {
+	  list: []
+	
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	var _core = __webpack_require__(299);
+	var _core = __webpack_require__(300);
 	
-	var _helpers = __webpack_require__(300);
+	var _helpers = __webpack_require__(301);
 	
-	var _defaults = __webpack_require__(303);
+	var _defaults = __webpack_require__(304);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30484,7 +30523,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30494,9 +30533,9 @@
 	});
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(300);
+	var _helpers = __webpack_require__(301);
 	
-	var _diff = __webpack_require__(301);
+	var _diff = __webpack_require__(302);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -30625,7 +30664,7 @@
 	}
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30649,7 +30688,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30659,7 +30698,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(302);
+	var _deepDiff = __webpack_require__(303);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -30745,7 +30784,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -31174,7 +31213,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31225,7 +31264,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31253,7 +31292,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31355,7 +31394,7 @@
 	}, []);
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31396,7 +31435,7 @@
 	}, { login: _auth.login })(Login);
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31441,7 +31480,7 @@
 	}, { logout: _auth.logout })(WhoAmI);
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31450,7 +31489,7 @@
 	  value: true
 	});
 	
-	var _Products = __webpack_require__(309);
+	var _Products = __webpack_require__(310);
 	
 	var _Products2 = _interopRequireDefault(_Products);
 	
@@ -31467,7 +31506,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Products2.default);
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31555,7 +31594,7 @@
 	;
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31564,13 +31603,13 @@
 		value: true
 	});
 	
-	var _Product = __webpack_require__(311);
+	var _Product = __webpack_require__(312);
 	
 	var _Product2 = _interopRequireDefault(_Product);
 	
 	var _reactRedux = __webpack_require__(233);
 	
-	var _cart = __webpack_require__(312);
+	var _cart = __webpack_require__(313);
 	
 	var _store = __webpack_require__(292);
 	
@@ -31596,7 +31635,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Product2.default);
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31671,7 +31710,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31722,7 +31761,7 @@
 	};
 
 /***/ },
-/* 313 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31731,7 +31770,7 @@
 	  value: true
 	});
 	
-	var _Reviews = __webpack_require__(314);
+	var _Reviews = __webpack_require__(315);
 	
 	var _Reviews2 = _interopRequireDefault(_Reviews);
 	
@@ -31748,7 +31787,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Reviews2.default);
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31823,7 +31862,7 @@
 	// </Link>
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31832,7 +31871,7 @@
 		value: true
 	});
 	
-	var _Cart = __webpack_require__(316);
+	var _Cart = __webpack_require__(317);
 	
 	var _Cart2 = _interopRequireDefault(_Cart);
 	
@@ -31849,7 +31888,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
 
 /***/ },
-/* 316 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31934,7 +31973,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31982,7 +32021,7 @@
 	};
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32013,45 +32052,6 @@
 	      dispatch(receiveReviews(response.data));
 	    });
 	  };
-	};
-
-/***/ },
-/* 319 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialUserState;
-	  var action = arguments[1];
-	
-	
-	  var newState = Object.assign({}, state);
-	
-	  switch (action.type) {
-	
-	    case _constants.RECEIVE_USER:
-	      newState.list = [action.user];
-	
-	      break;
-	
-	    default:
-	      return state;
-	
-	  }
-	
-	  return newState;
-	};
-	
-	var _constants = __webpack_require__(295);
-	
-	var initialUserState = {
-	  list: []
-	
 	};
 
 /***/ }
