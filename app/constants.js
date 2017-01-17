@@ -14,4 +14,10 @@ export const RECEIVE_CART = 'RECEIVE_CART';
 
 export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 
+
 export const RECEIVE_ORDERS = 'RECEIVE_ORDERS';
+
+// Header
+
+export const RECEIVE_USER = 'RECEIVE_USER'
+

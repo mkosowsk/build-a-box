@@ -1,67 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { whoami } from '../reducers/auth'
+import axios from 'axios'
 
 export default function (props) {
+  let user;
+  if (props.user.auth) user = props.user.auth.name
+  else user = 'GUEST'
+  console.log('STATE:', user)
+
+  // console.log(props)
 
   return (
     <header>
-      
       <h1 className="logo">Build-A-Box</h1>
-  
+
       <div className="menu">
+        <span style={{marginRight: 7}}>{user.toUpperCase()}</span>
         <Link to='/cart'>
-          <span>My Cart</span>
+          <span>MY CART</span>
         </Link> 
-        <Link>
+        <Link to="/login">
           <span>LOGIN</span>
         </Link>
+        <Link to="/whoami">
+          <span>LOGOUT</span>
+         </Link>
         <Link>
           <span>REGISTER</span>
         </Link> 
       </div>
       <div className="clear"></div>
-      {/*<img src="juke.svg" className="logo"/>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/albums'>ALBUMS</Link>
-        </h4>
-      </section>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/artists'>ARTISTS</Link>
-        </h4>
-      </section>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/lyrics'>LYRICS</Link>
-        </h4>
-      </section>
-      <section>
-        <h4 className="menu-item">
-          <Link to='/stations'>STATIONS</Link>
-        </h4>
-      </section>
-      <hr />
-      <section>
-        <h4 className="text-muted">PLAYLISTS</h4>
-        <h4>
-          <Link className="btn btn-primary btn-block" to="/new-playlist">
-            <span className="glyphicon glyphicon-plus"></span> PLAYLIST
-          </Link>
-        </h4>
-      </section>
-      <hr />
-      <ul className="list-unstyled">
-        {
-          playlists.map(playlist => {
-            return (
-              <li key={playlist.id} className="playlist-item menu-item">
-                <Link to={`/playlists/${playlist.id}`}>{playlist.name}</Link>
-              </li>
-            );
-          })
-        }
-      </ul>*/}
     </header>
   );
 }

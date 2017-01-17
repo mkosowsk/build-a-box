@@ -78,6 +78,18 @@
 	
 	var _CheckoutContainer2 = _interopRequireDefault(_CheckoutContainer);
 	
+	var _Jokes = __webpack_require__(323);
+	
+	var _Jokes2 = _interopRequireDefault(_Jokes);
+	
+	var _Login = __webpack_require__(324);
+	
+	var _Login2 = _interopRequireDefault(_Login);
+	
+	var _WhoAmI = __webpack_require__(325);
+	
+	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
+	
 	var _ProductsContainer = __webpack_require__(311);
 	
 	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
@@ -100,19 +112,18 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// 'use strict'
-	var onAppEnter = function onAppEnter() {
-	
+	// import Jokes from './components/Jokes'
+	// import Login from './components/Login'
+	// import WhoAmI from './components/WhoAmI'
+	var onProductsEnter = function onProductsEnter() {
+	  console.log('RUNNING');
 	  // const products = axios.get('/products');
 	  _axios2.default.get('/api/products').then(function (response) {
 	    return response.data;
 	  }).then(function (products) {
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
 	  });
-	};
-	// import Jokes from './components/Jokes'
-	// import Login from './components/Login'
-	// import WhoAmI from './components/WhoAmI'
+	}; // 'use strict'
 	
 	
 	var onProductEnter = function onProductEnter(nextRouterState) {
@@ -123,8 +134,7 @@
 	
 	var onReviewsEnter = function onReviewsEnter(nextRouterState) {
 	
-	  var productId = nextRouterState.params.productId;
-	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)(productId));
+	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)());
 	};
 	
 	var onCartEnter = function onCartEnter(nextRouterState) {
@@ -174,15 +184,17 @@
 	    { history: _reactRouter.browserHistory },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
-	      { path: '/', component: _App2.default, onEnter: onAppEnter },
+	      { path: '/', component: _App2.default },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products' }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products', component: _ProductsContainer2.default, onEnter: onProductsEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/category/:categoryId', component: _ProductsContainer2.default, onEnter: onCategoryEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId/reviews', component: _ReviewsContainer2.default, onEnter: onReviewsEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default, onEnter: onProductEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _CartContainer2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/orders', component: _OrdersContainer2.default, onEnter: onOrdersEnter })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/orders', component: _OrdersContainer2.default, onEnter: onOrdersEnter }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/whoami', component: _WhoAmI2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -29694,7 +29706,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	
 	var _Header = __webpack_require__(288);
@@ -29705,7 +29717,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = (0, _reactRedux.connect)()(_Header2.default);
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			user: state
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Header2.default);
 
 /***/ },
 /* 288 */
@@ -29718,6 +29736,11 @@
 	});
 	
 	exports.default = function (props) {
+	  var user = void 0;
+	  if (props.user.auth) user = props.user.auth.name;else user = 'GUEST';
+	  console.log('STATE:', user);
+	
+	  // console.log(props)
 	
 	  return _react2.default.createElement(
 	    'header',
@@ -29731,21 +29754,35 @@
 	      'div',
 	      { className: 'menu' },
 	      _react2.default.createElement(
+	        'span',
+	        { style: { marginRight: 7 } },
+	        user.toUpperCase()
+	      ),
+	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/cart' },
 	        _react2.default.createElement(
 	          'span',
 	          null,
-	          'My Cart'
+	          'MY CART'
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Link,
-	        null,
+	        { to: '/login' },
 	        _react2.default.createElement(
 	          'span',
 	          null,
 	          'LOGIN'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/whoami' },
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          'LOGOUT'
 	        )
 	      ),
 	      _react2.default.createElement(
@@ -29768,6 +29805,12 @@
 	
 	var _reactRouter = __webpack_require__(32);
 	
+	var _auth = __webpack_require__(298);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
@@ -29978,6 +30021,10 @@
 	
 	var _ordersReducer2 = _interopRequireDefault(_ordersReducer);
 	
+	var _headerReducer = __webpack_require__(322);
+	
+	var _headerReducer2 = _interopRequireDefault(_headerReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
@@ -29985,7 +30032,8 @@
 	  products: _productsReducer2.default,
 	  cart: _cartReducer2.default,
 	  reviews: _reviewsReducer2.default,
-	  orders: _ordersReducer2.default
+	  orders: _ordersReducer2.default,
+	  header: _headerReducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -30059,6 +30107,10 @@
 	var RECEIVE_REVIEWS = exports.RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 	
 	var RECEIVE_ORDERS = exports.RECEIVE_ORDERS = 'RECEIVE_ORDERS';
+	
+	// Header
+	
+	var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
 
 /***/ },
 /* 295 */
@@ -30200,6 +30252,8 @@
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
+	var _reactRouter = __webpack_require__(32);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var reducer = function reducer() {
@@ -30224,6 +30278,8 @@
 	  return function (dispatch) {
 	    return _axios2.default.post('/api/auth/local/login', { username: username, password: password }).then(function () {
 	      return dispatch(whoami());
+	    }).then(function () {
+	      return _reactRouter.browserHistory.push('/');
 	    }).catch(function () {
 	      return dispatch(whoami());
 	    });
@@ -31519,11 +31575,15 @@
 					product.stars
 				),
 				_react2.default.createElement(
-					'button',
-					{ type: 'submit', className: 'btn btn-primary', onClick: function onClick() {
-							return addProductToCart(product);
-						} },
-					'Add to Cart'
+					_reactRouter.Link,
+					{ to: '/cart' },
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit', className: 'btn btn-primary', onClick: function onClick() {
+								return addProductToCart(product);
+							} },
+						'Add to Cart'
+					)
 				)
 			)
 		);
@@ -31565,7 +31625,6 @@
 	
 	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
 	    return function (dispatch) {
-	
 	        _axios2.default.post('/api/cart/', { product: product }).then(function () {
 	
 	            dispatch(receiveCart(product));
@@ -31580,15 +31639,6 @@
 	        });
 	    };
 	};
-	
-	// export const getProductById = albumId => {
-	//   return dispatch => {
-	//     axios.get(`/api/albums/${albumId}`)
-	//       .then(response => {
-	//         dispatch(receiveAlbum(response.data));
-	//       });
-	//   };
-	// };
 	
 	var getProductsOfUser = exports.getProductsOfUser = function getProductsOfUser(productId) {
 	    return function (dispatch) {
@@ -31732,26 +31782,76 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 	
 	exports.default = function (props) {
 	
-		var cart = props.selectedCart;
-		console.log(cart);
-		return _react2.default.createElement(
-			'div',
-			{ className: 'cart' },
-			_react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'h3',
-					null,
-					cart[0].name
-				)
-			)
-		);
+	    var cart = props.selectedCart;
+	    console.log(cart);
+	    var total = 0;
+	    cart.forEach(function (product) {
+	        total += product.price;
+	    });
+	    return _react2.default.createElement(
+	        'div',
+	        { className: 'cart container' },
+	        _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	                'h3',
+	                null,
+	                'Cart'
+	            ),
+	            cart && cart.map(function (product) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { key: product.id },
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            product.name
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'h5',
+	                        null,
+	                        product.description,
+	                        ' '
+	                    ),
+	                    _react2.default.createElement(
+	                        'h5',
+	                        null,
+	                        '$',
+	                        product.price,
+	                        '.00 '
+	                    ),
+	                    _react2.default.createElement(
+	                        'h5',
+	                        null,
+	                        'Category:  ',
+	                        product.category,
+	                        ' '
+	                    )
+	                );
+	            }),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'cartTotal', style: { marginTop: 50 } },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Total: $',
+	                    total,
+	                    '.00'
+	                )
+	            )
+	        )
+	    );
 	};
 	
 	var _react = __webpack_require__(1);
@@ -31841,6 +31941,233 @@
 	    });
 	  };
 	};
+
+/***/ },
+/* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialUserState;
+	  var action = arguments[1];
+	
+	
+	  var newState = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants.RECEIVE_USER:
+	      newState.list = [action.user];
+	
+	      break;
+	
+	    default:
+	      return state;
+	
+	  }
+	
+	  return newState;
+	};
+	
+	var _constants = __webpack_require__(294);
+	
+	var initialUserState = {
+	  list: []
+	
+	};
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var BonesJokes = function (_Component) {
+	  _inherits(BonesJokes, _Component);
+	
+	  function BonesJokes() {
+	    var _ref;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, BonesJokes);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BonesJokes.__proto__ || Object.getPrototypeOf(BonesJokes)).call.apply(_ref, [this].concat(args))), _this), _this.nextJoke = function () {
+	      return _this.setState({
+	        joke: randomJoke(),
+	        answered: false
+	      });
+	    }, _this.answer = function () {
+	      return _this.setState({ answered: true });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(BonesJokes, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.nextJoke();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (!this.state) {
+	        return null;
+	      }
+	
+	      var _state = this.state,
+	          joke = _state.joke,
+	          answered = _state.answered;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { onClick: answered ? this.nextJoke : this.answer },
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          joke.q
+	        ),
+	        answered && _react2.default.createElement(
+	          'h2',
+	          null,
+	          joke.a
+	        ),
+	        _react2.default.createElement(
+	          'cite',
+	          null,
+	          '~xoxo, bones'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return BonesJokes;
+	}(_react.Component);
+	
+	exports.default = BonesJokes;
+	
+	
+	function randomJoke() {
+	  return jokes[Math.floor(Math.random() * jokes.length)];
+	}
+	
+	var jokes = 'Q: Who won the skeleton beauty contest? \nA: No body\nQ: What do skeletons say before they begin dining? \nA: Bone appetit !\nQ: When does a skeleton laugh? \nA: When something tickles his funny bone.\nQ: Why didn\'t the skeleton dance at the Halloween party? \nA: It had no body to dance with.\nQ: What type of art do skeletons like? \nA: Skull tures\nQ: What did the skeleton say when his brother told a lie? \nA: You can\'t fool me, I can see right through you.\nQ: What did the skeleton say while riding his Harley Davidson motorcycle? \nA: I\'m bone to be wild!\nQ: Why didn\'t the skeleton dance at the party? \nA: He had no body to dance with.\nQ: What do you give a skeleton for valentine\'s day? \nA: Bone-bones in a heart shaped box.\nQ: Who was the most famous skeleton detective? \nA: Sherlock Bones.\nQ: Who was the most famous French skeleton? \nA: Napoleon bone-apart\nQ: What instrument do skeletons play? \nA: Trom-BONE.\nQ: What does a skeleton orders at a restaurant? \nA: Spare ribs!!!\nQ: When does a skeleton laugh? \nA: When something tickles his funny bone.\nQ: Why didn\'t the skeleton eat the cafeteria food? \nA: Because he didn\'t have the stomach for it!\nQ: Why couldn\'t the skeleton cross the road? \nA: He didn\'t have the guts.\nQ: Why are skeletons usually so calm ? \nA: Nothing gets under their skin !\nQ: Why do skeletons hate winter? \nA: Beacuse the cold goes right through them !\nQ: Why are graveyards so noisy ? \nA: Beacause of all the coffin !\nQ: Why didn\'t the skeleton go to the party ? \nA: He had no body to go with !\nQ: What happened when the skeletons rode pogo sticks ? \nA: They had a rattling good time !\nQ: Why did the skeleton go to hospital ? \nA: To have his ghoul stones removed !\nQ: How did the skeleton know it was going to rain ? \nA: He could feel it in his bones !\nQ: What\'s a skeleton\'s favourite musical instrument ? \nA: A trom-bone !\nQ: How do skeletons call their friends ? \nA: On the telebone !\nQ: What do you call a skeleton who won\'t get up in the mornings ? \nA: Lazy bones !\nQ: What do boney people use to get into their homes ? \nA: Skeleton keys !\nQ: What do you call a skeleton who acts in Westerns ? \nA: Skint Eastwood !\nQ: What happened to the boat that sank in the sea full of piranha fish ? \nA: It came back with a skeleton crew !\nQ: What do you call a skeleton snake ? \nA: A rattler !\nQ: What is a skeletons like to drink milk ? \nA: Milk - it\'s so good for the bones !\nQ: Why did the skeleton stay out in the snow all night ? \nA: He was a numbskull !\nQ: What do you call a stupid skeleton ? \nA: Bonehead !\nQ: What happened to the skeleton who stayed by the fire too long ? \nA: He became bone dry !\nQ: What happened to the lazy skeleton ? \nA: He was bone idle !\nQ: Why did the skeleton pupil stay late at school ? \nA: He was boning up for his exams !\nQ: What sort of soup do skeletons like ? \nA: One with plenty of body in it !\nQ: Why did the skeleton run up a tree ? \nA: Because a dog was after his bones !\nQ: What did the skeleton say to his girlfriend ? \nA: I love every bone in your body !\nQ: Why wasn\'t the naughty skeleton afraid of the police ? \nA: Because he knew they couldn\'t pin anything on him !\nQ: How do skeletons get their mail ? \nA: By bony express !\nQ: Why don\'t skeletons play music in church ? \nA: They have no organs !\nQ: What kind of plate does a skeleton eat off ? \nA: Bone china !\nQ: Why do skeletons hate winter ? \nA: Because the wind just goes straight through them !\nQ: What\'s a skeleton\'s favourite pop group ? \nA: Boney M !\nQ: What do you do if you see a skeleton running across a road ? \nA: Jump out of your skin and join him !\nQ: What did the old skeleton complain of ? \nA: Aching bones !\nQ: What is a skeleton ? \nA: Somebody on a diet who forgot to say "when" !\nQ: What happened to the skeleton that was attacked by a dog ? \nA: He ran off with some bones and didn\'t leave him with a leg to stand on !\nQ: Why are skeletons so calm ? \nA: Because nothing gets under their skin !\nQ: What do you call a skeleton that is always telling lies ? \nA: A boney phoney !\nQ: Why didn\'t the skeleton want to play football ? \nA: Because his heart wasn\'t in it !\nQ: What happened to the skeleton who went to a party ? \nA: All the others used him as a coat rack !\nQ: What do you call a skeleton who presses the door bell ? \nA: A dead ringer !\nQ: When does a skeleton laugh? \nA: When something tickles his funny bone.\nQ: How did skeletons send their letters in the old days? \nA: By bony express!\nQ: How do you make a skeleton laugh? \nA: Tickle his funny bone!'.split('\n').reduce(function (all, row, i) {
+	  return i % 2 === 0 ? [].concat(_toConsumableArray(all), [{ q: row }]) : [].concat(_toConsumableArray(all.slice(0, all.length - 1)), [Object.assign({ a: row }, all[all.length - 1])]);
+	}, []);
+
+/***/ },
+/* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Login = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	var _auth = __webpack_require__(298);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Login = exports.Login = function Login(_ref) {
+	  var login = _ref.login;
+	  return _react2.default.createElement(
+	    'form',
+	    { onSubmit: function onSubmit(evt) {
+	        evt.preventDefault();
+	        login(evt.target.username.value, evt.target.password.value);
+	      } },
+	    _react2.default.createElement('input', { name: 'username' }),
+	    _react2.default.createElement('input', { name: 'password', type: 'password' }),
+	    _react2.default.createElement('input', { type: 'submit', value: 'Login' })
+	  );
+	};
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	  return {};
+	}, { login: _auth.login })(Login);
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.WhoAmI = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _auth = __webpack_require__(298);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var WhoAmI = exports.WhoAmI = function WhoAmI(_ref) {
+	  var user = _ref.user,
+	      logout = _ref.logout;
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "whoami" },
+	    _react2.default.createElement(
+	      "span",
+	      { className: "whoami-user-name", style: { marginRight: 10 } },
+	      user && user.name
+	    ),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "logout", onClick: logout },
+	      "Logout"
+	    )
+	  );
+	};
+	
+	exports.default = (0, _reactRedux.connect)(function (_ref2) {
+	  var auth = _ref2.auth;
+	  return { user: auth };
+	}, { logout: _auth.logout })(WhoAmI);
 
 /***/ }
 /******/ ]);
