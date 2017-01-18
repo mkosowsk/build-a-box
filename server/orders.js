@@ -8,10 +8,16 @@ module.exports = require('express').Router()
    Order.findAll()
    .then(orders => res.json(orders))
    .catch(next))
- .post('/', (req, res, next) =>
-   Order.create(req.body)
-   .then(order => res.status(201).json({
-     message: 'Created successfully',
-     order: order,
-   }))
-   .catch(next))
+ .post('/', (req, res, next) => {
+ 		console.log("BODY", req.body.content)
+   let order = Order.build(req.body.content)
+   order.save()
+   .then(order => {
+   		console.log("ORDER", order)	
+ 			res.status(201).json({
+      message: 'Created successfully',
+      order: order,
+   		})
+   	})
+   .catch(next)
+})
