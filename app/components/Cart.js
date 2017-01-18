@@ -67,7 +67,7 @@ export default function (props) {
                     <h6>Billing Address:</h6><input name="billAddress" />
                     <h6>Credit Card Number:</h6><input name="ccNumber" defaultValue="1234567812345678"/>
                     <h6>Expiration Date:</h6><input name="ccExpDate" defaultValue="06/20"/>
-                    {/*<h6>Total Price:</h6><input name="totalPrice" value={`${total}.00`} />*/}
+                    <h6>Total Price:</h6><input name="totalPrice" value={`${total}.00`} />
                     <button type='submit' className="btn btn-primary" style={{marginTop: 5, marginRight: 5}}>ORDER</button>
                </form>
 
