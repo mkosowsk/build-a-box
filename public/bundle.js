@@ -32378,7 +32378,7 @@
 	    reviews: reviews
 	  };
 	};
-	
+	// Reviews
 	var getReviewsByProductId = exports.getReviewsByProductId = function getReviewsByProductId(productId) {
 	  return function (dispatch) {
 	    _axios2.default.get('/api/products/' + productId + '/reviews').then(function (response) {
