@@ -5,7 +5,7 @@ export const receiveReviews = reviews => ({
     type: RECEIVE_REVIEWS,
     reviews
 });
-
+// Reviews
 export const getReviewsByProductId = productId => {
   return dispatch => {
     axios.get(`/api/products/${productId}/reviews`)
