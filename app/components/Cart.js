@@ -5,7 +5,6 @@ import {createOrder} from '../action-creators/cart'
 export default function (props) {
 
    const cart = props.selectedCart;
-   console.log(cart)
    let total = 0;
    cart.forEach(product => {
        total += product.price
@@ -19,7 +18,6 @@ export default function (props) {
     // function makeOrder(e) {
     //     e.preventDefault()
     //     var elem = document.getElementById('checkout')
-    //     console.log(elem.elements)
     //     createOrder()
 
     //     {billAddress: elem.elements.billAddress.value}
@@ -37,7 +35,6 @@ export default function (props) {
             totalPrice: e.target.totalPrice.value,
         }
 
-        console.log("FORM", formData)
 
         createOrder(formData)
     }
@@ -49,7 +46,7 @@ export default function (props) {
                
                {
                    cart && cart.map(product => (
-                       <div key={ product.id }>
+                       <div key={ product.id + Math.round(Math.random() * 10) }>
                            <h3>{ product.name }</h3>
                            <h5>${ product.price }.00 </h5>
                            <h5>Category:  { product.category } </h5>

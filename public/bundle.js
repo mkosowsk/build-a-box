@@ -32162,7 +32162,6 @@
 	exports.default = function (props) {
 	
 	    var cart = props.selectedCart;
-	    console.log(cart);
 	    var total = 0;
 	    cart.forEach(function (product) {
 	        total += product.price;
@@ -32176,7 +32175,6 @@
 	    // function makeOrder(e) {
 	    //     e.preventDefault()
 	    //     var elem = document.getElementById('checkout')
-	    //     console.log(elem.elements)
 	    //     createOrder()
 	
 	    //     {billAddress: elem.elements.billAddress.value}
@@ -32192,8 +32190,6 @@
 	            expiration: e.target.ccExpDate.value,
 	            totalPrice: e.target.totalPrice.value
 	        };
-	
-	        console.log("FORM", formData);
 	
 	        (0, _cart.createOrder)(formData);
 	    }
@@ -32212,7 +32208,7 @@
 	            cart && cart.map(function (product) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { key: product.id },
+	                    { key: product.id + Math.round(Math.random() * 10) },
 	                    _react2.default.createElement(
 	                        'h3',
 	                        null,
