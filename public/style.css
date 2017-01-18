@@ -137,5 +137,10 @@ footer {
   footer .progress-bar {
     transition: none !important; }
 
-.album img {
-  height: 300px; }
+.productImg {
+  max-height: 50%; 
+  max-width: 50%;
+}
+
+
+

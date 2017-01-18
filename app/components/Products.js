@@ -4,6 +4,12 @@ import {Link} from 'react-router';
 
 export default function (props) {
   const products = props.products;
+  function shorten(string) {
+    if (string.length > 15) {
+      string = string.slice(0,15) + '...'
+    }
+    return string
+  }
 
   return (
     <div className="container">
@@ -17,9 +23,8 @@ export default function (props) {
               </Link>
               <div>
                   <h3>
-                    <span>{ product.name }</span>
+                    <span>{ shorten(product.name) }</span>
                   </h3>
-                  <h5>{ product.description } </h5>
                   <h5>${ product.price }.00 </h5>
                   <h5>Category:  { product.category } </h5>
                   <h5>{ product.stock } in stock</h5>
@@ -31,3 +36,5 @@ export default function (props) {
     </div>
   );
 };
+
+

@@ -11,7 +11,7 @@ export default function (props) {
 		<div className='product'>
 			<div>
 				<h3>{ product.name }</h3>
-				<img src={ product.photoUrl } className ="img-thumbnail"/>
+				<img src={ product.photoUrl } className ="productImg"/>
 				<h4>{ product.description }</h4>
 				<h4>$ { product.price }</h4>
 				<Link to={`/products/${product.id}/reviews`}>

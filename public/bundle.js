@@ -31947,6 +31947,12 @@
 	
 	exports.default = function (props) {
 	  var products = props.products;
+	  function shorten(string) {
+	    if (string.length > 15) {
+	      string = string.slice(0, 15) + '...';
+	    }
+	    return string;
+	  }
 	
 	  return _react2.default.createElement(
 	    'div',
@@ -31977,14 +31983,8 @@
 	              _react2.default.createElement(
 	                'span',
 	                null,
-	                product.name
+	                shorten(product.name)
 	              )
-	            ),
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              product.description,
-	              ' '
 	            ),
 	            _react2.default.createElement(
 	              'h5',
@@ -32091,7 +32091,7 @@
 					null,
 					product.name
 				),
-				_react2.default.createElement('img', { src: product.photoUrl, className: 'img-thumbnail' }),
+				_react2.default.createElement('img', { src: product.photoUrl, className: 'productImg' }),
 				_react2.default.createElement(
 					'h4',
 					null,
