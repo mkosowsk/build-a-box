@@ -14,7 +14,8 @@ export default function (props) {
            <div className="col-xs-4" key={ orders.id }>
              <div>
                <h5>{ order.id }</h5>
-               <h5>${ order.total }</h5>
+               <h5>{ order.shipAddress }</h5> 
+               <h5>${ order.totalPrice }</h5>
              </div>
            </div>
          ))

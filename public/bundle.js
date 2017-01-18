@@ -31426,8 +31426,13 @@
 	            _react2.default.createElement(
 	              'h5',
 	              null,
+	              order.shipAddress
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              null,
 	              '$',
-	              order.total
+	              order.totalPrice
 	            )
 	          )
 	        );
@@ -31958,7 +31963,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.getProductsOfUser = exports.removeProductFromCart = exports.addProductToCart = exports.receiveCart = undefined;
+	exports.createOrder = exports.getProductsOfUser = exports.removeProductFromCart = exports.addProductToCart = exports.receiveCart = undefined;
 	
 	var _constants = __webpack_require__(295);
 	
@@ -31978,7 +31983,6 @@
 	var addProductToCart = exports.addProductToCart = function addProductToCart(product) {
 	    return function (dispatch) {
 	        _axios2.default.post('/api/cart/', { product: product }).then(function () {
-	
 	            dispatch(receiveCart(product));
 	        });
 	    };
@@ -31998,6 +32002,15 @@
 	            dispatch(receiveProduct(response.data));
 	        });
 	    };
+	};
+	
+	var createOrder = exports.createOrder = function createOrder(content) {
+	    console.log("CONTENT", content);
+	    _axios2.default.post('api/orders', { content: content }).then(function () {
+	        console.log('Success?');
+	    }).catch(function (err) {
+	        console.log(err);
+	    });
 	};
 
 /***/ },
@@ -32117,6 +32130,8 @@
 	
 	var _reactRedux = __webpack_require__(233);
 	
+	var _cart = __webpack_require__(319);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -32124,6 +32139,13 @@
 			selectedCart: state.cart.list
 		};
 	};
+	
+	// const mapDispatch = (createOrder) => dispatch => {
+	// 	return {
+	// 		createOrder
+	// 	}
+	// }
+	
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
 
@@ -32148,8 +32170,32 @@
 	
 	    function showCheckout() {
 	        var elem = document.getElementById('checkout');
-	        console.log('CLICKED', elem);
 	        if (elem.style.display === 'none') elem.style.display = 'block';
+	    }
+	
+	    // function makeOrder(e) {
+	    //     e.preventDefault()
+	    //     var elem = document.getElementById('checkout')
+	    //     console.log(elem.elements)
+	    //     createOrder()
+	
+	    //     {billAddress: elem.elements.billAddress.value}
+	    // }
+	
+	    function handleSubmit(e) {
+	        e.preventDefault();
+	
+	        var formData = {
+	            shipAddress: e.target.shipAddress.value,
+	            billAddress: e.target.billAddress.value,
+	            ccInfo: e.target.ccNumber.value,
+	            expiration: e.target.ccExpDate.value,
+	            totalPrice: e.target.totalPrice.value
+	        };
+	
+	        console.log("FORM", formData);
+	
+	        (0, _cart.createOrder)(formData);
 	    }
 	
 	    return _react2.default.createElement(
@@ -32209,53 +32255,43 @@
 	                )
 	            ),
 	            _react2.default.createElement(
-	                'div',
-	                { id: 'checkout', style: { display: "none" } },
+	                'form',
+	                { id: 'checkout', className: 'checkoutForm', style: { display: "none" }, onSubmit: function onSubmit(e) {
+	                        return handleSubmit(e);
+	                    } },
 	                _react2.default.createElement(
-	                    'form',
-	                    { className: 'checkoutForm' },
-	                    _react2.default.createElement(
-	                        'h6',
-	                        null,
-	                        'Shipping Address:'
-	                    ),
-	                    _react2.default.createElement('input', { name: 'shipAddress' })
+	                    'h6',
+	                    null,
+	                    'Shipping Address:'
 	                ),
+	                _react2.default.createElement('input', { name: 'shipAddress' }),
 	                _react2.default.createElement(
-	                    'form',
-	                    { className: 'checkoutForm' },
-	                    _react2.default.createElement(
-	                        'h6',
-	                        null,
-	                        'Billing Address:'
-	                    ),
-	                    _react2.default.createElement('input', { name: 'billAddress' })
+	                    'h6',
+	                    null,
+	                    'Billing Address:'
 	                ),
+	                _react2.default.createElement('input', { name: 'billAddress' }),
 	                _react2.default.createElement(
-	                    'form',
-	                    { className: 'checkoutForm' },
-	                    _react2.default.createElement(
-	                        'h6',
-	                        null,
-	                        'Credit Card Number:'
-	                    ),
-	                    _react2.default.createElement('input', { name: 'ccNumber', defaultValue: '1234567812345678' })
+	                    'h6',
+	                    null,
+	                    'Credit Card Number:'
 	                ),
+	                _react2.default.createElement('input', { name: 'ccNumber', defaultValue: '1234567812345678' }),
 	                _react2.default.createElement(
-	                    'form',
-	                    { className: 'checkoutForm' },
-	                    _react2.default.createElement(
-	                        'h6',
-	                        null,
-	                        'Expiration Date:'
-	                    ),
-	                    _react2.default.createElement('input', { name: 'ccExpDate', defaultValue: '06/20' })
+	                    'h6',
+	                    null,
+	                    'Expiration Date:'
 	                ),
+	                _react2.default.createElement('input', { name: 'ccExpDate', defaultValue: '06/20' }),
+	                _react2.default.createElement(
+	                    'h6',
+	                    null,
+	                    'Total Price:'
+	                ),
+	                _react2.default.createElement('input', { name: 'totalPrice', value: total + '.00' }),
 	                _react2.default.createElement(
 	                    'button',
-	                    { type: 'submit', className: 'btn btn-primary', style: { marginTop: 5, marginRight: 5 }, onClick: function onClick() {
-	                            console.log("MAKE THIS FUCKING WORK");
-	                        } },
+	                    { type: 'submit', className: 'btn btn-primary', style: { marginTop: 5, marginRight: 5 } },
 	                    'ORDER'
 	                )
 	            )
@@ -32268,6 +32304,8 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRouter = __webpack_require__(32);
+	
+	var _cart = __webpack_require__(319);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

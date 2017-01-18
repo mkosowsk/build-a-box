@@ -11,7 +11,6 @@ export const addProductToCart = product => {
     return dispatch => {
     	axios.post('/api/cart/', {product})
     		.then(() => {
-    			
     			dispatch(receiveCart(product));
     		});
     };
@@ -35,3 +34,12 @@ export const getProductsOfUser = productId => {
   };
 };
 
+export const createOrder = content => {
+    console.log("CONTENT",content);
+    axios.post('api/orders', {content})
+        .then(() => {
+            console.log('Success?')
+        }).catch((err) => {
+            console.log(err)
+        })
+}
