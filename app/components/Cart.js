@@ -46,7 +46,7 @@ export default function (props) {
                
                {
                    cart && cart.map(product => (
-                       <div key={ product.id + Math.round(Math.random() * 10) }>
+                       <div key={ product.id }>
                            <h3>{ product.name }</h3>
                            <h5>${ product.price }.00 </h5>
                            <h5>Category:  { product.category } </h5>
