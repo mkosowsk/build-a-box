@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import HeaderContainer from '../containers/HeaderContainer';
 import SidebarContainer from '../containers/SidebarContainer';
+import Footer from './Footer'
 
 export default function (props) {
   return (
@@ -15,6 +16,7 @@ export default function (props) {
               {
                 props.children && React.cloneElement(props.children, props)
               }
+            <Footer />
           </div>
           </div>
     </div>

@@ -13,6 +13,7 @@ export default function (props) {
          orders && orders.map(order => (
            <div className="col-xs-4" key={ orders.id }>
              <div>
+               <h3>{ order.name }</h3>
                <h5>{ order.id }</h5>
                <h5>{ order.shipAddress }</h5> 
                <h5>${ order.totalPrice }</h5>

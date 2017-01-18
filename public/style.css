@@ -5,12 +5,16 @@ body {
   background: white;
   font-family: orbitron;
   font-size: 14px;
-  padding-bottom: 56px; }
+  padding-bottom: 56px;
+  overflow-x: hidden;
+}
 
 #main {
   padding: 0; }
 
-
+.col-xs-10 {
+  padding-left: 10px
+}
 
 h1, h2, h3 {
   font-weight: 700; 
@@ -28,6 +32,10 @@ header h1{
   font-size: 28px;
 }
 
+.logo {
+  padding-top: 10px;
+  font-size: 3em;
+}
 
 sidebar {
   font-color: #6799A3;
@@ -36,7 +44,7 @@ sidebar {
   top: 0;
   background-color: #E7F3FF;
   padding: 0 !important;
-  height: calc(100vh - 56px);
+  height: 100%;
   width: inherit;
   overflow-y: auto;
   border-right: 2px solid #555; }
@@ -111,13 +119,14 @@ header a {
 }
 
 footer {
+  font-size: 1.25em;
   position: fixed;
-  background-color: #555;
+  background-color: #6799A3;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 56px;
-  border-top: 1px solid #222;
+  /*border-top: 1px solid #222;*/
   border-bottom: 1px solid #222;
   padding: 8px; }
   footer .bar {

@@ -26,8 +26,8 @@ export default function (props) {
         <Link to="/whoami">
           <span>LOGOUT</span>
          </Link>
-        <Link>
-          <span>REGISTER</span>
+        <Link to="/signup">
+          <span>SIGN UP</span>
         </Link> 
       </div>
       <div className="clear"></div>

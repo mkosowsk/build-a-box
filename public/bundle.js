@@ -64,57 +64,59 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _store = __webpack_require__(292);
+	var _store = __webpack_require__(293);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _OrdersContainer = __webpack_require__(307);
+	var _OrdersContainer = __webpack_require__(308);
 	
 	var _OrdersContainer2 = _interopRequireDefault(_OrdersContainer);
 	
-	var _orders = __webpack_require__(309);
+	var _orders = __webpack_require__(310);
 	
-	var _CheckoutContainer = __webpack_require__(310);
+	var _CheckoutContainer = __webpack_require__(311);
 	
 	var _CheckoutContainer2 = _interopRequireDefault(_CheckoutContainer);
 	
-	var _Jokes = __webpack_require__(312);
+	var _Jokes = __webpack_require__(313);
 	
 	var _Jokes2 = _interopRequireDefault(_Jokes);
 	
-	var _Login = __webpack_require__(313);
+	var _Login = __webpack_require__(314);
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _WhoAmI = __webpack_require__(314);
+	var _WhoAmI = __webpack_require__(315);
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
 	
-	var _ProductsContainer = __webpack_require__(315);
+	var _Signup = __webpack_require__(316);
+	
+	var _Signup2 = _interopRequireDefault(_Signup);
+	
+	var _ProductsContainer = __webpack_require__(318);
 	
 	var _ProductsContainer2 = _interopRequireDefault(_ProductsContainer);
 	
-	var _ProductContainer = __webpack_require__(317);
+	var _ProductContainer = __webpack_require__(320);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
-	var _ReviewsContainer = __webpack_require__(320);
+	var _ReviewsContainer = __webpack_require__(323);
 	
 	var _ReviewsContainer2 = _interopRequireDefault(_ReviewsContainer);
 	
-	var _CartContainer = __webpack_require__(322);
+	var _CartContainer = __webpack_require__(325);
 	
 	var _CartContainer2 = _interopRequireDefault(_CartContainer);
 	
-	var _products = __webpack_require__(324);
+	var _products = __webpack_require__(327);
 	
-	var _reviews = __webpack_require__(325);
+	var _reviews = __webpack_require__(328);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import Jokes from './components/Jokes'
-	// import Login from './components/Login'
-	// import WhoAmI from './components/WhoAmI'
+	// 'use strict'
 	var onProductsEnter = function onProductsEnter() {
 	  console.log('RUNNING');
 	  // const products = axios.get('/products');
@@ -123,8 +125,7 @@
 	  }).then(function (products) {
 	    _store2.default.dispatch((0, _products.receiveProducts)(products));
 	  });
-	}; // 'use strict'
-	
+	};
 	
 	var onProductEnter = function onProductEnter(nextRouterState) {
 	
@@ -134,7 +135,8 @@
 	
 	var onReviewsEnter = function onReviewsEnter(nextRouterState) {
 	
-	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)());
+	  var productId = nextRouterState.params.productId;
+	  _store2.default.dispatch((0, _reviews.getReviewsByProductId)(productId));
 	};
 	
 	var onCartEnter = function onCartEnter(nextRouterState) {
@@ -194,7 +196,8 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _CartContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/orders', component: _OrdersContainer2.default, onEnter: onOrdersEnter }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/whoami', component: _WhoAmI2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _Signup2.default })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -29804,7 +29807,8 @@
 	        'div',
 	        { className: 'col-xs-10' },
 	        _react2.default.createElement(_HeaderContainer2.default, null),
-	        props.children && _react2.default.cloneElement(props.children, props)
+	        props.children && _react2.default.cloneElement(props.children, props),
+	        _react2.default.createElement(_Footer2.default, null)
 	      )
 	    )
 	  );
@@ -29821,6 +29825,10 @@
 	var _SidebarContainer = __webpack_require__(290);
 	
 	var _SidebarContainer2 = _interopRequireDefault(_SidebarContainer);
+	
+	var _Footer = __webpack_require__(292);
+	
+	var _Footer2 = _interopRequireDefault(_Footer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29912,11 +29920,11 @@
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Link,
-	        null,
+	        { to: '/signup' },
 	        _react2.default.createElement(
 	          'span',
 	          null,
-	          'REGISTER'
+	          'SIGN UP'
 	        )
 	      )
 	    ),
@@ -30158,6 +30166,52 @@
 /* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  return _react2.default.createElement(
+	    "footer",
+	    null,
+	    _react2.default.createElement(
+	      "div",
+	      { className: "footer text-center" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "vcenter muted" },
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          _react2.default.createElement("span", { className: "glyphicon glyphicon-wrench" }),
+	          " with ",
+	          _react2.default.createElement("span", { className: "glyphicon glyphicon-heart" }),
+	          " at ",
+	          _react2.default.createElement(
+	            "a",
+	            { href: "http://fullstackacademy.com" },
+	            "Fullstack Academy of Code"
+	          ),
+	          " ",
+	          _react2.default.createElement("span", { className: "glyphicon glyphicon-education" })
+	        )
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -30166,15 +30220,15 @@
 	
 	var _redux = __webpack_require__(240);
 	
-	var _reducers = __webpack_require__(293);
+	var _reducers = __webpack_require__(294);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _reduxLogger = __webpack_require__(300);
+	var _reduxLogger = __webpack_require__(301);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
-	var _reduxThunk = __webpack_require__(306);
+	var _reduxThunk = __webpack_require__(307);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -30191,7 +30245,7 @@
 	store.dispatch((0, _auth.whoami)());
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30202,23 +30256,23 @@
 	
 	var _redux = __webpack_require__(240);
 	
-	var _productsReducer = __webpack_require__(294);
+	var _productsReducer = __webpack_require__(295);
 	
 	var _productsReducer2 = _interopRequireDefault(_productsReducer);
 	
-	var _cartReducer = __webpack_require__(296);
+	var _cartReducer = __webpack_require__(297);
 	
 	var _cartReducer2 = _interopRequireDefault(_cartReducer);
 	
-	var _reviewsReducer = __webpack_require__(297);
+	var _reviewsReducer = __webpack_require__(298);
 	
 	var _reviewsReducer2 = _interopRequireDefault(_reviewsReducer);
 	
-	var _ordersReducer = __webpack_require__(298);
+	var _ordersReducer = __webpack_require__(299);
 	
 	var _ordersReducer2 = _interopRequireDefault(_ordersReducer);
 	
-	var _headerReducer = __webpack_require__(299);
+	var _headerReducer = __webpack_require__(300);
 	
 	var _headerReducer2 = _interopRequireDefault(_headerReducer);
 	
@@ -30236,7 +30290,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30269,7 +30323,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
@@ -30279,7 +30333,7 @@
 	};
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30310,7 +30364,7 @@
 	var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30341,7 +30395,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -30353,7 +30407,7 @@
 	};
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30386,7 +30440,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
@@ -30396,7 +30450,7 @@
 	};
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30426,7 +30480,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	// import {convertAlbum, convertAlbums} from '../utils';
 	
@@ -30435,7 +30489,7 @@
 	};
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30466,7 +30520,7 @@
 	  return newState;
 	};
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	var initialUserState = {
 	  list: []
@@ -30474,7 +30528,7 @@
 	};
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30485,11 +30539,11 @@
 	  value: true
 	});
 	
-	var _core = __webpack_require__(301);
+	var _core = __webpack_require__(302);
 	
-	var _helpers = __webpack_require__(302);
+	var _helpers = __webpack_require__(303);
 	
-	var _defaults = __webpack_require__(305);
+	var _defaults = __webpack_require__(306);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30592,7 +30646,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30602,9 +30656,9 @@
 	});
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(302);
+	var _helpers = __webpack_require__(303);
 	
-	var _diff = __webpack_require__(303);
+	var _diff = __webpack_require__(304);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -30733,7 +30787,7 @@
 	}
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30757,7 +30811,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30767,7 +30821,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(304);
+	var _deepDiff = __webpack_require__(305);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -30853,7 +30907,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -31282,7 +31336,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31333,7 +31387,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31361,7 +31415,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31370,7 +31424,7 @@
 	  value: true
 	});
 	
-	var _Orders = __webpack_require__(308);
+	var _Orders = __webpack_require__(309);
 	
 	var _Orders2 = _interopRequireDefault(_Orders);
 	
@@ -31387,7 +31441,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Orders2.default);
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31418,6 +31472,11 @@
 	          _react2.default.createElement(
 	            'div',
 	            null,
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              order.name
+	            ),
 	            _react2.default.createElement(
 	              'h5',
 	              null,
@@ -31450,7 +31509,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31460,7 +31519,7 @@
 	});
 	exports.receiveOrders = undefined;
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	var _axios = __webpack_require__(261);
 	
@@ -31476,7 +31535,7 @@
 	};
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31485,7 +31544,7 @@
 		value: true
 	});
 	
-	var _Checkout = __webpack_require__(311);
+	var _Checkout = __webpack_require__(312);
 	
 	var _Checkout2 = _interopRequireDefault(_Checkout);
 	
@@ -31502,7 +31561,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Checkout2.default);
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31537,7 +31596,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31639,7 +31698,7 @@
 	}, []);
 
 /***/ },
-/* 313 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31668,10 +31727,25 @@
 	    { onSubmit: function onSubmit(evt) {
 	        evt.preventDefault();
 	        login(evt.target.username.value, evt.target.password.value);
-	      } },
+	        browserHistory.push('/');
+	      }, style: { marginLeft: 5 } },
+	    _react2.default.createElement(
+	      'h6',
+	      null,
+	      'Email:'
+	    ),
 	    _react2.default.createElement('input', { name: 'username' }),
+	    _react2.default.createElement(
+	      'h6',
+	      null,
+	      'Password:'
+	    ),
 	    _react2.default.createElement('input', { name: 'password', type: 'password' }),
-	    _react2.default.createElement('input', { type: 'submit', value: 'Login' })
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('input', { type: 'submit', className: 'btn btn-primary', style: { marginTop: 5, marginRight: 5 }, value: 'Login' })
+	    )
 	  );
 	};
 	
@@ -31680,7 +31754,7 @@
 	}, { login: _auth.login })(Login);
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31708,12 +31782,12 @@
 	    { className: "whoami" },
 	    _react2.default.createElement(
 	      "span",
-	      { className: "whoami-user-name", style: { marginRight: 10 } },
+	      { className: "whoami-user-name", style: { marginLeft: 5, marginRight: 10, fontSize: 20 } },
 	      user && user.name
 	    ),
 	    _react2.default.createElement(
 	      "button",
-	      { className: "logout", onClick: logout },
+	      { className: "logout btn btn-primary", style: { marginTop: 5, marginRight: 5 }, onClick: logout },
 	      "Logout"
 	    )
 	  );
@@ -31725,7 +31799,118 @@
 	}, { logout: _auth.logout })(WhoAmI);
 
 /***/ },
-/* 315 */
+/* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Signup = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	var _header = __webpack_require__(317);
+	
+	var _auth = __webpack_require__(289);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function handleSubmit(e) {
+	  e.preventDefault();
+	
+	  var formData = {
+	    name: e.target.name.value,
+	    email: e.target.email.value,
+	    password: e.target.password.value
+	  };
+	
+	  (0, _header.createUser)(formData);
+	  _reactRouter.browserHistory.push('/Login');
+	  alert('Account created! Please log in.');
+	}
+	
+	var Signup = exports.Signup = function Signup(_ref) {
+	  var signup = _ref.signup;
+	  return _react2.default.createElement(
+	    'form',
+	    { onSubmit: function onSubmit(e) {
+	        return handleSubmit(e);
+	      } },
+	    _react2.default.createElement(
+	      'h6',
+	      null,
+	      'Name:'
+	    ),
+	    _react2.default.createElement('input', { name: 'name' }),
+	    _react2.default.createElement(
+	      'h6',
+	      null,
+	      'Email:'
+	    ),
+	    _react2.default.createElement('input', { name: 'email' }),
+	    _react2.default.createElement(
+	      'h6',
+	      null,
+	      'Password:'
+	    ),
+	    _react2.default.createElement('input', { name: 'password', type: 'password' }),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('input', { type: 'submit', className: 'btn btn-primary', style: { marginTop: 5, marginRight: 5 }, value: 'Signup' })
+	    )
+	  );
+	};
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	  return {};
+	}, { Signup: Signup })(Signup);
+
+/***/ },
+/* 317 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.createUser = exports.receiveUser = undefined;
+	
+	var _constants = __webpack_require__(296);
+	
+	var _axios = __webpack_require__(261);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var receiveUser = exports.receiveUser = function receiveUser(user) {
+	    return {
+	        type: _constants.RECEIVE_USER,
+	        user: user
+	    };
+	};
+	
+	var createUser = exports.createUser = function createUser(content) {
+	    console.log("CONTENT", content);
+	    _axios2.default.post('api/users', { content: content }).then(function () {
+	        console.log('Success for user');
+	    }).catch(function (err) {
+	        console.log(err);
+	    });
+	};
+
+/***/ },
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31734,7 +31919,7 @@
 	  value: true
 	});
 	
-	var _Products = __webpack_require__(316);
+	var _Products = __webpack_require__(319);
 	
 	var _Products2 = _interopRequireDefault(_Products);
 	
@@ -31751,7 +31936,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Products2.default);
 
 /***/ },
-/* 316 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31839,7 +32024,7 @@
 	;
 
 /***/ },
-/* 317 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31848,15 +32033,15 @@
 		value: true
 	});
 	
-	var _Product = __webpack_require__(318);
+	var _Product = __webpack_require__(321);
 	
 	var _Product2 = _interopRequireDefault(_Product);
 	
 	var _reactRedux = __webpack_require__(233);
 	
-	var _cart = __webpack_require__(319);
+	var _cart = __webpack_require__(322);
 	
-	var _store = __webpack_require__(292);
+	var _store = __webpack_require__(293);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -31880,7 +32065,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Product2.default);
 
 /***/ },
-/* 318 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31893,6 +32078,7 @@
 	
 		var product = props.selectedProduct;
 		var addProductToCart = props.addProductToCart;
+		console.log("PRO ID:", product.id);
 	
 		return _react2.default.createElement(
 			'div',
@@ -31955,7 +32141,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 319 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31965,7 +32151,7 @@
 	});
 	exports.createOrder = exports.getProductsOfUser = exports.removeProductFromCart = exports.addProductToCart = exports.receiveCart = undefined;
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	var _axios = __webpack_require__(261);
 	
@@ -32014,7 +32200,7 @@
 	};
 
 /***/ },
-/* 320 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32023,7 +32209,7 @@
 	  value: true
 	});
 	
-	var _Reviews = __webpack_require__(321);
+	var _Reviews = __webpack_require__(324);
 	
 	var _Reviews2 = _interopRequireDefault(_Reviews);
 	
@@ -32040,7 +32226,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Reviews2.default);
 
 /***/ },
-/* 321 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32115,7 +32301,7 @@
 	// </Link>
 
 /***/ },
-/* 322 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32124,13 +32310,13 @@
 		value: true
 	});
 	
-	var _Cart = __webpack_require__(323);
+	var _Cart = __webpack_require__(326);
 	
 	var _Cart2 = _interopRequireDefault(_Cart);
 	
 	var _reactRedux = __webpack_require__(233);
 	
-	var _cart = __webpack_require__(319);
+	var _cart = __webpack_require__(322);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32150,7 +32336,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Cart2.default);
 
 /***/ },
-/* 323 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32184,6 +32370,7 @@
 	        e.preventDefault();
 	
 	        var formData = {
+	            name: e.target.name.value,
 	            shipAddress: e.target.shipAddress.value,
 	            billAddress: e.target.billAddress.value,
 	            ccInfo: e.target.ccNumber.value,
@@ -32192,6 +32379,7 @@
 	        };
 	
 	        (0, _cart.createOrder)(formData);
+	        _reactRouter.browserHistory.push('/orders');
 	    }
 	
 	    return _react2.default.createElement(
@@ -32208,7 +32396,7 @@
 	            cart && cart.map(function (product) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { key: product.id + Math.round(Math.random() * 10) },
+	                    { key: product.id },
 	                    _react2.default.createElement(
 	                        'h3',
 	                        null,
@@ -32258,6 +32446,12 @@
 	                _react2.default.createElement(
 	                    'h6',
 	                    null,
+	                    'Name:'
+	                ),
+	                _react2.default.createElement('input', { name: 'name' }),
+	                _react2.default.createElement(
+	                    'h6',
+	                    null,
 	                    'Shipping Address:'
 	                ),
 	                _react2.default.createElement('input', { name: 'shipAddress' }),
@@ -32301,12 +32495,12 @@
 	
 	var _reactRouter = __webpack_require__(32);
 	
-	var _cart = __webpack_require__(319);
+	var _cart = __webpack_require__(322);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 324 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32316,7 +32510,7 @@
 	});
 	exports.getProductsByCategory = exports.getProductById = exports.receiveProduct = exports.receiveProducts = undefined;
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	var _axios = __webpack_require__(261);
 	
@@ -32354,7 +32548,7 @@
 	};
 
 /***/ },
-/* 325 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32364,7 +32558,7 @@
 	});
 	exports.getReviewsByProductId = exports.receiveReviews = undefined;
 	
-	var _constants = __webpack_require__(295);
+	var _constants = __webpack_require__(296);
 	
 	var _axios = __webpack_require__(261);
 	

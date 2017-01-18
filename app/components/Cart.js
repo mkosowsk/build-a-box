@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import {createOrder} from '../action-creators/cart'
 
 export default function (props) {
@@ -28,6 +28,7 @@ export default function (props) {
 
 
         let formData = {
+            name: e.target.name.value,
             shipAddress: e.target.shipAddress.value,
             billAddress: e.target.billAddress.value,
             ccInfo: e.target.ccNumber.value,
@@ -37,6 +38,7 @@ export default function (props) {
 
 
         createOrder(formData)
+        browserHistory.push('/orders')
     }
 
    return (
@@ -63,6 +65,7 @@ export default function (props) {
                </div>
 
                <form id='checkout' className="checkoutForm" style={{display: "none"}} onSubmit={(e)=>(handleSubmit(e))}>
+                    <h6>Name:</h6><input name="name" />
                     <h6>Shipping Address:</h6><input name="shipAddress" />
                     <h6>Billing Address:</h6><input name="billAddress" />
                     <h6>Credit Card Number:</h6><input name="ccNumber" defaultValue="1234567812345678"/>

@@ -2,6 +2,9 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const Order = db.define('orders', {
+    name: {
+        type: Sequelize.STRING
+    },
     billAddress: {
         type: Sequelize.STRING,
         

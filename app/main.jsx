@@ -8,9 +8,6 @@ import axios from 'axios'
 import App from './components/App'
 import store from './store'
 
-// import Jokes from './components/Jokes'
-// import Login from './components/Login'
-// import WhoAmI from './components/WhoAmI'
 import OrdersContainer from './containers/OrdersContainer'
 import {receiveOrders} from './action-creators/orders'
 import CheckoutContainer from './containers/CheckoutContainer'
@@ -18,6 +15,7 @@ import CheckoutContainer from './containers/CheckoutContainer'
 import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
+import Signup from './components/Signup'
 import ProductsContainer from './containers/ProductsContainer'
 import ProductContainer from './containers/ProductContainer'
 import ReviewsContainer from './containers/ReviewsContainer'
@@ -46,7 +44,8 @@ const onProductEnter = (nextRouterState) => {
 
 const onReviewsEnter = (nextRouterState) => {
 
-  store.dispatch(getReviewsByProductId());
+  const productId = nextRouterState.params.productId;
+  store.dispatch(getReviewsByProductId(productId));
 
 }
 
@@ -108,7 +107,7 @@ render (
         {/* <Route path="/checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} /> */}
         <Route path="/whoami" component={WhoAmI} />
         <Route path="/login" component={Login} />
-
+        <Route path="/signup" component={Signup} />
       </Route>
     </Router>
   </Provider>,
