@@ -25,8 +25,6 @@ Product.belongsToMany(Guest, {through: 'sessionCart'});
 
 Order.belongsTo(User);
 User.hasMany(Order, { as: 'Orders'});
-Order.hasMany(Product);
-// Order.hasMany(Product);
 Product.hasMany(Order, { as: 'Orders'});
 
 
